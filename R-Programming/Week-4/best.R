@@ -3,6 +3,7 @@
 # Jansen A. Simanullang, 20.02.2016
 # best.R
 # example usage:
+#> setwd("[this source code directory path]")
 #> source("best.R")
 #> best("SC", "heart attack")
 #> best("NY", "pneumonia")
