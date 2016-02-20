@@ -33,6 +33,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   z <- data.frame()
   
   # 3. loop for each file, read it and bind it to our data frame
+  
   for (i in id) {
     x <- read.csv(csv_files[i])
     z <- rbind(z, x)
@@ -45,6 +46,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     #> names(x)
     #> [1] "Date"    "sulfate" "nitrate" "ID"
   
-  # 3. compute the mean for a given pollutant, ignoring NA values)
+  # 4. compute the mean for a given pollutant, ignoring NA values)
+  
   return(mean(z[, pollutant], na.rm = TRUE))
 }
