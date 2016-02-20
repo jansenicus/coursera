@@ -19,10 +19,10 @@ best <- function(state, outcome) {
   # 1. Read from file, take as data
   data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   
-  # 2. Get 'States' from data:
-  States <- data[, 7]
+  # 2. Get distinct 'States' from data:
+  States <- levels(factor(data[, 7]))
   
-  # 3. Define the possible acceptable 'Outcomes':
+  # 3. Define the possible distinct acceptable 'Outcomes':
   Outcomes <- c("heart attack", "heart failure", "pneumonia")
   
   # 4. check validity of the input: 'state' and 'outcome'
