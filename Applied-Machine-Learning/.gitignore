@@ -1,3 +1,5 @@
 .pynb_checkpoints
 __pycache__/
-*.mp4
+videos/
+*.py[cod]
+
