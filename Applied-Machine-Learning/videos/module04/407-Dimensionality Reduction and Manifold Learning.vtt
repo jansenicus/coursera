@@ -1,0 +1,601 @@
+WEBVTT
+
+1
+00:00:08.519 --> 00:00:13.509
+Another very important family of unsupervised learning methods that fall into
+
+2
+00:00:13.509 --> 00:00:19.269
+the transformation category are known as dimensionality reduction algorithms.
+
+3
+00:00:19.269 --> 00:00:21.984
+As the name suggests, this kind of transform
+
+4
+00:00:21.984 --> 00:00:24.565
+takes your original dataset that might contain say,
+
+5
+00:00:24.565 --> 00:00:28.929
+200 features and finds an approximate version of dataset that uses,
+
+6
+00:00:28.929 --> 00:00:31.780
+say, only 10 dimensions.
+
+7
+00:00:31.780 --> 00:00:36.820
+One very common need for dimensionality reduction arises when first exploring a dataset,
+
+8
+00:00:36.820 --> 00:00:39.789
+to understand how the samples may be grouped or related to each
+
+9
+00:00:39.789 --> 00:00:44.224
+other by visualizing it using a two-dimensional scatterplot.
+
+10
+00:00:44.224 --> 00:00:47.590
+One very important form of dimensionality reduction is called
+
+11
+00:00:47.590 --> 00:00:51.170
+principal component analysis, or PCA.
+
+12
+00:00:51.170 --> 00:00:54.280
+Intuitively, what PCA does is take
+
+13
+00:00:54.280 --> 00:00:58.185
+your cloud of original data points and finds a rotation of it.
+
+14
+00:00:58.185 --> 00:01:01.210
+So the dimensions are statistically uncorrelated.
+
+15
+00:01:01.210 --> 00:01:03.759
+PCA then typically drops all but
+
+16
+00:01:03.759 --> 00:01:05.920
+the most informative initial dimensions that
+
+17
+00:01:05.920 --> 00:01:08.650
+capture most of the variation in the original dataset.
+
+18
+00:01:08.650 --> 00:01:14.504
+Here's a simple example of what I mean with a synthetic two-dimensional dataset.
+
+19
+00:01:14.504 --> 00:01:17.930
+Here, if we have two original features that are highly
+
+20
+00:01:17.930 --> 00:01:21.109
+correlated represented by this cloud of points,
+
+21
+00:01:21.109 --> 00:01:23.689
+PCA will rotate the data so
+
+22
+00:01:23.689 --> 00:01:27.290
+the direction of highest variance - called the first principal component,
+
+23
+00:01:27.290 --> 00:01:29.885
+which is along the long direction of the cloud,
+
+24
+00:01:29.885 --> 00:01:32.599
+becomes the first dimension.
+
+25
+00:01:32.599 --> 00:01:34.849
+It will then find the direction at right angles
+
+26
+00:01:34.849 --> 00:01:37.549
+that maximally captures the remaining variance.
+
+27
+00:01:37.549 --> 00:01:39.780
+This is the second principle component.
+
+28
+00:01:39.780 --> 00:01:41.620
+In two dimensions, there's
+
+29
+00:01:41.620 --> 00:01:45.905
+only one possible such direction at right angles of the first principal component,
+
+30
+00:01:45.905 --> 00:01:46.909
+but for higher dimensions,
+
+31
+00:01:46.909 --> 00:01:48.635
+there would be infinitely many.
+
+32
+00:01:48.635 --> 00:01:50.477
+With more than two dimensions,
+
+33
+00:01:50.477 --> 00:01:54.079
+the process of finding successive principal components at right angles to
+
+34
+00:01:54.079 --> 00:01:56.629
+the previous ones would continue until
+
+35
+00:01:56.629 --> 00:02:00.590
+the desired number of principal components is reached.
+
+36
+00:02:00.590 --> 00:02:03.530
+One result of applying PCA is that we now know
+
+37
+00:02:03.530 --> 00:02:08.525
+the best one-dimensional approximation to the original two-dimensional data.
+
+38
+00:02:08.525 --> 00:02:11.449
+In other words, we can take any data point that used two features
+
+39
+00:02:11.449 --> 00:02:15.599
+before - x and y - and approximate it using just one feature,
+
+40
+00:02:15.599 --> 00:02:19.770
+namely its location when projected onto the first principal component.
+
+41
+00:02:19.770 --> 00:02:26.266
+Here's an example of using scikit learn to apply PCA to a higher dimensional dataset;
+
+42
+00:02:26.266 --> 00:02:28.314
+the breast cancer dataset.
+
+43
+00:02:28.314 --> 00:02:34.870
+To perform PCA, we import the PCA class from sklearn.decomposition.
+
+44
+00:02:34.870 --> 00:02:37.375
+It's important to first transform the dataset so that
+
+45
+00:02:37.375 --> 00:02:41.560
+each features range of values has zero mean and unit variance.
+
+46
+00:02:41.560 --> 00:02:44.199
+And we can do this using the fit and transform
+
+47
+00:02:44.199 --> 00:02:48.610
+methods of the standard scalar class, as shown here.
+
+48
+00:02:48.610 --> 00:02:50.620
+We then create the PCA object,
+
+49
+00:02:50.620 --> 00:02:55.360
+specify that we want to retain just the first two principal components to reduce
+
+50
+00:02:55.360 --> 00:03:01.625
+the dimensionality to just two columns and call the fit method using our normalized data.
+
+51
+00:03:01.625 --> 00:03:06.590
+This will set up PCA so that it learns the right rotation of the dataset.
+
+52
+00:03:06.590 --> 00:03:10.284
+We can then apply this properly prepared PCA object to project
+
+53
+00:03:10.284 --> 00:03:16.169
+all the points in our original input dataset to this new two-dimensional space.
+
+54
+00:03:16.169 --> 00:03:17.800
+Notice here since we're not doing
+
+55
+00:03:17.800 --> 00:03:21.250
+supervised learning in evaluating a model against a test set,
+
+56
+00:03:21.250 --> 00:03:25.389
+we don't have to split our dataset into training and test sets.
+
+57
+00:03:25.389 --> 00:03:28.879
+You see that if we take the shape of the array that's returned from PCA,
+
+58
+00:03:28.879 --> 00:03:31.180
+it's transformed our original dataset with
+
+59
+00:03:31.180 --> 00:03:35.185
+30 features into a new array that has just two columns,
+
+60
+00:03:35.185 --> 00:03:38.469
+essentially expressing each original data point in terms of
+
+61
+00:03:38.469 --> 00:03:41.199
+two new features representing the position of
+
+62
+00:03:41.199 --> 00:03:44.889
+the data point in this new two-dimensional PCA space.
+
+63
+00:03:44.889 --> 00:03:48.370
+We can then create a scatterplot that uses
+
+64
+00:03:48.370 --> 00:03:53.090
+these two new features to see how the data forms clusters.
+
+65
+00:03:53.090 --> 00:03:57.419
+In this example, we've used the dataset that has labels for supervised learning;
+
+66
+00:03:57.419 --> 00:04:01.405
+namely, the malignant and benign labels on cancer cells.
+
+67
+00:04:01.405 --> 00:04:06.439
+So we can see how well PCA serves to find clusters in the data.
+
+68
+00:04:06.439 --> 00:04:08.169
+Here's the result of plotting
+
+69
+00:04:08.169 --> 00:04:13.495
+all the 30 feature data samples using the two new features computed with PCA.
+
+70
+00:04:13.495 --> 00:04:16.600
+We can see that the malignant and benign cells do
+
+71
+00:04:16.600 --> 00:04:20.524
+indeed tend to cluster into two groups in the space.
+
+72
+00:04:20.524 --> 00:04:23.529
+In fact, we could now apply a linear classifier to
+
+73
+00:04:23.529 --> 00:04:25.360
+this two-dimensional representation of
+
+74
+00:04:25.360 --> 00:04:30.220
+the original dataset and we can see that it would likely do fairly well.
+
+75
+00:04:30.220 --> 00:04:35.379
+This illustrates another use of dimensionality reduction methods like PCA to find
+
+76
+00:04:35.379 --> 00:04:41.410
+informative features that could then be used in a later supervised learning stage.
+
+77
+00:04:41.410 --> 00:04:46.250
+We can create a heat map that visualizes the first two principal components of
+
+78
+00:04:46.250 --> 00:04:48.875
+the breast cancer dataset to get an idea of
+
+79
+00:04:48.875 --> 00:04:53.000
+what feature groupings each component is associated with.
+
+80
+00:04:53.000 --> 00:04:54.829
+Note that we can get the arrays representing
+
+81
+00:04:54.829 --> 00:05:00.064
+the two principal component axes that define the PCA space using the
+
+82
+00:05:00.064 --> 00:05:07.931
+PCA.components_attribute that's filled in after the PCA fit method is used on the data.
+
+83
+00:05:07.931 --> 00:05:11.449
+We can see that the first principle component is all positive,
+
+84
+00:05:11.449 --> 00:05:14.925
+showing a general correlation between all 30 features.
+
+85
+00:05:14.925 --> 00:05:18.439
+In other words, they tend to vary up and down together.
+
+86
+00:05:18.439 --> 00:05:20.959
+The second principle component has a mixture of
+
+87
+00:05:20.959 --> 00:05:23.959
+positive and negative signs; but in particular,
+
+88
+00:05:23.959 --> 00:05:27.370
+we can see a cluster of negatively signed features that co-vary
+
+89
+00:05:27.370 --> 00:05:31.910
+together and in the opposite direction of the remaining features.
+
+90
+00:05:31.910 --> 00:05:35.310
+Looking at the names, it makes sense the subset wold co-vary together.
+
+91
+00:05:35.310 --> 00:05:38.990
+We see the pair mean texture and worst texture and
+
+92
+00:05:38.990 --> 00:05:43.710
+the pair mean radius and worst radius varying together and so on.
+
+93
+00:05:43.710 --> 00:05:47.574
+PCA gives a good initial tool for exploring a dataset,
+
+94
+00:05:47.574 --> 00:05:50.529
+but may not be able to find more subtle groupings that
+
+95
+00:05:50.529 --> 00:05:54.495
+produce better visualizations for more complex datasets.
+
+96
+00:05:54.495 --> 00:05:59.980
+There is a family of unsupervised algorithms called Manifold Learning Algorithms that are
+
+97
+00:05:59.980 --> 00:06:02.470
+very good at finding low dimensional structure in
+
+98
+00:06:02.470 --> 00:06:06.279
+high dimensional data and are very useful for visualizations.
+
+99
+00:06:06.279 --> 00:06:09.995
+One classic example of
+
+100
+00:06:09.995 --> 00:06:12.410
+a low dimensional subset in
+
+101
+00:06:12.410 --> 00:06:15.899
+a high dimensional space is this data set in three dimensions,
+
+102
+00:06:15.899 --> 00:06:21.529
+where the points all lie on a two-dimensional sheet with an interesting shape.
+
+103
+00:06:21.529 --> 00:06:26.040
+This lower dimensional sheet within a higher dimensional space is called the manifold.
+
+104
+00:06:26.040 --> 00:06:30.959
+PCA is not sophisticated enough to find this interesting structure.
+
+105
+00:06:30.959 --> 00:06:39.420
+One widely used manifold learning method is called multi-dimensional scaling, or MDS.
+
+106
+00:06:39.420 --> 00:06:41.105
+There are many flavors of MDS,
+
+107
+00:06:41.105 --> 00:06:43.410
+but they all have the same general goal;
+
+108
+00:06:43.410 --> 00:06:46.199
+to visualize a high dimensional dataset and project
+
+109
+00:06:46.199 --> 00:06:49.889
+it onto a lower dimensional space - in most cases,
+
+110
+00:06:49.889 --> 00:06:53.009
+a two-dimensional page - in a way that preserves
+
+111
+00:06:53.009 --> 00:06:57.564
+information about how the points in the original data space are close to each other.
+
+112
+00:06:57.564 --> 00:07:00.240
+In this way, you can find and visualize
+
+113
+00:07:00.240 --> 00:07:05.370
+clustering behavior in your high dimensional data.
+
+114
+00:07:05.370 --> 00:07:10.620
+Using a technique like MDS and scikit learn is quite similar to using PCA.
+
+115
+00:07:10.620 --> 00:07:14.204
+Like with PCA, each feature should be normalized
+
+116
+00:07:14.204 --> 00:07:18.459
+so its feature values have zero mean and unit variants.
+
+117
+00:07:18.459 --> 00:07:24.495
+After importing the MDS class from sklearn.manifold and transforming the input data,
+
+118
+00:07:24.495 --> 00:07:26.610
+you create the MDS object,
+
+119
+00:07:26.610 --> 00:07:32.644
+specifying the number of components - typically set to two dimensions for visualization.
+
+120
+00:07:32.644 --> 00:07:35.175
+You then fit the object using the transform data,
+
+121
+00:07:35.175 --> 00:07:37.769
+which will learn the mapping and then you can apply
+
+122
+00:07:37.769 --> 00:07:41.939
+the MDS mapping to the transformed data.
+
+123
+00:07:41.939 --> 00:07:45.850
+Here's an example of applying MDS to the fruit dataset.
+
+124
+00:07:45.850 --> 00:07:47.949
+And you can see it does a pretty good job of
+
+125
+00:07:47.949 --> 00:07:50.290
+visualizing the fact that the different fruit types
+
+126
+00:07:50.290 --> 00:07:54.678
+do indeed tend to cluster into groups.
+
+127
+00:07:54.678 --> 00:07:57.870
+An especially powerful manifold learning algorithm
+
+128
+00:07:57.870 --> 00:08:00.869
+for visualizing your data is called t-SNE.
+
+129
+00:08:00.869 --> 00:08:06.060
+t-SNE finds a two-dimensional representation of your data,
+
+130
+00:08:06.060 --> 00:08:11.160
+such that the distances between points in the 2D scatterplot match as closely
+
+131
+00:08:11.160 --> 00:08:13.319
+as possible the distances between
+
+132
+00:08:13.319 --> 00:08:16.639
+the same points in the original high dimensional dataset.
+
+133
+00:08:16.639 --> 00:08:20.740
+In particular, t-SNE gives much more weight to preserving
+
+134
+00:08:20.740 --> 00:08:25.689
+information about distances between points that are neighbors.
+
+135
+00:08:25.689 --> 00:08:31.139
+Here's an example of t-SNE applied to the images in the handwritten digits dataset.
+
+136
+00:08:31.139 --> 00:08:34.250
+You can see that this two-dimensional plot preserves
+
+137
+00:08:34.250 --> 00:08:39.230
+the neighbor relationships between images that are similar in terms of their pixels.
+
+138
+00:08:39.230 --> 00:08:41.990
+For example, the cluster for most of the digit
+
+139
+00:08:41.990 --> 00:08:46.985
+eight samples is closer to the cluster for the digits three and five,
+
+140
+00:08:46.985 --> 00:08:51.754
+in which handwriting can appear more similar than to say the digit one,
+
+141
+00:08:51.754 --> 00:08:53.919
+whose cluster is much farther away.
+
+142
+00:08:53.919 --> 00:09:00.789
+And here's an example of applying t-SNE on the fruit dataset.
+
+143
+00:09:00.789 --> 00:09:07.174
+The code is very similar to applying MDS and essentially just replaces MDS with t-SNE.
+
+144
+00:09:07.174 --> 00:09:10.809
+The interesting thing here is that t-SNE does a poor job of
+
+145
+00:09:10.809 --> 00:09:14.855
+finding structure in this rather small and simple fruit dataset,
+
+146
+00:09:14.855 --> 00:09:18.509
+which reminds us that we should try at least a few different approaches when
+
+147
+00:09:18.509 --> 00:09:20.559
+visualizing data using manifold learning to
+
+148
+00:09:20.559 --> 00:09:23.654
+see which works best for a particular dataset.
+
+149
+00:09:23.654 --> 00:09:29.639
+t-SNE tends to work better on datasets that have more well-defined local structure;
+
+150
+00:09:29.639 --> 00:09:33.000
+in other words, more clearly defined patterns of neighbors.

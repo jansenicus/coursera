@@ -1,0 +1,317 @@
+WEBVTT
+
+1
+00:00:09.303 --> 00:00:12.735
+Okay, now that we've covered a little
+bit of background on what machine
+
+2
+00:00:12.735 --> 00:00:16.896
+learning is and some of the major types of
+machine learning problems, there's nothing
+
+3
+00:00:16.896 --> 00:00:20.521
+like getting started with our own
+machine learning application in Python.
+
+4
+00:00:20.521 --> 00:00:22.470
+And we're going to get
+started on that right now.
+
+5
+00:00:22.470 --> 00:00:27.195
+So to do that, we're going to make use of
+several important Python libraries that
+
+6
+00:00:27.195 --> 00:00:28.614
+will support our work.
+
+7
+00:00:28.614 --> 00:00:35.200
+These include scikit-learn, SciPy,
+NumPy, pandas, and matplotlib.
+
+8
+00:00:36.590 --> 00:00:41.270
+We recommend installing all of these
+using the Anaconda Python distribution
+
+9
+00:00:41.270 --> 00:00:44.419
+since it comes with all the libraries
+we'll need in this part of the course.
+
+10
+00:00:45.650 --> 00:00:48.619
+If you have some other existing
+Python installation, you can
+
+11
+00:00:48.619 --> 00:00:52.632
+install the libraries we'll be using from
+the command line using pip, like this.
+
+12
+00:00:54.920 --> 00:00:57.618
+The most important library
+we'll be using for
+
+13
+00:00:57.618 --> 00:01:00.256
+machine learning is called scikit-learn.
+
+14
+00:01:00.256 --> 00:01:04.553
+Scikit-learn is the most widely used
+Python library for machine learning and
+
+15
+00:01:04.553 --> 00:01:06.579
+it will be the basis for this course.
+
+16
+00:01:07.630 --> 00:01:11.950
+It's an open source project that's under
+continual development and improvement,
+
+17
+00:01:11.950 --> 00:01:16.420
+and supports a very wide array of
+important machine learning algorithms.
+
+18
+00:01:16.420 --> 00:01:20.350
+It has excellent online documentation and
+a very active user community.
+
+19
+00:01:21.400 --> 00:01:25.270
+Because of this broad adoption,
+scikit-learn has many sample applications,
+
+20
+00:01:25.270 --> 00:01:28.390
+tutorials, and
+code examples that are available online.
+
+21
+00:01:29.540 --> 00:01:33.968
+So one valuable reference that we
+recommend you use while you take this
+
+22
+00:01:33.968 --> 00:01:38.470
+course is the scikit-learn User Guide and
+the API documentation which
+
+23
+00:01:38.470 --> 00:01:43.501
+contains further details on the different
+algorithms that are in the library,
+
+24
+00:01:43.501 --> 00:01:48.251
+along with details on the various
+options that these algorithms support.
+
+25
+00:01:50.109 --> 00:01:52.707
+Scikit-learn makes use of two other
+
+26
+00:01:52.707 --> 00:01:57.330
+Python scientific computing
+libraries called SciPy and NumPy.
+
+27
+00:01:59.110 --> 00:02:02.900
+SciPy is a Python library that
+supports data manipulation and
+
+28
+00:02:02.900 --> 00:02:07.590
+analysis methods that are commonly
+used in scientific computing.
+
+29
+00:02:07.590 --> 00:02:14.390
+So this includes support for statistical
+distributions, optimization of functions,
+
+30
+00:02:14.390 --> 00:02:18.360
+linear algebra, and a variety of
+specialized mathematical functions.
+
+31
+00:02:19.580 --> 00:02:24.059
+In some parts of this course,
+we'll make use of SciPy's ability to
+
+32
+00:02:24.059 --> 00:02:28.775
+provide what are called sparse matrices,
+which are a way to store large
+
+33
+00:02:28.775 --> 00:02:32.641
+tables that contain mostly zeros,
+so more on that later.
+
+34
+00:02:32.641 --> 00:02:37.810
+NumPy is a Python library for scientific
+computing that contains support for
+
+35
+00:02:37.810 --> 00:02:41.787
+some fundamental data structures
+used by scikit-learn,
+
+36
+00:02:41.787 --> 00:02:44.350
+such as multi-dimensional arrays.
+
+37
+00:02:44.350 --> 00:02:47.860
+Typically, data that's input to
+scikit-learn will be in the form of
+
+38
+00:02:47.860 --> 00:02:48.639
+a NumPy array.
+
+39
+00:02:49.950 --> 00:02:54.500
+Pandas is a Python library for
+data manipulation and analysis.
+
+40
+00:02:54.500 --> 00:02:56.500
+And if you took course one in this series,
+
+41
+00:02:56.500 --> 00:02:58.900
+you've already had experience
+with what pandas can do.
+
+42
+00:03:00.370 --> 00:03:05.290
+The key data structure pandas supports
+that we'll be using is called a DataFrame,
+
+43
+00:03:05.290 --> 00:03:09.089
+which is basically like a spreadsheet
+table with rows and named columns.
+
+44
+00:03:10.660 --> 00:03:13.230
+So unlike the arrays supported by NumPy,
+
+45
+00:03:13.230 --> 00:03:16.180
+the columns in a DataFrame can
+be of all different types.
+
+46
+00:03:16.180 --> 00:03:20.950
+You can have one column holding string
+values, another column holding a date,
+
+47
+00:03:20.950 --> 00:03:23.270
+another column holding a floating
+point number and so on.
+
+48
+00:03:24.580 --> 00:03:29.410
+Pandas also has great support for reading
+and writing data in a variety of formats,
+
+49
+00:03:29.410 --> 00:03:34.670
+everything from comma
+separated CSV files to SQL,
+
+50
+00:03:34.670 --> 00:03:37.480
+the Structured Query Language
+used by databases and more.
+
+51
+00:03:38.820 --> 00:03:43.600
+Matplotlib is a widely used
+Python 2D plotting library
+
+52
+00:03:43.600 --> 00:03:46.870
+that produces high quality figures
+in a variety of formats and
+
+53
+00:03:46.870 --> 00:03:49.180
+interactive environments across platforms.
+
+54
+00:03:50.450 --> 00:03:54.040
+Matplotlib can be used in Python scripts,
+the Python and
+
+55
+00:03:54.040 --> 00:03:57.590
+iPython shell,
+web application servers, and
+
+56
+00:03:57.590 --> 00:04:00.420
+a variety of different graphical
+user interface toolkits.
+
+57
+00:04:01.460 --> 00:04:04.070
+If you've taken course two
+in this data science series,
+
+58
+00:04:04.070 --> 00:04:06.660
+you'll already have some
+experience with using matplotlib.
+
+59
+00:04:08.040 --> 00:04:11.940
+Here, we'll primarily be
+using matplotlib.pyplot for
+
+60
+00:04:11.940 --> 00:04:16.275
+data analysis since it can
+create histograms, bar charts,
+
+61
+00:04:16.275 --> 00:04:21.150
+error charts, scatter plots, and so
+forth with just a few lines of code.
+
+62
+00:04:21.150 --> 00:04:23.930
+So, for reference,
+this course will be using the following
+
+63
+00:04:23.930 --> 00:04:26.560
+versions of these libraries
+as shown on the slide.
+
+64
+00:04:27.880 --> 00:04:32.163
+It's okay if your versions don't match our
+versions exactly, as long as the version
+
+65
+00:04:32.163 --> 00:04:36.342
+of scikit-learn you're using is the same
+or later than the one we've shown here.

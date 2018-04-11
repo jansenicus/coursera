@@ -1,0 +1,821 @@
+WEBVTT
+
+1
+00:00:08.871 --> 00:00:13.059
+Hi, and welcome to the applied machine
+learning component of the University of
+
+2
+00:00:13.059 --> 00:00:16.620
+Michigan's online course
+in Applied Data Science.
+
+3
+00:00:16.620 --> 00:00:20.890
+My name is Kevin Collins-Thompson and I'm
+an Associate Professor of Information and
+
+4
+00:00:20.890 --> 00:00:23.560
+Computer Science at
+the University of Michigan.
+
+5
+00:00:23.560 --> 00:00:26.430
+I'll be your instructor for
+this part of the course.
+
+6
+00:00:26.430 --> 00:00:30.130
+I have about 20 years of research and
+development experience in applying machine
+
+7
+00:00:30.130 --> 00:00:34.610
+learning to a wide variety of problems
+in both academia and industry,
+
+8
+00:00:34.610 --> 00:00:38.740
+everything from language tutoring
+software to commercial search engines.
+
+9
+00:00:38.740 --> 00:00:41.910
+This is an incredibly exciting time to
+be involved in machine learning, and
+
+10
+00:00:41.910 --> 00:00:44.330
+I hope this part of
+the course inspires you
+
+11
+00:00:44.330 --> 00:00:46.720
+to look more deeply into
+this fascinating world.
+
+12
+00:00:48.240 --> 00:00:52.688
+This week, you'll learn what machine
+learning is and why it's important to data
+
+13
+00:00:52.688 --> 00:00:56.910
+science, how machine learning is applied
+to key problems in our information
+
+14
+00:00:56.910 --> 00:01:00.900
+economy, and how to set up your first
+machine learning application in Python.
+
+15
+00:01:02.790 --> 00:01:04.849
+So what defines the field
+of machine learning?
+
+16
+00:01:06.930 --> 00:01:10.410
+In a lot of cases when a computing
+problem needs to be solved, for
+
+17
+00:01:10.410 --> 00:01:14.230
+example, storing and
+retrieving data from a database,
+
+18
+00:01:14.230 --> 00:01:18.210
+the way we often address it is to write
+a program that manually specifies
+
+19
+00:01:18.210 --> 00:01:22.420
+a series of programming steps that need to
+be run to solve that particular problem.
+
+20
+00:01:23.550 --> 00:01:24.480
+This works great for
+
+21
+00:01:24.480 --> 00:01:28.370
+the vast number of computer science
+problems that are out there.
+
+22
+00:01:28.370 --> 00:01:31.380
+However, not all problems lend
+themselves to being solved
+
+23
+00:01:31.380 --> 00:01:34.880
+effectively by writing a handcrafted
+program or set of rules.
+
+24
+00:01:36.030 --> 00:01:40.630
+For example, how would you write down a
+set of rules in a programming language for
+
+25
+00:01:40.630 --> 00:01:43.281
+accurately converting
+human speech to text?
+
+26
+00:01:43.281 --> 00:01:47.721
+A process known as speech recognition
+which is now available on millions of
+
+27
+00:01:47.721 --> 00:01:51.820
+smart phones or used in customer
+support systems all over the world.
+
+28
+00:01:53.110 --> 00:01:58.080
+Given how a subtle and complex human
+speech is with the huge variety
+
+29
+00:01:58.080 --> 00:02:02.310
+of different pronunciations,
+vocabulary, accents, and so forth.
+
+30
+00:02:03.440 --> 00:02:06.560
+Writing a set of program rules by hand
+
+31
+00:02:06.560 --> 00:02:10.020
+that could recognize portions
+of an audio signal and
+
+32
+00:02:10.020 --> 00:02:13.860
+decide which words were in the signal and
+so forth would be a gargantuan task.
+
+33
+00:02:14.860 --> 00:02:17.840
+And even then,
+it would still likely be inflexible and
+
+34
+00:02:17.840 --> 00:02:21.610
+not very robust at recognizing
+different types of speech.
+
+35
+00:02:23.380 --> 00:02:27.700
+Moreover, if we needed to customize the
+system so it could recognize new words or
+
+36
+00:02:27.700 --> 00:02:32.430
+other features that we hadn't encoded in
+our existing rules, we'd have to write
+
+37
+00:02:32.430 --> 00:02:35.830
+a whole new set of rules, which would
+be a prohibitively difficult task.
+
+38
+00:02:37.910 --> 00:02:42.220
+Machine Learning, on the other hand,
+gives us the technology that allows us to
+
+39
+00:02:42.220 --> 00:02:47.230
+automatically learn these complex rules
+efficiently from labelled examples,
+
+40
+00:02:47.230 --> 00:02:50.440
+called, training data,
+in a way that is much more accurate and
+
+41
+00:02:50.440 --> 00:02:53.190
+flexible than attempting to
+program all the rules by hand.
+
+42
+00:02:54.570 --> 00:02:58.670
+Moreover, since it's unlikely any future
+examples we see would match exactly what
+
+43
+00:02:58.670 --> 00:03:03.380
+was in the training set, a primary goal
+of effective machine learning algorithms
+
+44
+00:03:03.380 --> 00:03:06.930
+is to be able to generalize,
+to correctly predict or
+
+45
+00:03:06.930 --> 00:03:09.460
+recognize new objects that
+weren't seen during training.
+
+46
+00:03:11.000 --> 00:03:14.930
+So the basic problem of machine learning
+is to explore how computers can
+
+47
+00:03:14.930 --> 00:03:17.790
+program themselves to perform a task, and
+
+48
+00:03:17.790 --> 00:03:20.830
+to improve their performance automatically
+as they gain more experience.
+
+49
+00:03:21.870 --> 00:03:25.550
+Now this experience can take the form of
+data in a lot of different formats or
+
+50
+00:03:25.550 --> 00:03:30.110
+situations, such as labeled examples that
+are used to train the system's initial
+
+51
+00:03:30.110 --> 00:03:33.130
+structure, like in email spam detection.
+
+52
+00:03:33.130 --> 00:03:35.805
+A system could get feedback from the user.
+
+53
+00:03:35.805 --> 00:03:40.325
+For example, a search engine gets clicks
+on the search page or a system could get
+
+54
+00:03:40.325 --> 00:03:42.895
+data from the surrounding environment
+that's gathered over time.
+
+55
+00:03:42.895 --> 00:03:46.645
+For example, self-driving cars
+that can detect nearby objects and
+
+56
+00:03:46.645 --> 00:03:49.335
+events and learn to move more reliably.
+
+57
+00:03:50.875 --> 00:03:54.050
+To accomplish this goal effectively and
+efficiently,
+
+58
+00:03:54.050 --> 00:03:57.630
+Machine Learning draws heavily on
+statistics and computer science.
+
+59
+00:03:57.630 --> 00:04:02.490
+The statistical methods give
+machine learning algorithms
+
+60
+00:04:02.490 --> 00:04:07.020
+ways to infer conclusions from data and
+to learn from data and
+
+61
+00:04:07.020 --> 00:04:10.520
+also to estimate how reliable
+those conclusions are.
+
+62
+00:04:10.520 --> 00:04:14.520
+Computer science methods, on the other
+hand, give machine learning algorithms
+
+63
+00:04:14.520 --> 00:04:18.780
+the computing power to solve problems,
+including effective large scale
+
+64
+00:04:18.780 --> 00:04:23.200
+computational architectures and
+algorithm for capturing, manipulating,
+
+65
+00:04:23.200 --> 00:04:27.710
+indexing, combining and
+performing predictions with data.
+
+66
+00:04:27.710 --> 00:04:31.680
+Think about how quickly a commercial
+search engine can match your query against
+
+67
+00:04:31.680 --> 00:04:37.355
+billions of web pages and almost
+instantly return a set of useful results.
+
+68
+00:04:37.355 --> 00:04:42.003
+That's an ideal illustration of
+the power of combining statistical
+
+69
+00:04:42.003 --> 00:04:44.254
+methods with computer science.
+
+70
+00:04:44.254 --> 00:04:47.971
+There are also growing connections between
+machine learning and other fields,
+
+71
+00:04:47.971 --> 00:04:49.672
+those that are really fascinating.
+
+72
+00:04:49.672 --> 00:04:53.348
+For example the problem of how someone,
+or an individual or
+
+73
+00:04:53.348 --> 00:04:58.423
+a system can optimize their performance in
+a given environment is also shared some
+
+74
+00:04:58.423 --> 00:05:03.370
+what research that people have done in
+biology on how organism forage for food.
+
+75
+00:05:04.390 --> 00:05:08.480
+It also connects to research in
+economics in how optimal pricing and
+
+76
+00:05:08.480 --> 00:05:10.220
+market structures can be computed.
+
+77
+00:05:11.350 --> 00:05:15.590
+Even psychology, especially psychology
+where we have models and factors of human
+
+78
+00:05:15.590 --> 00:05:21.870
+learning, and are using those to influence
+the design in machine learning techniques.
+
+79
+00:05:21.870 --> 00:05:25.480
+So this evolving field of machine
+learning really brings together insights
+
+80
+00:05:25.480 --> 00:05:29.930
+across multiple scientific fields,
+and that's one of the things I find so
+
+81
+00:05:29.930 --> 00:05:30.750
+fascinating about it.
+
+82
+00:05:32.520 --> 00:05:34.950
+Machine Learning algorithms
+are now involved in more and
+
+83
+00:05:34.950 --> 00:05:39.590
+more aspects of everyday life from what
+you read and watch, to how you shop,
+
+84
+00:05:39.590 --> 00:05:41.580
+to who you meet and how you travel.
+
+85
+00:05:42.610 --> 00:05:45.280
+And here just a few examples,
+for example, fraud detection.
+
+86
+00:05:46.310 --> 00:05:49.080
+Every time you buy something
+using a credit card,
+
+87
+00:05:49.080 --> 00:05:53.670
+machine learning algorithms immediately
+check your purchase to verify whether or
+
+88
+00:05:53.670 --> 00:05:55.930
+not this might be
+a fraudulent transaction.
+
+89
+00:05:55.930 --> 00:05:59.791
+To do this, these algorithms look at
+features of the current transaction that
+
+90
+00:05:59.791 --> 00:06:03.480
+you have just made,
+such as time location, and amount.
+
+91
+00:06:03.480 --> 00:06:06.560
+They make a prediction of whether
+it's fraudulent or not based on
+
+92
+00:06:06.560 --> 00:06:11.900
+whether that purchase is consistent with
+the features of your previous purchases.
+
+93
+00:06:11.900 --> 00:06:15.850
+The system also records any user feedback
+on whether the transaction was in fact
+
+94
+00:06:15.850 --> 00:06:16.440
+fraudulent.
+
+95
+00:06:17.860 --> 00:06:20.621
+And it uses that feedback to make
+better predictions in the future.
+
+96
+00:06:22.415 --> 00:06:25.998
+Search and recommendation systems
+are also a huge area of application for
+
+97
+00:06:25.998 --> 00:06:27.550
+machine learning.
+
+98
+00:06:27.550 --> 00:06:28.520
+And in fact,
+
+99
+00:06:28.520 --> 00:06:32.340
+those machine learning algorithms are at
+the heart of how commercial search engines
+
+100
+00:06:32.340 --> 00:06:35.650
+work, starting with the moment
+you begin typing in a query.
+
+101
+00:06:37.070 --> 00:06:39.580
+So one algorithm might
+monitor your keystrokes to
+
+102
+00:06:39.580 --> 00:06:42.870
+predict the best queries to auto
+complete while you're typing.
+
+103
+00:06:42.870 --> 00:06:44.090
+And then once you've finished your query,
+
+104
+00:06:44.090 --> 00:06:46.890
+some other machine learning
+algorithms will be applied
+
+105
+00:06:46.890 --> 00:06:50.510
+to determine the selection and ranking of
+the webpages that you see for that query.
+
+106
+00:06:51.830 --> 00:06:55.640
+Still other machine learning algorithms
+will determine which ads if any,
+
+107
+00:06:55.640 --> 00:07:00.490
+you see on the page, which related queries
+the system suggests for you and so forth.
+
+108
+00:07:01.740 --> 00:07:04.900
+In addition,
+search engines typically use data
+
+109
+00:07:04.900 --> 00:07:09.460
+about how you interact with the search
+site, such as which pages you click,
+
+110
+00:07:09.460 --> 00:07:13.250
+how long you read the pages to
+improve their future effectiveness.
+
+111
+00:07:15.070 --> 00:07:18.840
+In a similar way, movie recommendation
+sites use machine learning algorithms
+
+112
+00:07:18.840 --> 00:07:23.760
+to model what you liked in your past
+reviews based on your past reviews.
+
+113
+00:07:23.760 --> 00:07:26.081
+And your interaction
+patterns with the site and
+
+114
+00:07:26.081 --> 00:07:29.280
+how your preferences relate
+to those of other users.
+
+115
+00:07:29.280 --> 00:07:33.640
+And it uses this data to learn a model for
+your personal taste
+
+116
+00:07:34.720 --> 00:07:37.820
+to hopefully give you better choices that
+keep you more engaged with the site or
+
+117
+00:07:37.820 --> 00:07:39.870
+that lead you to make more
+movie purchases over time.
+
+118
+00:07:39.870 --> 00:07:45.610
+And then finally a third
+example area that's
+
+119
+00:07:45.610 --> 00:07:50.820
+really seen a significant improvement
+in the past several years in terms of
+
+120
+00:07:50.820 --> 00:07:53.670
+recognition quality,
+speech and image recognition.
+
+121
+00:07:53.670 --> 00:07:56.970
+So although researchers have been working
+on speech and image recognition for
+
+122
+00:07:56.970 --> 00:08:01.190
+decades, recently the development
+of increased computing power,
+
+123
+00:08:02.200 --> 00:08:05.460
+better algorithms including
+the use of deep learning.
+
+124
+00:08:05.460 --> 00:08:09.230
+And vastly increased volumes of data
+have all led to a significant jump
+
+125
+00:08:09.230 --> 00:08:13.610
+in accuracy and flexibility of recognition
+algorithms in the last five years or so.
+
+126
+00:08:14.970 --> 00:08:17.430
+Now recognition technology
+is reliable enough and
+
+127
+00:08:17.430 --> 00:08:21.780
+fast enough that it's used as
+an essential feature of smartphones and
+
+128
+00:08:21.780 --> 00:08:25.110
+home devices that can act on
+spoken commands or questions.
+
+129
+00:08:26.290 --> 00:08:30.310
+Computer vision and image recognition
+can now give increasingly accurate
+
+130
+00:08:30.310 --> 00:08:33.180
+identification of objects and
+actions in images or video.
+
+131
+00:08:34.550 --> 00:08:39.090
+Even for a while now, over 85% of
+handwritten mail is sorted automatically
+
+132
+00:08:39.090 --> 00:08:43.040
+with very high accuracy by
+the United States Postal Service.
+
+133
+00:08:43.040 --> 00:08:47.450
+There are very exciting advances in the
+medical domain, where image recognition
+
+134
+00:08:47.450 --> 00:08:51.740
+algorithms are being developed to
+classify cancer cells as malignant or
+
+135
+00:08:51.740 --> 00:08:55.150
+benign, estimate the best course
+of personalized treatment or
+
+136
+00:08:55.150 --> 00:08:59.210
+to find hard to detect
+tumors in medical images.
+
+137
+00:08:59.210 --> 00:09:03.890
+And of course, self-driving, or
+autonomous vehicles make extensive use
+
+138
+00:09:03.890 --> 00:09:08.750
+of real time image recognition and video
+processing, as well as other technologies,
+
+139
+00:09:08.750 --> 00:09:10.080
+such as reinforcement learning.
+
+140
+00:09:11.180 --> 00:09:14.080
+Now these examples only scratch
+the surface of how machine
+
+141
+00:09:14.080 --> 00:09:16.780
+learning is being applied
+in today's society.
+
+142
+00:09:16.780 --> 00:09:17.740
+And, we'll encounter and
+
+143
+00:09:17.740 --> 00:09:20.910
+work with some other examples during
+the progression of this course.
+
+144
+00:09:23.390 --> 00:09:26.320
+The name of this course module is
+actually Applied Machine Learning.
+
+145
+00:09:26.320 --> 00:09:27.790
+So, what does Applied part mean?
+
+146
+00:09:29.230 --> 00:09:32.730
+When we designed this data science series,
+we felt there was a need for
+
+147
+00:09:32.730 --> 00:09:35.640
+a course that focused more
+on how to properly apply and
+
+148
+00:09:35.640 --> 00:09:39.984
+interpret the results from machine
+learning algorithms at a high level and
+
+149
+00:09:39.984 --> 00:09:43.840
+less on the technical details of exactly
+how these algorithms work internally.
+
+150
+00:09:44.950 --> 00:09:49.084
+There are a number of excellent existing
+core machine learning courses that already
+
+151
+00:09:49.084 --> 00:09:51.480
+provide that deeper level
+of technical detail.
+
+152
+00:09:51.480 --> 00:09:55.758
+And that detailed knowledge isn't
+always necessary to work with machine
+
+153
+00:09:55.758 --> 00:09:59.698
+learning algorithms, and
+to use them for specific applications.
+
+154
+00:09:59.698 --> 00:10:03.600
+In fact, there is a very exciting
+trend happening where ready to use
+
+155
+00:10:03.600 --> 00:10:08.259
+machine learning algorithms for
+speech recognition, language translation,
+
+156
+00:10:08.259 --> 00:10:10.861
+text classifications and many other tasks,
+
+157
+00:10:10.861 --> 00:10:16.090
+are now being offered as web based
+services on cloud computing platforms.
+
+158
+00:10:16.090 --> 00:10:21.580
+Greatly increasing the audience of
+developers that are able to use them and
+
+159
+00:10:21.580 --> 00:10:25.480
+making it easier than ever to put together
+solutions that apply machine learning
+
+160
+00:10:25.480 --> 00:10:26.010
+at a high level.
+
+161
+00:10:27.740 --> 00:10:31.385
+The following book, Introduction
+to Machine Learning with Python,
+
+162
+00:10:31.385 --> 00:10:36.120
+is not required to complete the course,
+but we recommend it as an additional
+
+163
+00:10:36.120 --> 00:10:40.560
+resource that may be useful to you as
+you progress and for later reference.
+
+164
+00:10:40.560 --> 00:10:44.060
+Like this course, the book focuses on
+the practical details of building your own
+
+165
+00:10:44.060 --> 00:10:48.600
+solutions to machine learning tasks
+using Scikit-learn in Python.
+
+166
+00:10:48.600 --> 00:10:51.910
+It provides further background
+on machine learning concepts,
+
+167
+00:10:51.910 --> 00:10:55.330
+more depth on specific topics
+covered in this course,
+
+168
+00:10:55.330 --> 00:10:59.570
+as well as a number of additional topics
+and some additional coding examples.

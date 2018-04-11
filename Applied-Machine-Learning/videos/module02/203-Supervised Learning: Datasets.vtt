@@ -1,0 +1,353 @@
+WEBVTT
+
+1
+00:00:07.795 --> 00:00:11.148
+To explore different supervised
+learning algorithms,
+
+2
+00:00:11.148 --> 00:00:14.358
+we're going to use a combination
+of small synthetic or
+
+3
+00:00:14.358 --> 00:00:20.280
+artificial datasets as examples, together
+with some larger real world datasets.
+
+4
+00:00:20.280 --> 00:00:23.300
+Psychit learn has a variety
+of methods in the SK learned
+
+5
+00:00:23.300 --> 00:00:26.190
+datasets library to create
+synthetic datasets.
+
+6
+00:00:27.430 --> 00:00:29.370
+The synthetic dataset will use, for
+
+7
+00:00:29.370 --> 00:00:34.170
+illustration purposes are typically
+low dimensional examples.
+
+8
+00:00:34.170 --> 00:00:38.190
+Because they only use a small number
+of features, typically one or two.
+
+9
+00:00:38.190 --> 00:00:40.120
+This makes them easy to explain and
+visualize.
+
+10
+00:00:42.030 --> 00:00:43.310
+Many real world datasets,
+
+11
+00:00:43.310 --> 00:00:46.700
+on the other hand have a higher
+dimensional feature space.
+
+12
+00:00:46.700 --> 00:00:49.350
+In other words they have dozens,
+hundreds, or even thousands, or
+
+13
+00:00:49.350 --> 00:00:51.080
+millions of features.
+
+14
+00:00:51.080 --> 00:00:55.560
+So some of the intuition we gain from
+looking at low dimensional examples
+
+15
+00:00:55.560 --> 00:00:58.290
+doesn't always translate to
+high dimensional datasets,
+
+16
+00:00:58.290 --> 00:00:59.950
+and we'll discuss that a bit more later.
+
+17
+00:01:01.260 --> 00:01:04.910
+For example, high dimensional data sets
+in some sense have most of their data in
+
+18
+00:01:04.910 --> 00:01:09.160
+corners with lots of empty space and
+that's kind of difficult to visualize.
+
+19
+00:01:09.160 --> 00:01:11.970
+We'll go through some
+examples later in the course.
+
+20
+00:01:11.970 --> 00:01:14.520
+But the low dimensional
+examples are still useful so
+
+21
+00:01:14.520 --> 00:01:18.870
+that we can understand things like
+how a model's complexity changes
+
+22
+00:01:18.870 --> 00:01:23.719
+with changes in some key parameters So
+for basic regression
+
+23
+00:01:23.719 --> 00:01:28.400
+we'll start with the simple problem
+that has one informative input variable.
+
+24
+00:01:28.400 --> 00:01:32.250
+One noisy linear output and
+100 data set samples.
+
+25
+00:01:32.250 --> 00:01:35.180
+Here's a plot of a data set using
+scatter plot with each point
+
+26
+00:01:35.180 --> 00:01:36.110
+represented by one dot.
+
+27
+00:01:37.330 --> 00:01:42.420
+The x-axis shows the future value, and
+the y-axis shows the regression target.
+
+28
+00:01:42.420 --> 00:01:47.260
+To create this we use the make regression
+function in SK learned data sets.
+
+29
+00:01:47.260 --> 00:01:48.540
+Here is the code in the notebook.
+
+30
+00:01:51.359 --> 00:01:55.915
+To illustrate binary classification we
+will include a simple two class dataset
+
+31
+00:01:55.915 --> 00:01:57.819
+with two informative features.
+
+32
+00:01:58.830 --> 00:02:02.390
+Here's a scatterplot showing each data
+instance as a dot with the first feature
+
+33
+00:02:02.390 --> 00:02:04.860
+value corresponding to the x-axis.
+
+34
+00:02:04.860 --> 00:02:08.610
+And the second feature value
+corresponding to the y-axis.
+
+35
+00:02:08.610 --> 00:02:12.010
+The color of a point shows which
+class that data instance is labeled.
+
+36
+00:02:13.760 --> 00:02:17.169
+I'm calling this dataset simple
+because it has only two features,
+
+37
+00:02:18.560 --> 00:02:19.620
+both of which are informative.
+
+38
+00:02:21.160 --> 00:02:25.820
+In this case, these two classes
+are approximately linearly separable,
+
+39
+00:02:25.820 --> 00:02:30.710
+which means that a basic linear classifier
+placed between them does a pretty
+
+40
+00:02:30.710 --> 00:02:33.800
+good job of discriminating
+the points in the two classes.
+
+41
+00:02:35.911 --> 00:02:39.617
+So turning to the notebook,
+to create this data set we used to
+
+42
+00:02:39.617 --> 00:02:43.440
+make classification function
+in SK learn data sets.
+
+43
+00:02:43.440 --> 00:02:48.966
+Creating 100 points that roughly group the
+data samples into one cluster per class,
+
+44
+00:02:48.966 --> 00:02:53.660
+with here a 10% chance of randomly
+flipping the correct label
+
+45
+00:02:53.660 --> 00:02:56.580
+of any point just to make it a little
+more challenging the classifier.
+
+46
+00:02:57.900 --> 00:03:01.760
+We'll also look at a more complex
+binary classification problem
+
+47
+00:03:01.760 --> 00:03:03.270
+that uses two features.
+
+48
+00:03:03.270 --> 00:03:06.970
+But where the two classes are not
+really linearly separable,
+
+49
+00:03:06.970 --> 00:03:10.410
+instead forming into various clusters in
+different parts of the feature space.
+
+50
+00:03:12.070 --> 00:03:14.890
+This dataset was created in two steps.
+
+51
+00:03:14.890 --> 00:03:18.970
+First using the make_blobs
+function in SK learn datasets
+
+52
+00:03:18.970 --> 00:03:23.590
+to randomly generate 100 samples
+in 8 different clusters.
+
+53
+00:03:23.590 --> 00:03:27.150
+And then by changing the cluster label
+assigned by make_blobs, which is a number
+
+54
+00:03:27.150 --> 00:03:32.350
+from 1 to 8, to a binary number by
+converting it using a modulo 2 function.
+
+55
+00:03:32.350 --> 00:03:38.156
+Assigning the even index points to class
+0 and odd index points to class 1.
+
+56
+00:03:38.156 --> 00:03:44.250
+To illustrate multi-class classification,
+we'll use our familiar fruits dataset,
+
+57
+00:03:44.250 --> 00:03:48.050
+which, as you may remember has four
+features and four possible target labels.
+
+58
+00:03:49.490 --> 00:03:53.240
+Here on the left, I'm showing the array
+of scatter plots that we saw in week one
+
+59
+00:03:53.240 --> 00:03:57.640
+that shows the relationship between all
+possible pairs of features and the class
+
+60
+00:03:57.640 --> 00:04:02.170
+labels, with the distribution of values
+for each feature along the diagonal.
+
+61
+00:04:04.390 --> 00:04:07.780
+To illustrate a real-world regression
+problem, we'll use a dataset
+
+62
+00:04:07.780 --> 00:04:11.930
+derived from the communities and
+crime dataset in the UCI repository.
+
+63
+00:04:13.030 --> 00:04:16.950
+Our dataset uses a subset of
+the original features and target values.
+
+64
+00:04:16.950 --> 00:04:21.253
+Which were originally created
+from combining several U.S.
+
+65
+00:04:21.253 --> 00:04:24.910
+government data sources,
+like the U.S. census.
+
+66
+00:04:24.910 --> 00:04:28.310
+Each data instance corresponds
+to a particular geographic area,
+
+67
+00:04:28.310 --> 00:04:30.270
+typically a town or a region of a city.
+
+68
+00:04:32.150 --> 00:04:35.120
+Our version of this
+dataset has 88 features
+
+69
+00:04:35.120 --> 00:04:39.220
+that encode various demographic and social
+economic properties of each location.
+
+70
+00:04:40.660 --> 00:04:43.310
+With 1994 location data instances.
+
+71
+00:04:45.040 --> 00:04:48.890
+The target value that we'll try to predict
+is the per capita violent crime rate.
+
+72
+00:04:50.230 --> 00:04:53.780
+To use this data set,
+we use the load_crime_dataset
+
+73
+00:04:53.780 --> 00:04:57.340
+function that's included with the share
+utilities module for this course

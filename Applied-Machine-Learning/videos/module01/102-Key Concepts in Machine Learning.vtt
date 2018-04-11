@@ -1,0 +1,988 @@
+WEBVTT
+
+1
+00:00:08.867 --> 00:00:13.260
+Machine learning tasks, including
+the ones I've described as examples.
+
+2
+00:00:13.260 --> 00:00:17.960
+Credit card fraud detection, movie
+recommendations, speech recognition, and
+
+3
+00:00:17.960 --> 00:00:19.320
+so on.
+
+4
+00:00:19.320 --> 00:00:22.280
+Can be categorized into two main types.
+
+5
+00:00:22.280 --> 00:00:26.243
+The first type is known
+as supervised learning.
+
+6
+00:00:26.243 --> 00:00:30.744
+And here our goal is to predict some
+output variable that's associated with
+
+7
+00:00:30.744 --> 00:00:31.810
+each input item.
+
+8
+00:00:33.120 --> 00:00:36.950
+So if the output is a category a finite
+number of possibilities such as
+
+9
+00:00:36.950 --> 00:00:41.870
+a fraudulent or not fraudulent prediction
+for a credit card transaction.
+
+10
+00:00:41.870 --> 00:00:45.840
+Or maybe it's the English word
+associated with an audio signal for
+
+11
+00:00:45.840 --> 00:00:46.730
+speech recognition.
+
+12
+00:00:46.730 --> 00:00:51.240
+We call this a classification problem
+within supervised learning, and
+
+13
+00:00:51.240 --> 00:00:53.210
+the function that we learn
+is called the classifier.
+
+14
+00:00:54.680 --> 00:00:57.930
+If the output variable we want to
+predict is not a category, but
+
+15
+00:00:57.930 --> 00:01:02.350
+a real valued number like the amount
+of time in seconds it would
+
+16
+00:01:02.350 --> 00:01:07.990
+likely take a car to accelerate
+from 0 to 100 kilometers per hour.
+
+17
+00:01:07.990 --> 00:01:10.072
+We call that regression problem.
+
+18
+00:01:10.072 --> 00:01:13.667
+And we're learning something
+called a regression function.
+
+19
+00:01:13.667 --> 00:01:18.830
+More formally we typically
+denote a table of data items
+
+20
+00:01:18.830 --> 00:01:24.341
+using capital letter X and
+there's one data item per row.
+
+21
+00:01:24.341 --> 00:01:28.510
+And the labels that we associate with
+each item are stored in the variable y.
+
+22
+00:01:28.510 --> 00:01:35.060
+And our goal is to learn some function
+that maps data item in X to a label in Y.
+
+23
+00:01:36.280 --> 00:01:42.029
+And to do this, the system's given
+a set of label training examples,
+
+24
+00:01:42.029 --> 00:01:44.960
+of inputs X sub i and outputs Y sub i.
+
+25
+00:01:44.960 --> 00:01:50.400
+And this set of label training
+examples is what's used to
+
+26
+00:01:50.400 --> 00:01:54.060
+identify the function that best maps
+the input to the desired output.
+
+27
+00:01:55.570 --> 00:02:00.644
+For example, if the supervised
+learning problem is image recognition.
+
+28
+00:02:00.644 --> 00:02:05.120
+This involves building
+a classifier where the input X sub
+
+29
+00:02:05.120 --> 00:02:09.419
+i could be a set of pixels
+that describe a single image.
+
+30
+00:02:09.419 --> 00:02:14.036
+And the desired label Y sub i might be
+the label of the object in the image.
+
+31
+00:02:14.036 --> 00:02:19.270
+Now there're many algorithms
+that scientists have developed
+
+32
+00:02:19.270 --> 00:02:21.770
+that can do supervise learning.
+
+33
+00:02:21.770 --> 00:02:25.170
+That could be used to estimate this
+function F from the training data,
+
+34
+00:02:25.170 --> 00:02:29.590
+and we'll cover a number of
+those algorithms in the course.
+
+35
+00:02:31.020 --> 00:02:34.716
+Supervised learning needs to have
+this training set with labeled
+
+36
+00:02:34.716 --> 00:02:37.140
+objects in order to make its predictions.
+
+37
+00:02:38.310 --> 00:02:40.320
+But if the whole point is
+to predict these labels,
+
+38
+00:02:40.320 --> 00:02:42.880
+where does this initial set
+of label items come from?
+
+39
+00:02:44.520 --> 00:02:48.970
+The answer is that the training labels
+are typically provided by human judges.
+
+40
+00:02:50.710 --> 00:02:53.470
+Now obtaining labels for
+some problems can be easy or
+
+41
+00:02:53.470 --> 00:02:57.210
+difficult, depending on how
+much labeled data is needed.
+
+42
+00:02:57.210 --> 00:02:59.270
+The level of human expertise or
+
+43
+00:02:59.270 --> 00:03:03.290
+expert knowledge that is needed
+to provide an accurate label.
+
+44
+00:03:03.290 --> 00:03:07.326
+And the complexity of the labeling
+task among other factors.
+
+45
+00:03:07.326 --> 00:03:10.304
+Now, the use of crowdsourcing platforms,
+
+46
+00:03:10.304 --> 00:03:14.496
+like Amazon's Mechanical Turk,
+or Crowd Flower or others.
+
+47
+00:03:14.496 --> 00:03:19.235
+Have been a significant source of
+explicitly provided labels from human
+
+48
+00:03:19.235 --> 00:03:24.208
+workers where customers with machine
+learning tasks that need labeling can
+
+49
+00:03:24.208 --> 00:03:29.660
+connect with groups of workers that can
+provide labels using human intelligence.
+
+50
+00:03:31.890 --> 00:03:34.970
+So those are more
+explicitly obtained labels.
+
+51
+00:03:34.970 --> 00:03:36.900
+We can also obtain implicit labels.
+
+52
+00:03:36.900 --> 00:03:41.460
+So, for example, if a search engine
+detects a user clicking on a result link
+
+53
+00:03:41.460 --> 00:03:44.525
+and then sees no more activity for
+another minute or
+
+54
+00:03:44.525 --> 00:03:47.683
+two before the user comes
+back to the search engine.
+
+55
+00:03:47.683 --> 00:03:53.580
+The system might use that activity as
+a kind of an implicit label for that page.
+
+56
+00:03:53.580 --> 00:03:57.280
+In other words, if the user took
+some time to visit the page,
+
+57
+00:03:57.280 --> 00:04:01.230
+it was more likely that that page
+was relevant to their query.
+
+58
+00:04:01.230 --> 00:04:06.198
+The second major class of machine
+learning algorithms is called
+
+59
+00:04:06.198 --> 00:04:08.227
+unsupervised learning.
+
+60
+00:04:08.227 --> 00:04:14.296
+In many cases we only have input data, we
+don't have any labels to go with the data.
+
+61
+00:04:14.296 --> 00:04:18.441
+And in those cases the problems we can
+solve involve taking the input data and
+
+62
+00:04:18.441 --> 00:04:21.250
+trying to find some kind
+of useful structure in it.
+
+63
+00:04:22.250 --> 00:04:24.270
+Now what do I mean by structure?
+
+64
+00:04:24.270 --> 00:04:27.380
+Well typically this means
+finding interesting clusters or
+
+65
+00:04:27.380 --> 00:04:29.270
+groups within the data.
+
+66
+00:04:29.270 --> 00:04:32.140
+So once we can discover this
+structure in the form of clusters,
+
+67
+00:04:32.140 --> 00:04:36.120
+groups or other interesting subsets.
+
+68
+00:04:36.120 --> 00:04:38.870
+The structure can be used for tasks like
+
+69
+00:04:38.870 --> 00:04:43.370
+producing a useful summary of the input
+data maybe visualizing the structure.
+
+70
+00:04:43.370 --> 00:04:49.340
+For example, if you run an e-commerce
+site that sells products to customers.
+
+71
+00:04:49.340 --> 00:04:53.656
+Let's suppose you've got many thousands or
+even millions of customers.
+
+72
+00:04:53.656 --> 00:04:56.303
+You might want to know
+if you can categorize or
+
+73
+00:04:56.303 --> 00:04:58.890
+group the customers into different types.
+
+74
+00:04:58.890 --> 00:05:04.250
+For example, there might be power users
+who use more advance features of the site.
+
+75
+00:05:04.250 --> 00:05:08.109
+There might be quick browser-type
+users who only look for
+
+76
+00:05:08.109 --> 00:05:12.448
+a cheap discount and stay for
+very little time on the side itself.
+
+77
+00:05:12.448 --> 00:05:16.277
+There could be sort of careful
+researcher type users who spend a lot of
+
+78
+00:05:16.277 --> 00:05:19.120
+time comparing different items.
+
+79
+00:05:19.120 --> 00:05:23.110
+And if you could take your data of
+how people interact with the site and
+
+80
+00:05:23.110 --> 00:05:26.020
+use unsupervised learning to
+discover these different groups.
+
+81
+00:05:27.100 --> 00:05:31.541
+You can imagine then maybe tailing
+your site's offerings to each group so
+
+82
+00:05:31.541 --> 00:05:35.692
+that prove the chance that a user
+from that group would maybe purchase
+
+83
+00:05:35.692 --> 00:05:39.006
+a product or
+have a better experience using your site.
+
+84
+00:05:39.006 --> 00:05:42.776
+Now you don't know how many groups
+there are out there ahead of time or
+
+85
+00:05:42.776 --> 00:05:44.215
+even what they look like.
+
+86
+00:05:44.215 --> 00:05:46.650
+And you don't have any label examples.
+
+87
+00:05:46.650 --> 00:05:51.240
+And so this is a classic example of
+an unsupervised learning problem.
+
+88
+00:05:53.020 --> 00:05:56.243
+Another type of unsupervised
+learning problem that
+
+89
+00:05:56.243 --> 00:06:01.086
+is very important is something like
+flagging abnormal access to a web server.
+
+90
+00:06:01.086 --> 00:06:05.661
+So for security reasons, you might
+want to be notified if a website user is
+
+91
+00:06:05.661 --> 00:06:08.586
+making requests that
+could be a cyber attack,
+
+92
+00:06:08.586 --> 00:06:13.030
+or is somehow very different from
+typical user behavior on your site.
+
+93
+00:06:14.590 --> 00:06:17.786
+Since there can be many
+different types of hacking or
+
+94
+00:06:17.786 --> 00:06:21.938
+intrusion attempts to break into
+the server or exploit in some way.
+
+95
+00:06:21.938 --> 00:06:25.683
+We don't have reliable training labels
+that we could use to train the classifier
+
+96
+00:06:25.683 --> 00:06:27.870
+using supervised learning.
+
+97
+00:06:27.870 --> 00:06:31.820
+Instead, we need unsupervised
+approach that allows us to
+
+98
+00:06:31.820 --> 00:06:35.140
+perform something called
+outlier detection.
+
+99
+00:06:35.140 --> 00:06:39.720
+That doesn't assume future attacks will
+be of the same form as previous attacks.
+
+100
+00:06:40.880 --> 00:06:45.609
+But that does assume features of attacks
+on the site will look different some how
+
+101
+00:06:45.609 --> 00:06:50.188
+than the average users behavior Okay, so
+
+102
+00:06:50.188 --> 00:06:54.304
+suppose you have a situation where
+you think machine learning might be
+
+103
+00:06:54.304 --> 00:06:58.504
+applicable, either using a supervised or
+an unsupervised approach.
+
+104
+00:06:58.504 --> 00:07:02.654
+How would you apply Machine Learning
+to solve your problem?
+
+105
+00:07:02.654 --> 00:07:04.586
+Well, there're three basic steps and
+
+106
+00:07:04.586 --> 00:07:08.227
+I'm going to use classification as my
+typical Machine Learning scenario.
+
+107
+00:07:08.227 --> 00:07:12.235
+So I'll often just use the term
+classifiers as an example of a machine
+
+108
+00:07:12.235 --> 00:07:13.210
+learning task.
+
+109
+00:07:14.320 --> 00:07:17.680
+But what I am about to describe applies
+to other forms of supervised learning,
+
+110
+00:07:17.680 --> 00:07:20.230
+like regression,
+that we'll cover later, or
+
+111
+00:07:20.230 --> 00:07:22.290
+unsupervised learning
+like clustering as well.
+
+112
+00:07:24.200 --> 00:07:27.060
+So the first step in solving
+a problem with machine
+
+113
+00:07:27.060 --> 00:07:31.146
+learning is you have to figure out
+how to represent the learning problem
+
+114
+00:07:31.146 --> 00:07:34.162
+in terms of something
+the computer can understand.
+
+115
+00:07:34.162 --> 00:07:38.353
+You need to be able to take your data or
+even formulate the description
+
+116
+00:07:38.353 --> 00:07:41.823
+of your object that you're
+interested in recognizing,
+
+117
+00:07:41.823 --> 00:07:45.530
+for example, in a way that you
+can use input to an algorithm.
+
+118
+00:07:46.560 --> 00:07:50.360
+And you also need to decide what type of
+learning algorithm to apply to this data.
+
+119
+00:07:51.690 --> 00:07:54.800
+For example, there're many different
+ways you could represent an image.
+
+120
+00:07:54.800 --> 00:07:58.250
+Typically, it's represented as
+an array of colored pixels.
+
+121
+00:07:59.820 --> 00:08:02.785
+There could also be metadata
+associated with the image.
+
+122
+00:08:02.785 --> 00:08:06.541
+You could think about how you might
+represent a credit card transaction if you
+
+123
+00:08:06.541 --> 00:08:08.360
+want to do fraud detection.
+
+124
+00:08:08.360 --> 00:08:14.909
+So that might be represented by the time,
+the place and amount of a transaction.
+
+125
+00:08:14.909 --> 00:08:19.544
+So you need some way, some
+representation of the data you have and
+
+126
+00:08:19.544 --> 00:08:24.190
+the choice of what kind of algorithm
+you want to apply to the data.
+
+127
+00:08:26.160 --> 00:08:30.603
+The second thing need to do is
+decide on an evaluation method that
+
+128
+00:08:30.603 --> 00:08:34.074
+provides some type of quality or
+accuracy score.
+
+129
+00:08:34.074 --> 00:08:38.210
+For the predictions or the output that
+is coming out of the machine learning
+
+130
+00:08:38.210 --> 00:08:40.450
+algorithm typically I say classifier.
+
+131
+00:08:41.780 --> 00:08:45.279
+So if you have any violation method
+this allows you to access and
+
+132
+00:08:45.279 --> 00:08:48.394
+compare the effectiveness
+of different classifiers.
+
+133
+00:08:48.394 --> 00:08:52.183
+So you can tell what classifiers are doing
+well, which are the good ones, and
+
+134
+00:08:52.183 --> 00:08:54.760
+which are the bad ones for
+your particular problem.
+
+135
+00:08:56.350 --> 00:09:01.250
+For example, a good classifier
+will have high accuracy that will
+
+136
+00:09:01.250 --> 00:09:07.220
+make a prediction that matches the correct
+true label a high percentage of the time.
+
+137
+00:09:07.220 --> 00:09:13.512
+The third thing you need to do in applying
+machine learning to solve a problem is.
+
+138
+00:09:13.512 --> 00:09:16.998
+Once we've decided on how to
+represent the input data,
+
+139
+00:09:16.998 --> 00:09:20.199
+the type of classifier and
+the evaluation method.
+
+140
+00:09:20.199 --> 00:09:21.658
+We need to then search for
+
+141
+00:09:21.658 --> 00:09:26.467
+the optimal classifier that gives the best
+evaluation outcome for that problem.
+
+142
+00:09:26.467 --> 00:09:30.780
+And we'll go into all three of
+these areas in this course.
+
+143
+00:09:30.780 --> 00:09:37.020
+And then, we'll use Python in this course
+as well to solve some specific examples.
+
+144
+00:09:37.020 --> 00:09:41.494
+And we're about to see a concrete example
+of how we use machine learning at
+
+145
+00:09:41.494 --> 00:09:44.975
+libraries in Python to solve
+a classification problem.
+
+146
+00:09:44.975 --> 00:09:49.353
+So let's go through these three three
+steps in a little more detail now.
+
+147
+00:09:49.353 --> 00:09:54.195
+Let's first talk about what it means to
+convert the problem into a representation
+
+148
+00:09:54.195 --> 00:09:56.030
+that a computer can deal with.
+
+149
+00:09:56.030 --> 00:09:57.647
+This involves two things.
+
+150
+00:09:57.647 --> 00:10:04.392
+You need to convert each input object,
+which we often call a sample,
+
+151
+00:10:04.392 --> 00:10:09.180
+into a set of features
+that describe the object.
+
+152
+00:10:09.180 --> 00:10:11.485
+Second, we need to pick a learning model,
+
+153
+00:10:11.485 --> 00:10:15.147
+typically the type of classifier
+that you want the system to learn.
+
+154
+00:10:15.147 --> 00:10:19.940
+So let's look more closely at what we mean
+by a feature representation for an object.
+
+155
+00:10:21.530 --> 00:10:26.736
+Each data point in your
+dataset represents something,
+
+156
+00:10:26.736 --> 00:10:30.068
+some object or situation or event.
+
+157
+00:10:30.068 --> 00:10:33.100
+Some entity that's being represented
+by a list of properties.
+
+158
+00:10:34.390 --> 00:10:35.130
+For example,
+
+159
+00:10:35.130 --> 00:10:39.880
+an email might be represented as a list
+of words that are in the message.
+
+160
+00:10:39.880 --> 00:10:43.230
+A picture might be represented
+by a matrix of color values for
+
+161
+00:10:43.230 --> 00:10:44.640
+the pixels that make up an image.
+
+162
+00:10:45.830 --> 00:10:50.980
+A piece of fruit, like this apple
+could be represented by its color,
+
+163
+00:10:50.980 --> 00:10:53.060
+its shape, its texture, and so forth.
+
+164
+00:10:54.080 --> 00:10:58.018
+So, these attribute values for
+an object are called features.
+
+165
+00:10:58.018 --> 00:11:02.820
+You can think of the input data
+containing this feature representation,
+
+166
+00:11:02.820 --> 00:11:04.844
+as the input to your function.
+
+167
+00:11:06.673 --> 00:11:10.439
+You can visualize it easily as a table.
+
+168
+00:11:10.439 --> 00:11:15.900
+Where each row of the table
+represents a single data instance.
+
+169
+00:11:15.900 --> 00:11:19.090
+And where the columns of the table
+represent the features of the object.
+
+170
+00:11:20.650 --> 00:11:24.329
+There could be many different choices for
+how to represent an object using features.
+
+171
+00:11:26.530 --> 00:11:29.640
+So, for example,
+I showed you piece of fruit.
+
+172
+00:11:29.640 --> 00:11:32.268
+Let's pick up a lemon.
+
+173
+00:11:32.268 --> 00:11:36.771
+A lemon has a shape, a width, a height,
+it also has mass, a taste and
+
+174
+00:11:36.771 --> 00:11:39.956
+I guess if you buy lemons
+in the store these days,
+
+175
+00:11:39.956 --> 00:11:45.340
+they also come with a handy bar code, that
+identifies the type of fruit that it is.
+
+176
+00:11:45.340 --> 00:11:50.186
+So there are lot's of different types of
+information we could gather about a thing
+
+177
+00:11:50.186 --> 00:11:52.796
+in a form that a computer
+could understand.
+
+178
+00:11:52.796 --> 00:11:57.455
+So this problem of trying to figure
+out how to represent an object for
+
+179
+00:11:57.455 --> 00:12:00.890
+machine learning algorithm
+it's a challenge and
+
+180
+00:12:00.890 --> 00:12:05.078
+it's known as feature engineering or
+feature extraction.
+
+181
+00:12:05.078 --> 00:12:08.832
+And we'll cover that in
+week four of the course.
+
+182
+00:12:10.602 --> 00:12:13.658
+The other key part of representing
+a machine learning problem is choosing
+
+183
+00:12:13.658 --> 00:12:16.231
+the type of classifier that's
+appropriate for the problem.
+
+184
+00:12:16.231 --> 00:12:19.770
+And we'll cover many different types
+of classifiers in this course.
+
+185
+00:12:19.770 --> 00:12:22.798
+They all have different trade-offs
+in terms of their accuracy,
+
+186
+00:12:22.798 --> 00:12:25.559
+their interpretability, and
+their speed, and so forth.
+
+187
+00:12:27.280 --> 00:12:31.869
+And we'll cover those in
+the second week of this course.
+
+188
+00:12:31.869 --> 00:12:37.147
+So often the process of addressing
+a machine learning task is a cycle.
+
+189
+00:12:37.147 --> 00:12:40.912
+It involves an iterative process,
+as I show here,
+
+190
+00:12:40.912 --> 00:12:46.879
+where we make an initial guess about what
+some good features are for the problem.
+
+191
+00:12:46.879 --> 00:12:48.904
+And the classifier that
+might be appropriate.
+
+192
+00:12:48.904 --> 00:12:51.943
+We then train the system
+using our training data.
+
+193
+00:12:51.943 --> 00:12:56.350
+Produce an evaluation, see how well the
+classifier works and then based on what
+
+194
+00:12:56.350 --> 00:13:01.221
+worked and what didn't work which examples
+get classified correctly or incorrectly we
+
+195
+00:13:01.221 --> 00:13:06.050
+can do a failure analysis to see where
+the system is still making mistakes.
+
+196
+00:13:06.050 --> 00:13:09.045
+And then with the results
+of that failure analysis,
+
+197
+00:13:09.045 --> 00:13:12.047
+we typically will always
+refine the set of feature.
+
+198
+00:13:12.047 --> 00:13:16.381
+We may discover that important feature
+is missing that would help fix some of
+
+199
+00:13:16.381 --> 00:13:17.950
+the mistakes for example.
+
+200
+00:13:19.330 --> 00:13:23.640
+So, in my experience, this iterative
+process is very common in fact,
+
+201
+00:13:23.640 --> 00:13:26.120
+it's very typical of solving
+problems with machine learning.
+
+202
+00:13:26.120 --> 00:13:30.180
+Typically, you might want to go
+through this cycle several times,
+
+203
+00:13:30.180 --> 00:13:34.754
+to continually refine the features,
+and assess their effect on accuracy.
+
+204
+00:13:34.754 --> 00:13:39.093
+Or, try different types of classifiers,
+based on the evaluation method that
+
+205
+00:13:39.093 --> 00:13:43.840
+you've chosen in order to determine if you
+have the right approach for your problem.

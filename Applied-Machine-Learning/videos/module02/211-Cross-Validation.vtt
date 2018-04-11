@@ -1,0 +1,597 @@
+WEBVTT
+
+1
+00:00:07.110 --> 00:00:11.089
+So far we've seen a number of supervised learning methods,
+
+2
+00:00:11.089 --> 00:00:15.730
+and when applying you to these methods we followed a consistent series of steps.
+
+3
+00:00:15.730 --> 00:00:18.460
+First, partitioning the data set into training and
+
+4
+00:00:18.460 --> 00:00:21.534
+test sets using the Train/Test split function.
+
+5
+00:00:21.534 --> 00:00:25.344
+Then, calling the Fit Method on the training set to estimate the model.
+
+6
+00:00:25.344 --> 00:00:28.329
+And finally, applying the model by using the Predict Method
+
+7
+00:00:28.329 --> 00:00:31.344
+to estimate a target value for the new data instances,
+
+8
+00:00:31.344 --> 00:00:37.179
+or by using the Score Method to evaluate the trained model's performance on the test set.
+
+9
+00:00:37.179 --> 00:00:39.640
+Let's remember that the reason we divided
+
+10
+00:00:39.640 --> 00:00:43.719
+the original data into training and test sets was to use the test set
+
+11
+00:00:43.719 --> 00:00:46.060
+as a way to estimate how well the model trained on
+
+12
+00:00:46.060 --> 00:00:51.465
+the training data would generalize to new previously unseen data.
+
+13
+00:00:51.465 --> 00:00:54.579
+The test set represented data that had not been seen during
+
+14
+00:00:54.579 --> 00:00:58.917
+training but had the same general attributes as the original data set,
+
+15
+00:00:58.917 --> 00:01:00.399
+or in more technical language,
+
+16
+00:01:00.399 --> 00:01:03.820
+which was drawn from the same underlying distribution as the training set.
+
+17
+00:01:03.820 --> 00:01:08.359
+Cross-validation is a method that goes beyond evaluating
+
+18
+00:01:08.359 --> 00:01:11.299
+a single model using a single Train/Test split of
+
+19
+00:01:11.299 --> 00:01:14.405
+the data by using multiple Train/Test splits,
+
+20
+00:01:14.405 --> 00:01:18.284
+each of which is used to train and evaluate a separate model.
+
+21
+00:01:18.284 --> 00:01:23.450
+So why is this better than our original method of a single Train/Test split?
+
+22
+00:01:23.450 --> 00:01:27.200
+Well, you may have noticed for example by choosing different values for
+
+23
+00:01:27.200 --> 00:01:31.125
+the random state seed parameter in the Train/Test split function,
+
+24
+00:01:31.125 --> 00:01:34.040
+when you're working on some examples or assignments,
+
+25
+00:01:34.040 --> 00:01:38.765
+that the accuracy score you get from running a classifier can vary quite a bit
+
+26
+00:01:38.765 --> 00:01:40.430
+just by chance depending on
+
+27
+00:01:40.430 --> 00:01:44.894
+the specific samples that happen to end up in the training set.
+
+28
+00:01:44.894 --> 00:01:48.769
+Cross-validation basically gives more stable and reliable estimates
+
+29
+00:01:48.769 --> 00:01:50.269
+of how the classifiers likely to
+
+30
+00:01:50.269 --> 00:01:52.310
+perform on average by running
+
+31
+00:01:52.310 --> 00:01:55.760
+multiple different training test splits and then averaging the results,
+
+32
+00:01:55.760 --> 00:01:59.980
+instead of relying entirely on a single particular training set.
+
+33
+00:01:59.980 --> 00:02:04.849
+Here's a graphical illustration of how cross-validation operates on the data.
+
+34
+00:02:04.849 --> 00:02:07.099
+The most common type of cross-validation is
+
+35
+00:02:07.099 --> 00:02:12.710
+k-fold cross-validation most commonly with K set to 5 or 10.
+
+36
+00:02:12.710 --> 00:02:16.280
+For example, to do five-fold cross-validation,
+
+37
+00:02:16.280 --> 00:02:22.444
+the original dataset is partitioned into five parts of equal or close to equal size.
+
+38
+00:02:22.444 --> 00:02:25.130
+Each of these parts is called a "fold".
+
+39
+00:02:25.130 --> 00:02:29.575
+Then a series of five models is trained one per fold.
+
+40
+00:02:29.575 --> 00:02:31.745
+The first model: Model one,
+
+41
+00:02:31.745 --> 00:02:34.520
+is trained using folds 2 through 5 as
+
+42
+00:02:34.520 --> 00:02:39.534
+the training set and evaluated using fold 1 as the test set.
+
+43
+00:02:39.534 --> 00:02:41.235
+The second model: Model 2,
+
+44
+00:02:41.235 --> 00:02:44.004
+is trained using Folds 1, 3, 4,
+
+45
+00:02:44.004 --> 00:02:45.745
+and 5 as the training set,
+
+46
+00:02:45.745 --> 00:02:50.250
+and evaluated using Fold 2 as the test set, and so on.
+
+47
+00:02:50.250 --> 00:02:52.514
+When this process is done,
+
+48
+00:02:52.514 --> 00:02:55.259
+we have five accuracy values, one per fold.
+
+49
+00:02:55.259 --> 00:02:58.650
+In scikit-learn, you can use
+
+50
+00:02:58.650 --> 00:03:05.284
+the cross_val_score function from the model selection module to do cross-validation.
+
+51
+00:03:05.284 --> 00:03:06.895
+The parameters are: first,
+
+52
+00:03:06.895 --> 00:03:08.905
+the model you want to evaluate,
+
+53
+00:03:08.905 --> 00:03:10.875
+and then the data set,
+
+54
+00:03:10.875 --> 00:03:14.860
+and then the corresponding ground truth target labels or values.
+
+55
+00:03:14.860 --> 00:03:20.014
+By default, cross_val_score does threefold cross-validation.
+
+56
+00:03:20.014 --> 00:03:22.310
+So it returns three accuracy scores,
+
+57
+00:03:22.310 --> 00:03:24.949
+one for each of the three folds.
+
+58
+00:03:24.949 --> 00:03:27.240
+If you want to change the number of folds,
+
+59
+00:03:27.240 --> 00:03:29.650
+you can set the CV parameter.
+
+60
+00:03:29.650 --> 00:03:34.955
+For example, CV equals 10 will perform ten-fold cross-validation.
+
+61
+00:03:34.955 --> 00:03:37.180
+It's typical to then compute the mean of
+
+62
+00:03:37.180 --> 00:03:40.270
+all the accuracy scores across the folds and report
+
+63
+00:03:40.270 --> 00:03:43.180
+the mean cross-validation score as a measure
+
+64
+00:03:43.180 --> 00:03:46.794
+of how accurate we can expect the model to be on average.
+
+65
+00:03:46.794 --> 00:03:49.764
+One benefit of computing the accuracy of a model
+
+66
+00:03:49.764 --> 00:03:52.914
+on multiple splits instead of a single split,
+
+67
+00:03:52.914 --> 00:03:56.050
+is that it gives us potentially useful information about how
+
+68
+00:03:56.050 --> 00:03:59.455
+sensitive the model is to the nature of the specific training set.
+
+69
+00:03:59.455 --> 00:04:02.740
+We can look at the distribution of these multiple scores across
+
+70
+00:04:02.740 --> 00:04:07.254
+all the cross-validation folds to see how likely it is that by chance,
+
+71
+00:04:07.254 --> 00:04:11.140
+the model will perform very badly or very well on any new data set,
+
+72
+00:04:11.140 --> 00:04:13.569
+so we can do a sort of worst case or
+
+73
+00:04:13.569 --> 00:04:17.649
+best case performance estimate from these multiple scores.
+
+74
+00:04:17.649 --> 00:04:20.470
+This extra information does come with extra cost.
+
+75
+00:04:20.470 --> 00:04:24.980
+It does take more time and computation to do cross-validation.
+
+76
+00:04:24.980 --> 00:04:26.170
+So for example, if we perform
+
+77
+00:04:26.170 --> 00:04:30.699
+k-fold cross-validation and we don't compute the fold results in parallel,
+
+78
+00:04:30.699 --> 00:04:32.949
+it'll take about k times as long to get
+
+79
+00:04:32.949 --> 00:04:38.050
+the accuracy scores as it would with just one Train/Test split.
+
+80
+00:04:38.050 --> 00:04:40.750
+However, the gain in our knowledge of how the model is likely to
+
+81
+00:04:40.750 --> 00:04:44.425
+perform on future data is usually well worth this cost.
+
+82
+00:04:44.425 --> 00:04:47.574
+In the default cross-validation set up,
+
+83
+00:04:47.574 --> 00:04:50.192
+to use for example five folds,
+
+84
+00:04:50.192 --> 00:04:54.730
+the first 20% of the records are used as the first fold,
+
+85
+00:04:54.730 --> 00:04:58.709
+the next 20% for the second fold, and so on.
+
+86
+00:04:58.709 --> 00:05:03.310
+One problem with this is that the data might have been created in such a way that
+
+87
+00:05:03.310 --> 00:05:08.800
+the records are sorted or at least show some bias in the ordering by class label.
+
+88
+00:05:08.800 --> 00:05:11.144
+For example if you look at our fruit data set,
+
+89
+00:05:11.144 --> 00:05:15.100
+it happens that all the labels for classes one and two, the apples,
+
+90
+00:05:15.100 --> 00:05:20.125
+the mandarin and oranges come before classes three and four in the data file.
+
+91
+00:05:20.125 --> 00:05:24.625
+So if we simply took the first 20% of records for Fold 1,
+
+92
+00:05:24.625 --> 00:05:28.310
+which would be used as the test set to evaluate Model 1,
+
+93
+00:05:28.310 --> 00:05:31.480
+it would evaluate the classifier only on class 1
+
+94
+00:05:31.480 --> 00:05:35.350
+and 2 examples and not at all on the other classes 3 and 4,
+
+95
+00:05:35.350 --> 00:05:40.040
+which would greatly reduce the informativeness of the evaluation.
+
+96
+00:05:40.040 --> 00:05:45.004
+So when you ask scikit-learn to do cross-validation for a classification task,
+
+97
+00:05:45.004 --> 00:05:50.370
+it actually does instead what's called "Stratified K-fold Cross-validation".
+
+98
+00:05:50.370 --> 00:05:55.024
+The Stratified Cross-validation means that when splitting the data,
+
+99
+00:05:55.024 --> 00:05:59.480
+the proportions of classes in each fold are made as close as possible
+
+100
+00:05:59.480 --> 00:06:04.634
+to the actual proportions of the classes in the overall data set as shown here.
+
+101
+00:06:04.634 --> 00:06:10.889
+For regression, scikit-learn uses regular k-fold cross-validation since
+
+102
+00:06:10.889 --> 00:06:13.829
+the concept of preserving class proportions isn't
+
+103
+00:06:13.829 --> 00:06:18.720
+something that's really relevant for everyday regression problems.
+
+104
+00:06:18.720 --> 00:06:24.410
+At one extreme we can do something called "Leave-one-out cross-validation",
+
+105
+00:06:24.410 --> 00:06:26.899
+which is just k-fold cross-validation,
+
+106
+00:06:26.899 --> 00:06:30.759
+with K sets to the number of data samples in the data set.
+
+107
+00:06:30.759 --> 00:06:33.860
+In other words, each fold consists of a single sample
+
+108
+00:06:33.860 --> 00:06:38.295
+as the test set and the rest of the data as the training set.
+
+109
+00:06:38.295 --> 00:06:41.050
+Of course this uses even more computation,
+
+110
+00:06:41.050 --> 00:06:43.459
+but for small data sets in particular,
+
+111
+00:06:43.459 --> 00:06:46.189
+it can provide improved proved estimates because it
+
+112
+00:06:46.189 --> 00:06:49.220
+gives the maximum possible amount of training data to a model,
+
+113
+00:06:49.220 --> 00:06:55.930
+and that may help the performance of the model when the training sets are small.
+
+114
+00:06:55.930 --> 00:06:58.149
+Sometimes we want to evaluate the effect that
+
+115
+00:06:58.149 --> 00:07:02.884
+an important parameter of a model has on the cross-validation scores.
+
+116
+00:07:02.884 --> 00:07:09.029
+The useful function validation curve makes it easy to run this type of experiment.
+
+117
+00:07:09.029 --> 00:07:13.464
+Like cross-value score, validation curve will do threefold
+
+118
+00:07:13.464 --> 00:07:19.125
+cross-validation by default but you can adjust this with the CV parameter as well.
+
+119
+00:07:19.125 --> 00:07:23.805
+Unlike cross_val_score, you can also specify a classifier,
+
+120
+00:07:23.805 --> 00:07:26.479
+parameter name, and set of parameter values,
+
+121
+00:07:26.479 --> 00:07:28.289
+you want to sweep across.
+
+122
+00:07:28.289 --> 00:07:30.959
+So you first pass in the estimator object,
+
+123
+00:07:30.959 --> 00:07:34.185
+or that is the classifier or regression object to use,
+
+124
+00:07:34.185 --> 00:07:38.084
+followed by the data set samples X and target values Y,
+
+125
+00:07:38.084 --> 00:07:40.170
+the name of the parameter to sweep,
+
+126
+00:07:40.170 --> 00:07:45.569
+and the array of parameter values that that parameter should take on in doing the sweep.
+
+127
+00:07:45.569 --> 00:07:49.089
+Validation curve will return
+
+128
+00:07:49.089 --> 00:07:52.029
+two two-dimensional arrays corresponding
+
+129
+00:07:52.029 --> 00:07:56.334
+to evaluation on the training set and the test set.
+
+130
+00:07:56.334 --> 00:07:59.920
+Each array has one row per parameter value in the sweep,
+
+131
+00:07:59.920 --> 00:08:05.925
+and the number of columns is the number of cross-validation folds that are used.
+
+132
+00:08:05.925 --> 00:08:09.180
+For example, the code shown here will
+
+133
+00:08:09.180 --> 00:08:12.480
+fit three models using a radio basis functions support
+
+134
+00:08:12.480 --> 00:08:15.449
+vector machine on different subsets of the data
+
+135
+00:08:15.449 --> 00:08:20.650
+corresponding to the three different specified values of the kernels gamma parameter.
+
+136
+00:08:20.650 --> 00:08:23.904
+That returns two four-by-three arrays.
+
+137
+00:08:23.904 --> 00:08:25.731
+That is four levels of gamma,
+
+138
+00:08:25.731 --> 00:08:31.376
+times 3 fits per level containing scores for the training and test sets.
+
+139
+00:08:31.376 --> 00:08:36.210
+You can plot these results from validation curve as shown here to
+
+140
+00:08:36.210 --> 00:08:38.639
+get an idea of how sensitive the performance of
+
+141
+00:08:38.639 --> 00:08:42.210
+the model is to changes in the given parameter.
+
+142
+00:08:42.210 --> 00:08:44.429
+The x axis corresponds to values of
+
+143
+00:08:44.429 --> 00:08:47.917
+the parameter and the y axis gives the evaluation score,
+
+144
+00:08:47.917 --> 00:08:51.899
+for example the accuracy of the classifier.
+
+145
+00:08:51.899 --> 00:08:53.745
+Finally as a reminder,
+
+146
+00:08:53.745 --> 00:08:59.190
+cross-validation is used to evaluate the model and not learn or tune a new model.
+
+147
+00:08:59.190 --> 00:09:00.504
+To do model tuning,
+
+148
+00:09:00.504 --> 00:09:02.850
+we'll look at how to tune the models parameters using
+
+149
+00:09:02.850 --> 00:09:06.580
+something called "Grid Search" in a later lecture.

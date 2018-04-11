@@ -1,0 +1,631 @@
+WEBVTT
+
+1
+00:00:08.637 --> 00:00:13.193
+In general, if you're thinking about
+applying machine learning to a data set,
+
+2
+00:00:13.193 --> 00:00:17.079
+it's a really good first step to
+actually look at the data set first,
+
+3
+00:00:17.079 --> 00:00:19.909
+maybe using some simple
+visualization methods.
+
+4
+00:00:20.960 --> 00:00:25.630
+Or even simply scrolling through to look
+at the various values in the different
+
+5
+00:00:25.630 --> 00:00:26.610
+rows before proceeding.
+
+6
+00:00:26.610 --> 00:00:28.460
+And there are several reasons for
+doing this.
+
+7
+00:00:29.660 --> 00:00:33.830
+First, it's helpful to simply get a sense
+for what's actually in the data set.
+
+8
+00:00:33.830 --> 00:00:38.380
+because it may be that in inspecting
+the features of each object,
+
+9
+00:00:38.380 --> 00:00:41.080
+you might get a better idea
+of what type of cleaning or
+
+10
+00:00:41.080 --> 00:00:44.150
+preprocessing still needs
+to be done to the data.
+
+11
+00:00:44.150 --> 00:00:48.520
+And of the range of values or the
+distribution of values that is typical for
+
+12
+00:00:48.520 --> 00:00:50.230
+each attribute or each feature.
+
+13
+00:00:51.460 --> 00:00:56.190
+This initial exploration can be especially
+valuable when you're dealing with complex
+
+14
+00:00:56.190 --> 00:00:59.650
+objects like text that may be represented
+
+15
+00:00:59.650 --> 00:01:05.350
+by many features that are extracted using
+a series of several pre-processing steps.
+
+16
+00:01:05.350 --> 00:01:10.134
+For example, you might discover that
+the data set you got has a single column
+
+17
+00:01:10.134 --> 00:01:14.844
+with person's name that still needs to
+be split into two separate first and
+
+18
+00:01:14.844 --> 00:01:16.133
+last name columns.
+
+19
+00:01:16.133 --> 00:01:20.101
+For example, if you're using the name
+as one of the prediction feature,
+
+20
+00:01:20.101 --> 00:01:21.517
+that might be important.
+
+21
+00:01:21.517 --> 00:01:25.330
+Second, you might notice missing or
+noisy data.
+
+22
+00:01:25.330 --> 00:01:30.210
+Or maybe some specific inconsistencies,
+such as the wrong data type being used for
+
+23
+00:01:30.210 --> 00:01:31.580
+a column.
+
+24
+00:01:31.580 --> 00:01:34.460
+Incorrect or
+inconsistent units of measurement for
+
+25
+00:01:34.460 --> 00:01:37.480
+a particular column, particular feature.
+
+26
+00:01:37.480 --> 00:01:41.814
+Or maybe you'll notice that there
+aren't enough examples of a particular
+
+27
+00:01:41.814 --> 00:01:42.785
+labeled class.
+
+28
+00:01:42.785 --> 00:01:48.071
+You might notice, for example, that
+some measurements of a person's weight.
+
+29
+00:01:48.071 --> 00:01:53.193
+Let's say you're doing a health
+application with a patient record for
+
+30
+00:01:53.193 --> 00:01:53.970
+each row.
+
+31
+00:01:55.180 --> 00:02:00.220
+Some might accidentally have the weight in
+grams instead of kilograms and so forth.
+
+32
+00:02:00.220 --> 00:02:04.508
+And that can make obviously
+a huge difference [LAUGH] in how
+
+33
+00:02:04.508 --> 00:02:06.700
+accurate your results are.
+
+34
+00:02:06.700 --> 00:02:10.790
+So inspecting and visualizing
+the data will help you detect and
+
+35
+00:02:10.790 --> 00:02:13.740
+understand these potential
+source of noise or errors.
+
+36
+00:02:15.190 --> 00:02:16.900
+And finally, it might turn out that for
+
+37
+00:02:16.900 --> 00:02:20.970
+your data set, your problem is actually
+solvable without machine learning.
+
+38
+00:02:20.970 --> 00:02:22.810
+Now, this doesn't happen all that often.
+
+39
+00:02:24.000 --> 00:02:27.390
+But if it does,
+you can save yourself considerable time
+
+40
+00:02:27.390 --> 00:02:31.880
+by simply looking at what
+data exists in your data set.
+
+41
+00:02:31.880 --> 00:02:37.290
+So one scenario, your data set might
+actually contain a feature of that,
+
+42
+00:02:37.290 --> 00:02:40.970
+is clearly a strong indicator of
+the label that you want to predict.
+
+43
+00:02:41.980 --> 00:02:47.058
+For example, if your goal was to
+predict whether a house's location was
+
+44
+00:02:47.058 --> 00:02:52.636
+in New York City versus San Francisco
+based on attributes like its sales price,
+
+45
+00:02:52.636 --> 00:02:57.390
+its elevation above sea level,
+how big its rooms are and so forth.
+
+46
+00:02:57.390 --> 00:03:01.495
+It could be that your data
+set might also include,
+
+47
+00:03:01.495 --> 00:03:04.739
+let's say a URL to a photo of the house.
+
+48
+00:03:04.739 --> 00:03:08.981
+And that image might
+contain GPS coordinates to
+
+49
+00:03:08.981 --> 00:03:11.852
+the house within its metadata.
+
+50
+00:03:11.852 --> 00:03:17.385
+Or maybe the URL encodes location
+in a slightly non-obvious but
+
+51
+00:03:17.385 --> 00:03:21.392
+human recognizable way
+that you can pick out.
+
+52
+00:03:21.392 --> 00:03:24.125
+And you solve your problem
+just by looking at the data.
+
+53
+00:03:24.125 --> 00:03:28.660
+So, as I said, this scenario isn't
+all that common, but it does happen.
+
+54
+00:03:28.660 --> 00:03:33.710
+And so, a brief check of your data set
+could save you a lot of unnecessary work.
+
+55
+00:03:35.250 --> 00:03:39.130
+Okay, so we'll make sure we've got
+a training set from our original set
+
+56
+00:03:39.130 --> 00:03:41.020
+using train test split.
+
+57
+00:03:42.690 --> 00:03:49.080
+And we'll do all our initial visualization
+and feature analysis on this training set.
+
+58
+00:03:49.080 --> 00:03:51.080
+And we're only going to
+use the test set for
+
+59
+00:03:51.080 --> 00:03:53.980
+actually evaluating
+the classifier once it's trained.
+
+60
+00:03:55.160 --> 00:03:57.690
+This complete separation of training and
+
+61
+00:03:57.690 --> 00:04:02.850
+test sets is very important and
+we'll go into more depth later about
+
+62
+00:04:02.850 --> 00:04:05.730
+specific reasons why it's
+important in a later class.
+
+63
+00:04:07.230 --> 00:04:12.170
+So now that we have a training set
+selected, let's create some simple
+
+64
+00:04:12.170 --> 00:04:16.190
+visualizations to look at how the features
+in the objects in the training set,
+
+65
+00:04:16.190 --> 00:04:21.000
+in our case different fruits,
+relate to each other and to the labels.
+
+66
+00:04:21.000 --> 00:04:25.505
+So with these visualizations,
+we get at least two major benefits.
+
+67
+00:04:25.505 --> 00:04:28.861
+First, we can get an idea of the range
+of values that each feature takes on.
+
+68
+00:04:28.861 --> 00:04:33.249
+And we could immediately see any unusual
+outliers that are very different from
+
+69
+00:04:33.249 --> 00:04:34.121
+other points.
+
+70
+00:04:34.121 --> 00:04:37.784
+And that might indicate noise or
+a missing feature or
+
+71
+00:04:37.784 --> 00:04:40.125
+other problem with the data set.
+
+72
+00:04:40.125 --> 00:04:44.249
+And second, we may be able to get a better
+idea how likely it is that a machine
+
+73
+00:04:44.249 --> 00:04:48.259
+learning algorithm could do well at
+predicting the different classes.
+
+74
+00:04:48.259 --> 00:04:50.502
+By seeing how well clustered and
+
+75
+00:04:50.502 --> 00:04:55.640
+well separated the different types
+of objects are in feature space.
+
+76
+00:04:55.640 --> 00:05:01.520
+So feature space refers to
+the representation of an object
+
+77
+00:05:01.520 --> 00:05:06.220
+using specific features that are in
+certain columns of the data that we have.
+
+78
+00:05:07.290 --> 00:05:11.220
+So for example, if the features for
+objects with the same label, for example,
+
+79
+00:05:11.220 --> 00:05:13.910
+all the lemons have
+similar feature values,
+
+80
+00:05:13.910 --> 00:05:17.790
+we should see a well-defined cluster
+appear in the visualization.
+
+81
+00:05:18.910 --> 00:05:20.738
+While if the features for
+
+82
+00:05:20.738 --> 00:05:25.440
+objects that have different labels
+tend to be quite different,
+
+83
+00:05:25.440 --> 00:05:31.115
+we should see these well separated into
+visibly different areas of the plot.
+
+84
+00:05:31.115 --> 00:05:35.844
+So having objects whose classes
+are well defined and well separated in
+
+85
+00:05:35.844 --> 00:05:40.815
+feature space is a good indication
+that suggests the classifier is likely
+
+86
+00:05:40.815 --> 00:05:45.885
+to be able to predict the class label
+from the features with good accuracy.
+
+87
+00:05:45.885 --> 00:05:50.345
+Now the visualization techniques that
+I'll be showing here work well when you
+
+88
+00:05:50.345 --> 00:05:54.479
+have a relatively small number of
+features, let's say less than 20.
+
+89
+00:05:55.700 --> 00:05:59.520
+Later, when we cover unsupervised
+learning, you'll learn how to create
+
+90
+00:05:59.520 --> 00:06:03.380
+visualizations of data sets that use
+a very large number of feature dimensions,
+
+91
+00:06:03.380 --> 00:06:07.140
+so hundreds or even thousands or
+millions, to represent each object.
+
+92
+00:06:09.270 --> 00:06:14.101
+But for now, the first visualization tool
+we'll use is called a feature pair plot
+
+93
+00:06:14.101 --> 00:06:15.578
+and that's shown here.
+
+94
+00:06:17.440 --> 00:06:22.669
+So this plot shows all possible pairs of
+features and produces a scatter plot for
+
+95
+00:06:22.669 --> 00:06:27.520
+each pair, showing how the features
+are correlated to each other or not.
+
+96
+00:06:28.910 --> 00:06:32.450
+Each point in the scatter plot
+represents a piece of fruit,
+
+97
+00:06:32.450 --> 00:06:35.590
+colored according to
+the class it belongs to.
+
+98
+00:06:35.590 --> 00:06:39.000
+And positioned using the parafeatures
+assigned to that scatter plot.
+
+99
+00:06:40.680 --> 00:06:46.140
+Along the diagonal is a histogram showing
+the distribution of feature values for
+
+100
+00:06:46.140 --> 00:06:47.390
+that feature.
+
+101
+00:06:47.390 --> 00:06:54.760
+So in this pair plot, the dimensions shown
+here in order are, height, width, mass.
+
+102
+00:06:54.760 --> 00:06:59.870
+And color score of the fruit
+examples in our training set.
+
+103
+00:07:01.070 --> 00:07:05.920
+So the upper left corner of the histogram
+here shows the distribution
+
+104
+00:07:05.920 --> 00:07:08.640
+of the height feature for
+all samples in the training set.
+
+105
+00:07:09.830 --> 00:07:14.300
+And the scatter plot to its immediate
+right plots the width of each sample
+
+106
+00:07:14.300 --> 00:07:17.954
+on the x-axis and
+the height of the sample on the y-axis.
+
+107
+00:07:19.150 --> 00:07:23.380
+Just by looking at this pair plot, we can
+already see that some pairs of features,
+
+108
+00:07:23.380 --> 00:07:27.780
+like the height and color score in
+the top right corner here, are good for
+
+109
+00:07:27.780 --> 00:07:29.885
+separating out different classes of fruit.
+
+110
+00:07:29.885 --> 00:07:35.380
+And this suggests that a classifier
+that was trained using those
+
+111
+00:07:35.380 --> 00:07:39.808
+features could likely learn to classify
+the various fruit types reasonably well.
+
+112
+00:07:39.808 --> 00:07:43.730
+Here's the code that we'll
+use to create this plot,
+
+113
+00:07:43.730 --> 00:07:46.100
+and let's run this now
+on our training set.
+
+114
+00:07:48.980 --> 00:07:52.990
+Note that a pair plot like this
+does not show interactions between
+
+115
+00:07:52.990 --> 00:07:55.750
+all features that might exist,
+just between pairs of them.
+
+116
+00:07:56.780 --> 00:08:00.800
+So the plot itself may not show
+all the interesting relationships
+
+117
+00:08:00.800 --> 00:08:02.469
+that do exist between the features.
+
+118
+00:08:03.610 --> 00:08:08.490
+But it does give you a rough idea of some
+of the interactions that might exist.
+
+119
+00:08:10.750 --> 00:08:14.890
+We can also look at features that use
+a subset of three features by creating
+
+120
+00:08:14.890 --> 00:08:16.050
+a three dimensional plot.
+
+121
+00:08:17.400 --> 00:08:19.590
+And here's the code that
+we can use to do this.
+
+122
+00:08:21.790 --> 00:08:26.570
+So in this example, we plot different
+fruits using three coordinates.
+
+123
+00:08:26.570 --> 00:08:31.280
+So here we'll the show the width,
+the height, and the color score.
+
+124
+00:08:33.000 --> 00:08:36.000
+Here again, each point represents
+a single piece of fruit and
+
+125
+00:08:36.000 --> 00:08:38.390
+its color according to
+its fruit label value.
+
+126
+00:08:40.110 --> 00:08:43.330
+So in this 3D plot,
+you could actually rotate the plot
+
+127
+00:08:45.000 --> 00:08:48.570
+along the various axes by holding down
+the mouse button and then dragging.
+
+128
+00:08:48.570 --> 00:08:52.390
+And you can clearly see that
+the different fruit types
+
+129
+00:08:52.390 --> 00:08:56.953
+are in pretty well-defined clusters that
+are also well-separated in feature space.
+
+130
+00:08:58.370 --> 00:09:01.410
+So now that we've taken a look at
+the data, next we'll look at a simple
+
+131
+00:09:01.410 --> 00:09:04.380
+prediction task for
+this data set in a bit more detail.
