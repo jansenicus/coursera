@@ -1,0 +1,139 @@
+Let's look at how linear models
+are also used for classification, starting with binary classification. This approach to prediction uses the same
+linear functional form as we saw for regression. But instead of predicting a continuous
+target value, we take the output of the linear function and apply the sine
+function to produce a binary output with two possible values, corresponding
+to the two possible class labels. If the target value is greater than zero,
+the function returns plus one and if it's less than zero,
+the function returns minus one. Here's a specific example. So let's take a look at a simple
+linear classification problem, a binary problem that has
+two different classes, and where each data instance is represented
+by two informative features. So we're going to call these features x1 on the x-axis and x2 on the y-axis. Now, how do we get from
+taking a data instance that's described by a particular combination
+of x1, x2 to a class prediction. Well in a linear classifier, what we do is we take the feature values
+assigned to a particular data point. So in this case, it might be 2.1,0. So that represents the x1 and x2 feature
+values for this particular instance, let's say, and so
+that corresponds to the input here. And then we take those two x1,
+x2 values and put them through a linear function f here. And the output of this f
+needs to be a class value. So either we want it to return +1,
+if it's in one class and -1 if it's in the other class. So the linear classifier does that by
+computing a linear function of x1, x2 that's represented by this
+part of the equation here. So this w is a vector of weights. This x represents the vector
+of feature values. And then b is a bias
+term that gets added in. So this is a dot product,
+this circle here is a dot product. Which means that, let's say, the simple case where we had (w1, w2), and a future vector of (x1, x2). The dot product of those
+is simply the linear combination of w1 x1 + w2 x2. We take the X values, and we have
+certain weights that are learned for the classifier. So we compute w1 x1 + w2 x2. Then we feed that, and
+then plus a bias term, if there is one. And we feed the output of that
+through the sign function that converts the value in here. If it's above 0, it'll convert to +1,
+and if it's below 0, it'll convert it to -1 and
+that's what the equation represents here. So that is the very simple
+rule that we use to convert a data instance with its input
+features to an output prediction. Okay, let's take a look using
+a specific linear function to see how this works in practice. So what I've done here is
+drawn a straight line through the space that is defined
+by the equation x1- x2 = 0. In other words, every point on
+this line satisfies this equation. So you can see, for
+example, that x1 = -1 and x2 = -1 and
+if you subtract them you get 0. Essentially, it's just the line that
+represents all the points where x1 and x2 are equal. So this corresponds to, so we can rewrite this x1- x2 = 0 into
+a form that uses a dot product of weights with
+the input vector x. So in order to get x1-
+x2 = 0 that's equivalent writing a linear function where
+you have a weight vector of 1 and -1 and a bias term of 0 So for example, so if we have weights (w1, w2) dot (x1, x2). We call that this is just the same
+as computing w1 x1 + w2 x2. And so in this case, if w is 1 and -1, that's equivalent to x1- x2. So all I've done here then is
+just convert the description of this line into a form that can be
+used as a decision rule for classifier. So I might have to look
+at a specific point. So suppose that we wanted
+to classify the point here that had coordinates -0.75 and -2.25. So this point right here. So all we would do to have
+a classifier make a decision with this decision boundary would be
+to plug in those coordinates into this part of the function,
+apply the weights and the bias term that describe
+the decision boundary. So here we're computing. So this expression here corresponds
+to this part of the equation. And so, if we compute w1 times
+x1 + w2 times x2 plus 0, we get a value of 0.15 that's
+inside the sign function. And then the sign function will output
+1 if this value is greater than zero, which it is or minus 1,
+if the value is less than zero. So in this case,
+because it's greater than zero, the output from the decision
+function would be plus 1. So this has classified this
+point as being class one. If we look at a different point, let's take a look at the point -1.75 and
+-0.25. So again, we're just going to up, so this is corresponding to
+the value of x1 and x2. And again,
+if we just take these values and plug them into this part of the equation. Apply the weights and the bias term that describe the decision
+boundary as you did before. We do this computation,
+we find out that, in fact, classifier predicts a class of -1 here. So you see that by applying
+a simple linear formula, we've been able to
+produce a class value for any point in this two
+dimensional features space. So one way to define a good classifier
+is to reward classifiers for the amount of separation that can
+provide between the two classes. And to do this, we need define
+the concept of classifier margin. So informally, for
+our given classifier, The margin is the width that the decision boundary can
+be increased before hitting a data point. So what we do is we take the decision
+boundary, and we grow a region around it. Sort of in this perpendicular to the line
+in this direction and that direction, and we grow this width until
+we hit a data point. So in this case,
+we were only able to grow the margin a small amount here,
+before hitting this data point. So this width here between
+the decision boundary and nearest data point represents the margin
+of this particular classifier. Now you can imagine that for
+every classifier that we tried, we can do the same calculation or
+simulation to find the margin. And so among all possible classifiers
+that separate these two classes then, we can define the best classifier as
+the classifier that has the maximum amount of margin which corresponds
+to the one shown here. So you recall that the original classifier
+on the previous slide had a very small margin. This one manages to achieve
+a must larger margin. So again, the margin is the distance
+the width that we can go from the decision boundary perpendicular
+to the nearest data point. So you can see that by defining
+this concept of margin that sort of quantifies the degree to which
+the classifier can split the classes into two regions that have some
+amount of separation between them. We can actually do a search for the
+classifier that has the maximum margin. This maximum margin classifier is called
+the Linear Support Vector Machine, also known as an LSVM or a support
+vector machine with linear kernel. Now we'll explain more about what
+the concept of a kernel is and how you can define nonlinear kernels as well as
+kernels, and why you'd want to do that. We'll cover those shortly in
+a continuation of our support vector machine lecture later
+in this particular week. Here's an example in the notebook on how
+to use the default linear support vector classifier in scikit-learn, which is
+defined in the sklearn SVM library. The linear SVC class implements
+a linear support vector classifier and is trained in the same
+way as other classifiers, namely by using the fit
+method on the training data. Now in the simple classification
+problem I just showed you, the two classes were perfectly
+separable with a linear classifier. In practice though, we typically have
+noise or just more complexity in the data set that makes a perfect linear
+separation impossible, but where most points can be separated
+without errors by linear classifier. And our simple binary classification
+dataset here is an illustration of that. So how tolerant the support vector machine
+is of misclassifying training points, as compared to its objective of
+minimizing the margin between classes is controlled by a regularization
+parameter called C which by default is set to 1.0 as we have here. Larger values of C represent
+less regularization and will cause the model to fit the training
+set with these few errors as possible, even if it means using a small
+immersion decision boundary. Very small values of C on the other
+hand use more regularization that encourages the classifier to find
+a large marge on decision boundary, even if that decision boundary leads
+to more points being misclassified. Here's an example in the notebook showing
+the effect of varying C on this basic classification problem. On the right, when C is large,
+the decision boundary is adjusted so that more of the black training
+points are correctly classified. While on the left, for small values of C, the classifier is more tolerant of
+these errors in favor of capturing the majority of data points
+correctly with a larger margin. Finally, here's an example of applying
+the Linear Support Vector Machine to a real world data set,
+the breast cancer classification problem. And here, we can see that it
+achieves reasonable accuracy without much parameter tuning. On the positive side, linear models,
+in the case of linear and logistic regression,
+are simple and easy to train. And for all types of linear models,
+prediction's very fast because, of the linear nature of
+the prediction function. Linear models including Linear
+Support Vector Machines also perform effectively on high dementional data set,
+especially, in cases where the data
+instances are sparse. Linear Models scale well to
+very large datasets as well. In the case of
+Linear Support Vector Machines, they only use a subset of training
+points and decision function. These training points
+are called support vectors. So the algorithm can be implemented
+in a memory efficient way.

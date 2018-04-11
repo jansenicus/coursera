@@ -1,0 +1,175 @@
+Aside from transformations, the other family of unsupervised learning
+methods are the clustering methods. The goal of clustering is to find a way to
+divide up a data set into groups called clusters. So that groups with similar data instances
+are assigned to the same cluster, while very dissimilar objects
+are assigned to different clusters. If new data points were being added over
+time, some clustering algorithms could also predict which cluster a new
+data instance should be assigned to. Similar to classification, but without being able to train the clustering
+model using label examples in advanced. One of the most widely used clustering
+algorithms is called k-means clustering. K-means clustering finds k
+cluster centers in different regions of the feature space that it
+thinks represent very different groups. You need to specify the value
+of k ahead of time, which is one of the draw backs of k-means. For some problems, we may know the number
+of classes the data should fall into, but for many other tasks, we might not. K-means operates by first randomly picking
+locations for the k-cluster centers. Then it goes back and
+forth between two steps. In the first step, given the locations
+of existing cluster centers, it assigns each data point to a cluster center
+based on its distance from the center. In other words, it assigns each
+data point to the closest center. Then in the second step, it adjusts
+the locations of each cluster center. It does this by setting
+the new cluster center to the mean of the positions of all
+the data points in that cluster. Somewhat magically,
+after running this alternating process for a while,
+coherent clusters do start to form. And the cluster centers and
+the corresponding cluster assignment for each data point eventually
+settled down to something stable. Now one aspect of k means is that
+different random starting points for the cluster centers often result in
+very different clustering solutions. So typically, the k-means algorithm is
+run in scikit-learn with ten different random initializations. And the solution occurring the most
+number of times is chosen. Here is a step by step example. We first choose three locations in the
+space randomly to be the cluster centers. Then we assign each data point to
+the cluster with the nearest center. Now for each cluster, we compute the mean
+location of all points in the cluster and use that as the new cluster center for
+the next iteration. Here's the second iteration of
+the first and second steps. Eventually, after 20 or 50 or 100 steps, things settle down to converge
+on one solution, as shown here. K-means clustering is simple
+to apply in scikit learning. You import the k-means class from sklearn
+cluster create the k-means object set into value of k by specifying
+the n cluster parameter, and then calling the fit method on
+the dataset to run the algorithm. One distinction should be made here
+between clustering algorithms that can predict which center new data
+points should be assigned to, and those that cannot make such predictions. K-means supports the predict method,
+and so we can call the fit and predict methods separately. Later methods we'll look at like
+agglomerative clustering do not and must perform the fit and
+predict in a single step, as we'll see. Here's the output from the notebook
+code showing the result supplied to the fruits dataset, where we
+know the value of k ahead of time. Note that kmeans is very sensitive
+to the range of future values. So if your data has features with very
+different ranges, it's important to normalize using min-max scaling, as we
+did for some supervised learning methods. Because each cluster in k-means clustering
+is defined entirely by its center point, it can only capture fairly
+simple types of clusters. K-means clustering tends to work well
+when the data points form into groups of roughly the same size, with simple
+globular shapes that are well-separated. K-means will tend not to do
+well if the data forms long, irregular clusters, for example. Also the version k-means we saw
+here assumed that the data features were continuous values. However, in some cases we may
+have categorical features, where taking the mean doesn't make sense. In that case, there are variants of k-means that can use
+a more general definition of distance. Such as the k-medoids algorithm that
+can work with categorical features. A glommer of clustering refers to
+a family of clustering methods that work by doing an iterative bottom up approach. First, each data point is put
+into its own cluster of one item. Then, a sequence of clusterings
+are done where the most similar two clusters at each stage
+are merged into a new cluster. Then, this process is repeated until
+some stopping condition is met. In scikit-learn, the stopping
+condition is the number of clusters. Here's a visual example of how
+agglomerative clustering might proceed on a sample dataset until
+three clusters are reached. In Stage 1,
+each data point is in its own cluster, shown by the circles around the points. In Stage 2, the two most similar clusters, which at this stage amounts to defining
+the closest points are merged. And this process is continued,
+as denoted by the expanding and closed regions that denote each cluster. You can choose how the agglomerative
+clustering algorithm determines the most similar cluster by specifying one of
+several possible linkage criteria. In scikit-learn, the following three
+linkage criteria are available, ward, average, and complete. Ward's method chooses to merge the two
+clusters that give the smallest increase in total variance within all clusters. Average linkage merges the two clusters
+that have the smallest average distance between points. Complete linkage, which is also known as
+maximum linkage, merges the two clusters that have the smallest maximum
+distance between their points. In general, Ward's method works
+well on most data sets, and that's our usual method of choice. In some cases, if you expect the sizes of
+the clusters to be very different, for example, that one cluster is
+much larger than the rest. It's worth trying average and
+complete linkage criteria as well. To perform agglomerative
+clustering in scikit-learn, you import the agglomerative
+clustering class from sklearn cluster. When initializing the object,
+you specify the n clusters parameter that causes the algorithm to stop when
+it has reach that number of clusters. You call the fit predict method
+using the data set as input and they return the set of cluster assignments
+for the data points as shown here. One of the nice things about
+agglomerative clustering is that it automatically arranges the data into
+a hierarchy as an effect of the algorithm, reflecting the order and cluster distance at which each data point
+is assigned to successive clusters. This hierarchy can be useful to visualize
+using what's called a dendrogram, which can be used even with
+higher dimensional data. Here's the dendogram corresponding to the
+Ward's method clustering of the previous data set example. The data points are at the bottom and
+are numbered. The y axis represents cluster distance,
+namely, the distance that two clusters
+are apart in the data space. The data points form the leaves of
+the tree at the bottom, and the new node parent in the tree is added as each
+pair of successive clusters is merged. The height of the node
+parent along the y axis captures how far apart the two
+clusters were when they merged, with the branch going up
+representing the new merged cluster. Note that you can tell how far apart the
+merged clusters are by the length of each branch of the tree. This property of a dendogram can help us
+figure out the right number of clusters. In general, we want clusters that have
+highly similar items within each cluster, but that are far apart
+from other clusters. For example, we can see that going from three clusters
+to two happens at a fairly high Y value. Which means the clusters that were merged
+were a significant distance apart. We might want to avoid
+choosing two clusters and stick with three clusters that
+don't involve forcing a merge for clusters that have very
+dissimilar items in them. Scikit-learn doesn't provide the ability
+to plot dendrograms, but SciPy does. SciPy handles clustering a little
+differently than scikit-learn, but here is an example. We first import the dendrogram in
+word functions from the scipy.cluster hierarchy module. The word function returns an array that
+specifies the distances spanned during the agglomerative clustering. This word function
+returns a linkage array, which can then be passed to
+the dendogram function to plot the tree. Typically, making use of this hierarchy
+is most useful when the underlying data itself follows some kind of hierarchical
+process so the tree is easily interpreted. For example, hierarchical clustering
+is especially useful for genetic and other biological data where the levels
+represent stages of mutation or evolution. But there are other data sets
+where both k-means clustering and agglomerative clustering
+don't perform well. So we're now going to give an overview of
+a third clustering method called DBSCAN. DBSCAN is an acronym that stands for density-based spatial clustering
+of applications with noise. One advantage of DBSCAN is that you don't
+need to specify the number of clusters in advance. Another advantage is that it works well
+with datasets that have more complex cluster shapes. It can also find points that are outliers
+that shouldn't reasonably be assigned to any cluster. DBSCAN is relatively efficient and
+can be used for large datasets. The main idea behind DBSCAN is
+that clusters represent areas in the dataspace that are more dense with
+data points, while being separated by regions that are empty or
+at least much less densely populated. The two main parameters for
+DBSCAN are min samples and eps. All points that lie in a more dense
+region are called core samples. For a given data point, if there are min
+sample of other data points that lie within a distance of eps, that given
+data points is labeled as a core sample. Then, all core samples that are with
+a distance of eps units apart are put into the same cluster. In addition to points being
+categorized as core samples, points that don't end up belonging to
+any cluster are considered as noise. While points that are within a distance
+of eps units from core points, but not core points themselves,
+are termed boundary points. Here's an example of DBSCAN
+applied to a sample data set. As with the other clustering methods, DBSCAN is imported from
+the Scikit-Learn cluster module. And just like with
+a agglomerative clustering, DBSCAN doesn't make cluster
+assignments from new data. So we use the fit predict
+method to cluster and get the cluster assignments
+back in one step. One consequence of not having the right
+settings of eps and min samples for your particular dataset might be that
+the cluster memberships returned by DBSCAN may all be assigned
+the label -1, which indicates noise. Basically, the EPS setting does implicitly control the number of
+clusters that are found. With DBSCAN, if you've scaled your
+data using a standard scalar or min-max scalar to make sure the feature
+values have comparable ranges, finding an appropriate value for
+eps is a bit easer to do. One final note, make sure that when you
+use the cluster assignments from DBSCAN, you check for and
+handle the -1 noise value appropriately. Since this negative value
+might cause problems, for example, if the cluster assignment is used
+as an index into another array later on. Unlike supervised learning,
+where we have existing labels or target values to use for evaluating the
+effectiveness of the learning method, it can be difficult to evaluate unsupervised
+learning algorithms automatically. Since there's typically no
+ground truth to compare against. In some cases, as in the breast cancer
+example, we may have existing labels that can be used to evaluate the quality of the
+clusters by comparing the assignment of a data point to a cluster with the label
+assigned to the same data point. But there are many cases where
+labels are not available. In addition, in the case of clustering,
+for example, there's ambiguity, in a sense that there are typically
+multiple clusterings that could be plausibly assigned to a given data set. And none of them is obviously better than
+another unless we have some additional criteria. Such as, performance on
+the specific application task that does have an objective evaluation
+to use as a basis for comparison. For example, in cases where the results of
+the clustering are used as features for supervised learning, we could use
+the overall classifier accuracy gain from adding these clustering-based
+features as a measure of success for the underlying clustering. Another issue with evaluating clustering
+algorithms is that it can be hard to automatically interpret or label the
+meaning of the clusters that are found. And this is still a step that
+requires human expertise to judge.
