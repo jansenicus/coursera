@@ -11,4 +11,4 @@ help you master tough subjects]()
 - [Deep Learning for Business]()
 - [Capstone: Retrieving, Processing, and Visualizing
 Data with Python]()
-- [Python for Everybody]()
+- [Python for Everybody](https://github.com/jansenicus/coursera/blob/master/certificates/10%20Coursera%20TQAHZC8NL5C3.pdf)
