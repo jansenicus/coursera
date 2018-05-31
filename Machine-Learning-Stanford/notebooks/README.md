@@ -1,6 +1,6 @@
 # Python Notebook
 
-1. [Programming Exercise 1 - Linear Regression](http://nbviewer.jupyter.org/github/jansenicus/coursera/blob/master/Machine-Learning-Stanford/notebooks/Programming%20Exercise%201%20-%20Linear%20Regression.ipynb)
+1. [Programming Exercise 1 - Linear Regression](http://nbviewer.jupyter.org/github/jansenicus/coursera/blob/master/Machine-Learning-Stanford/notebooks/Programming-Exercise-1-Linear-Regression.ipynb)
 
 1. [Programming Exercise 2 - Logistic Regression](http://nbviewer.jupyter.org/github/jansenicus/coursera/blob/master/Machine-Learning-Stanford/notebooks/Programming%20Exercise%202%20-%20Logistic%20Regression.ipynb)
 
