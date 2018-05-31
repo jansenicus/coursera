@@ -7,7 +7,7 @@
 - [Using Python to Access Web Data](https://github.com/jansenicus/coursera/blob/master/certificates/05%20Coursera%20Z5SMSK9YQU8N.pdf)
 - [Using Databases with Python](https://github.com/jansenicus/coursera/blob/master/certificates/06%20Coursera%20QFJK6UGVWZYR.pdf)
 - [Learning How to Learn: Powerful mental tools to
-help you master tough subjects]()
+help you master tough subjects](https://github.com/jansenicus/coursera/blob/master/certificates/07%20Coursera%20WTJNNBZDN8NL.pdf)
 - [Deep Learning for Business]()
 - [Capstone: Retrieving, Processing, and Visualizing
 Data with Python](https://github.com/jansenicus/coursera/blob/master/certificates/09%20Coursera%203DLUW3CB4KD7.pdf)
