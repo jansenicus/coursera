@@ -6,7 +6,9 @@
 - [Python Data Structures](https://github.com/jansenicus/coursera/blob/master/certificates/04%20Coursera%20AJF2MVQ5SE5Y.pdf)
 - [Using Python to Access Web Data](https://github.com/jansenicus/coursera/blob/master/certificates/05%20Coursera%20Z5SMSK9YQU8N.pdf)
 - [Using Databases with Python](https://github.com/jansenicus/coursera/blob/master/certificates/06%20Coursera%20QFJK6UGVWZYR.pdf)
-- []()
-- []()
-- []()
-- []()
+- [Learning How to Learn: Powerful mental tools to
+help you master tough subjects]()
+- [Deep Learning for Business]()
+- [Capstone: Retrieving, Processing, and Visualizing
+Data with Python]()
+- [Python for Everybody]()
