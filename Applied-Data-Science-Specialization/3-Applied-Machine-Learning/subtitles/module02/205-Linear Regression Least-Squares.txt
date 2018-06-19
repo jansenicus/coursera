@@ -1,0 +1,195 @@
+One of the simplest kinds of
+supervised models are linear models. A linear model expresses the target output
+value in terms of a sum of weighted input variables. For example, our goal may be to
+predict the market value of a house, its expected sales price in
+the next month, for example. Suppose we're given two input variables,
+how much tax the properties assessed each year by the local government, and
+the age of the house in years. You can imagine that these two features of
+the house would each have some information that's helpful in predicting
+the market price. Because in most places, there's a positive
+correlation between the tax assessment on a house and its market value. Indeed the tax assessment is often
+partly based on market prices from previous years. And may be a negative correlation between
+its age in years and the market value, so older houses may need more repairs and
+upgrading, for example. One linear model, which I have made up as
+an example, could compute the expected market price in US dollars by starting
+with a constant term, here 212,000. And then adding some number, let's say 109
+times the value of tax paid last year, and then subtracting 2,000 times
+the age of the house in years. So for example this linear model would
+estimate the market price of a house where the taxes estimate was $10,000 and
+that was 75 years old as about $1.2 million. Now, I just made up this particular
+linear model myself as an example but in general when we talk about
+training a linear model. We mean estimating values for
+the parameters of the model, or coefficients of the model
+as we sometimes call them, which are here the constant value
+212,000 and the weights 109 and 20. In such a way that the resulting
+predictions for the outcome variable Yprice, for different houses are a good
+fit to the data from actual past sales. We'll discuss what good fit means shortly. Predicting house price is an example of
+a regression task using a linear model called, not surprisingly,
+linear regression. More generally,
+in a linear regression model, there may be multiple input variables, or
+features, which we'll denote x0, x1, etc. Each feature, xi,
+has a corresponding weight, wi. The predicted output,
+which we denote y hat, is a weighted sum of features
+plus a constant term b hat. I've put a hat over all
+the quantities here that are estimated during the regression training process. The w hat and b hat values which
+we call the train parameters or coefficients are estimated
+from training data. And y hat is estimated from the linear
+function of input feature values and the train parameters. For example, in the simple housing
+price example we just saw, w0 hat was 109, x0 represented tax paid, w1 hat was negative 20
+x1 was house age and b hat was 212,000. We called these wi values model
+coefficients or sometimes future weights, and b hat is called the bias term or
+the intercept of the model. Here's an example of a linear regression
+model with just one input variable or feature x0 on a simple
+artificial example dataset. The blue cloud of points represents
+a training set of x0, y pairs. In this case, the formula for predicting
+the output y hat is just w0 hat times x0 + b hat, which you might recognize as
+the familiar slope intercept formula for a straight line, where w0 hat is
+the slope, and b hat is the y intercept. The grand red lines represent different
+possible linear regression models that could attempt to explain
+the relationship between x0 and y. You can see that some lines
+are a better fit than others. The better fitting models capture the
+approximately linear relationship where as x0 increases,
+y also increases in a linear fashion. The red line seemed specially good. Intuitively, there are not as many blue
+training points that are very far above or very far below the red
+linear model prediction. Let's take a look at a very simple form
+of linear regression model that just has one input variable, or
+feature to use for prediction. In this case, we have the vector
+x just has a single component, we'll call it x0,
+that's the input variable, input feature. And, in this case because there's just
+one variable, the predicted output is simply the product of the weight w0 with the input variable
+x0 plus a biased term b. So x0 is the value that's provided,
+it comes with the data and so the parameters we have to
+estimate are w0 and b, in order to obtain the parameters for
+this linear regression model. So this formula may look familiar, it's the formula for
+a line in terms of its slope. In this case,
+slope corresponds to the weight, w0, and b corresponds to the y intercept,
+we call the bias term. So here,
+the job of the model is to take as input. Let's pick a point here, on the x-axis so w0 corresponds to
+the slope of this line and b corresponds to the y
+intercept of the line. And so finding these two parameters, these two parameters together define
+a straight line in this feature space. Now the important thing to remember
+is that there's a training phase and a prediction phase. So the training phase,
+using the training data, is what we'll use to estimate w0 and b. So widely used method for estimating w and
+b for linear aggression problems is called least-squares linear regression,
+also known as ordinary least-squares. Least-squares linear regression
+finds the line through this cloud of points that minimizes what is called
+the means squared error of the model. The mean squared error of the model
+is essentially the sum of the squared differences between
+the predicted target value and the actual target value for
+all the points in the training set. This plot illustrates what that means. The blue points represent points in the
+training set, the red line here represents the least-squares models that was found
+through these cloud of training points. And these black lines show
+the difference between the y value that was predicted for
+training point based on it's x position, and the actual y value
+of the training point. So for example here,
+this point let's say has an x value of- 1.75. And if we plug it into the formula for
+this linear model, we get a prediction here,
+at this point on the line, which is somewhere around let's say 60. But the actual observed value
+in the training set for this point was maybe closer to 10. So, in this case, for this particular
+point, the squared difference between the predicted target and the actual
+target would be (60- 10) squared. So, we can do this calculation for every
+one of the points in the training set. We can compute this
+squared difference between the y value we observe in the training set
+for a point, and the y value that would be predicted by the linear model,
+given that training points x value. So each of these can be computed as
+the square difference can be computed, and then if we add all these up, And
+divide by the number of training points, take the average, that will be
+the mean squared error of the model. So the technique of least-squares, is designed to find the slope,
+the w value, and the b value of the y intercept,
+that minimize this squared error,
+this mean squared error. One thing to note about this
+linear regression model is that there are no parameters to
+control the model complexity. No matter what the value of w and b, the result is always going
+to be a straight line. This is both a strength and a weakness
+of the model as we'll see later. When you have a moment, compare this
+simple linear model to the more complex regression model learned with K nearest
+neighbors regression on the same dataset. You can see that linear models
+make a strong prior assumption about the relationship between
+the input x and output y. Linear models may seem simplistic, but for
+data with many features linear models can be very effective and generalize well
+to new data beyond the training set. Now the question is, how exactly do
+we estimate the near models w and b parameters so the model is a good fit? Well, the w and b parameters
+are estimated using the training data. And there are lots of different
+methods for estimating w and b depending on the criteria you'd like
+to use for the definition of what a good fit to the training data is and
+how you want to control model complexity. For linear models, model complexity is based on the nature
+of the weights w on the input features. Simpler linear models have a weight
+vector w that's closer to zero, i.e., where more features are either not
+used at all that have zero weight or have less influence on the outcome,
+a very small weight. Typically, given possible settings for
+the model parameters, the learning algorithm predicts the target
+value for each training example, and then computes what is called a loss
+function for each training example. That's a penalty value for
+incorrect predictions. The prediction's incorrect when
+the predicted target value is different than the actual target
+value in the training set. For example, a squared loss function
+would return the squared difference between the target value and
+the actual value as the penalty. The learning algorithm then computes or
+searches for the set of w, b parameters that minimize the total of this loss
+function over all training points. The most popular way to estimate w and
+b parameters is using what's called least-squares linear regression or
+ordinary least-squares. Least-squares finds the values of w and b that minimize the total
+sum of squared differences between the predicted y value and
+the actual y value in the training set. Or equivalently it minimizes
+the mean squared error of the model. Least-squares is based on the squared
+loss function mentioned before. This is illustrated graphically here, where I've zoomed in on the left lower
+portion of this simple regression dataset. The red line represents
+the least-squares solution for w and b through the training data. And the vertical lines represent
+the difference between the actual y value of a training point, xi, y and it's predicted y value given xi which
+lies on the red line where x equals xi. Adding up all the squared values of these
+differences for all the training points gives the total squared error and this is
+what the least-square solution minimizes. Here, there are no parameters
+to control model complexity. The linear model always uses
+all of the input variables and always is represented by a straight line. Another name for this quantity
+is the residual sum of squares. The actual target value is given in yi and
+the predicted y hat value for the same training example is given
+by the right side of the formula using the linear model with
+that parameters w and b. Let's look at how to implement
+this in Scikit-Learn. Linear regression in Scikit-Learn is
+implemented by the linear regression class in the sklearn.linear_model module. As we did with other
+estimators in Scikit-Learn, like the nearest neighbors classifier,
+and the regression models, we use the train test split
+function on the original data set. And then create and fit the linear
+regression object using the training data in X_train and the corresponding
+training data target values in Y_train. Here, note that we're
+doing the creation and fitting of the linear
+regression object in one line by chaining the fit method with
+the constructor for the new object. The linear regression fit method acts
+to estimate the future weights w, which are called the coefficients of the model
+and it stores this in the coeff_attribute. And the bias term, b, which is
+stored in the intercept_ attribute. Note that if a Scikit-Learn object
+attribute ends with an underscore, this means that these attributes were
+derived from training data, and not, say, quantities that were set by the user. If we dump the coef_ and intercept_
+attributes for this simple example, we see that because there's only
+one input feature variable, there's only one element in
+the coeff_list, the value 45.7. The intercept attribute has
+a value of about 148.4. And we can see that indeed these
+correspond to the red line shown in the plot which has a slope of 45.7 and
+y intercept of about 148.4. Here is the same code in the notebook. With additional code to score the quality
+of the regression model, in the same way that we did for K nearest neighbors
+regression using the R-squared metric. And here is the notebook code we use to
+plot the least-squares linear solution for this dataset. Now that we have seen both K
+nearest neighbors regression and least-squares regression, it's interesting
+now to compare the least-squared linear regression results with
+the K nearest neighbors result. Here we can see how these two
+regression methods represent two complementary types
+of supervised learning. The K nearest neighbor regresser
+doesn't make a lot of assumptions about the structure of the data, and
+gives potentially accurate but sometimes unstable predictions that are sensitive
+to small changes in the training data. So it has a correspondingly higher
+training set, R-squared score, compared to least-squares
+linear regression. K-NN achieves an R-squared
+score of 0.72 and least-squares achieves an R-squared
+of 0.679 on the training set. On the other hand, linear models make
+strong assumptions about the structure of the data, in other words,
+that the target value can be predicted using a weighted
+sum of the input variables. And linear models give stable but
+potentially inaccurate predictions. However, in this case, it turns out
+that the linear model strong assumption that there's a linear relationship
+between the input and output variables happens to be
+a good fit for this dataset. And so it's better at more accurately
+predicting the y value for new x values that weren't
+seen during training. And we can see that the linear model
+gets a slightly better test set score of 0.492 versus 0.471 for
+K nearest neighbors. And this indicates its ability
+to better generalize and capture this global linear trend.

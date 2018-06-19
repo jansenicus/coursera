@@ -1,0 +1,1319 @@
+WEBVTT
+
+1
+00:00:07.692 --> 00:00:12.298
+We saw earlier how linear support vector
+machines served as effective classifiers
+
+2
+00:00:12.298 --> 00:00:13.416
+for some datasets,
+
+3
+00:00:13.416 --> 00:00:17.509
+by finding a decision boundary with
+maximum margin between the classes.
+
+4
+00:00:19.220 --> 00:00:21.330
+Linear support vector
+machines worked well for
+
+5
+00:00:21.330 --> 00:00:26.110
+simpler kinds of classification problems,
+where the classes were linearly
+
+6
+00:00:26.110 --> 00:00:30.480
+separable or close to linearly separable
+like this example on the left.
+
+7
+00:00:32.090 --> 00:00:35.530
+But with real data, many classification
+problems aren't this easy.
+
+8
+00:00:35.530 --> 00:00:40.015
+With the different classes located in
+future space in a way that a line or
+
+9
+00:00:40.015 --> 00:00:43.400
+hyperplane can't act as
+an effective classifier.
+
+10
+00:00:43.400 --> 00:00:44.650
+Here's an example on the right.
+
+11
+00:00:45.782 --> 00:00:48.400
+These dataset is difficult,
+or impossible for
+
+12
+00:00:48.400 --> 00:00:52.270
+a linear model, a line or
+hyperplane, to classify well.
+
+13
+00:00:53.350 --> 00:00:55.260
+So to help address the situation,
+
+14
+00:00:55.260 --> 00:00:59.450
+we're now going to turn to our next
+type of supervised learning model.
+
+15
+00:00:59.450 --> 00:01:03.020
+A very powerful extension of
+linear support vector machines
+
+16
+00:01:03.020 --> 00:01:05.730
+called kernelized support vector machines.
+
+17
+00:01:06.780 --> 00:01:11.410
+Basically, kernelized support vector
+machines, which I'll just call SVMs,
+
+18
+00:01:11.410 --> 00:01:15.580
+can provide more complex models that can
+go beyond linear decision boundaries.
+
+19
+00:01:16.600 --> 00:01:20.510
+As with other supervised machine
+learning methods, SVMs can be used for
+
+20
+00:01:20.510 --> 00:01:22.490
+both classification and regression.
+
+21
+00:01:23.660 --> 00:01:27.620
+But due to time constraints, we'll focus
+only on classification in this lecture.
+
+22
+00:01:28.760 --> 00:01:33.300
+We also won't go into the mathematical
+details of how SVMs operate, but
+
+23
+00:01:33.300 --> 00:01:37.450
+we will give an high level overview that
+hopefully captures the most important
+
+24
+00:01:37.450 --> 00:01:38.440
+elements of this method.
+
+25
+00:01:39.960 --> 00:01:43.886
+In essence, one way to think
+about what kernelized SVMs do,
+
+26
+00:01:43.886 --> 00:01:46.720
+is they take the original
+input data space and
+
+27
+00:01:46.720 --> 00:01:51.310
+transform it to a new higher dimensional
+feature space, where it becomes much
+
+28
+00:01:51.310 --> 00:01:55.460
+easier to classify the transform
+to data using a linear classifier.
+
+29
+00:01:57.230 --> 00:02:00.150
+Here's a simple 1-dimensional
+example of what I mean.
+
+30
+00:02:01.760 --> 00:02:05.160
+Here's a binary classification
+problem in 1-dimension
+
+31
+00:02:05.160 --> 00:02:08.350
+with a set of points that
+lie along the x-axis.
+
+32
+00:02:08.350 --> 00:02:11.450
+Color black for one class and
+white for the second class.
+
+33
+00:02:12.510 --> 00:02:14.900
+Each data point here has just one feature.
+
+34
+00:02:14.900 --> 00:02:17.740
+It's positioned on the x-axis.
+
+35
+00:02:17.740 --> 00:02:20.290
+If we gave this problem to
+a linear support vector machine,
+
+36
+00:02:20.290 --> 00:02:23.350
+it would have no problem
+finding the decision boundary.
+
+37
+00:02:23.350 --> 00:02:26.500
+It gives the maximum margin between
+points of different classes.
+
+38
+00:02:27.650 --> 00:02:29.420
+Here I've engineered the data points, so
+
+39
+00:02:29.420 --> 00:02:34.471
+that the maximum margin decision
+boundary happens to be at x = 0.
+
+40
+00:02:34.471 --> 00:02:38.760
+Now suppose we gave the linear support
+vector machine a harder problem,
+
+41
+00:02:38.760 --> 00:02:42.560
+where the classes are no
+longer linearly separable.
+
+42
+00:02:43.690 --> 00:02:47.130
+A simple linear decision boundary just
+doesn't have enough expressive power to
+
+43
+00:02:47.130 --> 00:02:48.990
+classify all these points correctly.
+
+44
+00:02:50.320 --> 00:02:51.600
+So what can we do about this?
+
+45
+00:02:53.030 --> 00:02:57.000
+One very powerful idea is
+to transform the input data
+
+46
+00:02:57.000 --> 00:03:00.319
+from a 1-dimensional space
+to a 2-dimensional space.
+
+47
+00:03:01.340 --> 00:03:06.000
+We can do this, for example, by mapping
+each 1-dimensional input data instance xi
+
+48
+00:03:07.080 --> 00:03:11.897
+to a corresponding
+2-dimensional ordered pair xi,
+
+49
+00:03:11.897 --> 00:03:16.980
+xi squared, whose new second feature is
+the squared value of the first feature.
+
+50
+00:03:18.630 --> 00:03:22.428
+We're not adding in any new information in
+the sense that all we need to obtain this
+
+51
+00:03:22.428 --> 00:03:26.230
+new 2-dimensional version
+is already present
+
+52
+00:03:26.230 --> 00:03:28.101
+in the original 1-dimensional data point.
+
+53
+00:03:29.730 --> 00:03:33.052
+This might remind you of a similar
+technique that we saw when adding
+
+54
+00:03:33.052 --> 00:03:36.864
+polynomial features to a linear
+regression problem earlier in the course.
+
+55
+00:03:39.112 --> 00:03:42.749
+We can now learn a linear support
+vector machine in this new,
+
+56
+00:03:42.749 --> 00:03:46.675
+2-deminsional feature space,
+whose maximum margin decision
+
+57
+00:03:46.675 --> 00:03:50.900
+boundary might look like this here
+to correctly classify the points.
+
+58
+00:03:52.036 --> 00:03:56.000
+Any future 1-dimensional points for
+which we'd like to predict the class,
+
+59
+00:03:56.000 --> 00:04:00.310
+we can just create the 2-deminsional
+transformed version and predict the class
+
+60
+00:04:00.310 --> 00:04:06.470
+of the 2-deminsional point,
+using this 2-deminsional linear SVM.
+
+61
+00:04:06.470 --> 00:04:09.360
+If we took the inverse of
+the transformation we just applied to
+
+62
+00:04:09.360 --> 00:04:12.030
+bring the data points back
+to our original input space,
+
+63
+00:04:13.430 --> 00:04:17.970
+we can see that the linear decision
+boundary in the 2-deminsional space
+
+64
+00:04:17.970 --> 00:04:23.280
+corresponds to the two points where
+a parabola crosses the x-axis.
+
+65
+00:04:23.280 --> 00:04:26.450
+Now just so
+that this very important idea is clear,
+
+66
+00:04:26.450 --> 00:04:32.218
+let's move from a 1-dimensional problem to
+a 2-deminsional classification problem.
+
+67
+00:04:32.218 --> 00:04:34.760
+You can see the same powerful
+idea in action here.
+
+68
+00:04:36.970 --> 00:04:41.310
+Here we have two classes represented
+by the black and the white points.
+
+69
+00:04:41.310 --> 00:04:43.850
+Each of which has two features, x0 and x1.
+
+70
+00:04:45.530 --> 00:04:48.848
+The points of both classes
+are scattered around the origin 00 in
+
+71
+00:04:48.848 --> 00:04:52.100
+a 2-deminsional plane.
+
+72
+00:04:52.100 --> 00:04:55.690
+The white points form
+a cluster right around 00,
+
+73
+00:04:55.690 --> 00:04:57.950
+that's completely surrounded
+by the black points.
+
+74
+00:04:59.110 --> 00:05:00.850
+Again, this looks to be impossible for
+
+75
+00:05:00.850 --> 00:05:05.260
+a linear classifier, which in
+2-deminsional space is a straight line,
+
+76
+00:05:05.260 --> 00:05:08.780
+to separate the white points from the
+black points with any degree of accuracy.
+
+77
+00:05:10.590 --> 00:05:16.419
+But just as we did in the 1-dimensional
+case, we can map each 2-deminsional
+
+78
+00:05:16.419 --> 00:05:22.165
+point (x0,x1) to a new 3-deminsional
+point by adding a third feature.
+
+79
+00:05:22.165 --> 00:05:27.220
+Mathematically 1-(x0 squared+x1 squared),
+
+80
+00:05:27.220 --> 00:05:35.362
+and this transformation acts to shape
+the points into a parabaloid around (0,0).
+
+81
+00:05:35.362 --> 00:05:39.640
+Now the wide points since they're close
+to (0,0), get mapped to points with
+
+82
+00:05:39.640 --> 00:05:43.362
+higher vertical z values, that new
+third feature that are close to 1.
+
+83
+00:05:43.362 --> 00:05:47.058
+While the black points which
+are farther from (0,0)
+
+84
+00:05:47.058 --> 00:05:51.910
+get mapped to points with z values that
+either close to 0 or even negative.
+
+85
+00:05:54.740 --> 00:05:58.330
+With this transformation,
+it makes it possible to find a hyperplane.
+
+86
+00:05:58.330 --> 00:06:03.480
+Say, z = 0.9,
+that now easily separates the white
+
+87
+00:06:03.480 --> 00:06:09.560
+data points that are near z = 1 from
+most or all of the black data points.
+
+88
+00:06:09.560 --> 00:06:12.670
+Finally, the decision boundary
+consists of the set of points
+
+89
+00:06:12.670 --> 00:06:17.050
+in 3-deminsional space where the
+paraboloid intersects the maximum margin
+
+90
+00:06:17.050 --> 00:06:18.340
+hyperplane decision boundary.
+
+91
+00:06:19.430 --> 00:06:23.610
+This corresponds to an ellipse-like
+decision boundary in 2-deminsional space
+
+92
+00:06:23.610 --> 00:06:27.220
+that separates the white points from the
+black points in the original input space.
+
+93
+00:06:29.660 --> 00:06:34.690
+This idea of transforming the input
+data points to a new feature space where
+
+94
+00:06:34.690 --> 00:06:38.570
+a linear classifier can be easily applied,
+is a very general and powerful one.
+
+95
+00:06:39.880 --> 00:06:44.289
+There are lots of different possible
+transformations we could apply to data.
+
+96
+00:06:44.289 --> 00:06:46.930
+And the different kernels available for
+
+97
+00:06:46.930 --> 00:06:51.133
+the kernelized SVM correspond
+to different transformations.
+
+98
+00:06:51.133 --> 00:06:55.677
+Here we're going to focus mainly on what's
+called the radial basis function kernel,
+
+99
+00:06:55.677 --> 00:06:57.470
+which we'll abbreviate as RBF.
+
+100
+00:06:58.980 --> 00:07:01.780
+And also look briefly look at
+something called a polynomial kernel,
+
+101
+00:07:01.780 --> 00:07:07.300
+that's also included with
+scikit-learns SVM module.
+
+102
+00:07:07.300 --> 00:07:11.870
+The kernel function in an SVM tells us,
+given two points in
+
+103
+00:07:11.870 --> 00:07:15.980
+the original input space, what is their
+similarity in the new feature space?
+
+104
+00:07:17.448 --> 00:07:21.730
+For the radial basis function kernel,
+the similarity between two points and
+
+105
+00:07:21.730 --> 00:07:24.910
+the transformed feature
+space is an exponentially
+
+106
+00:07:24.910 --> 00:07:27.630
+decaying function of the distance
+between the vectors and
+
+107
+00:07:27.630 --> 00:07:30.360
+the original input space as
+shown by the formula here.
+
+108
+00:07:32.250 --> 00:07:35.830
+So what does the radial basis function
+feature transformation look like?
+
+109
+00:07:37.470 --> 00:07:40.070
+Well, this diagram should
+give an intuitive idea.
+
+110
+00:07:40.070 --> 00:07:44.040
+Here's another graphical illustration
+of a binary classification problem.
+
+111
+00:07:45.250 --> 00:07:48.270
+And again this diagram is for
+illustration purposes only and
+
+112
+00:07:48.270 --> 00:07:52.100
+it's just an approximation, but
+essentially you can think of it in
+
+113
+00:07:52.100 --> 00:07:55.550
+a similar way to the 2-deminsional to
+3-deminsional example we saw earlier.
+
+114
+00:07:56.750 --> 00:08:00.608
+So on the left,
+is a set of samples in the input space.
+
+115
+00:08:00.608 --> 00:08:03.905
+The circles represent the training
+points of one class and
+
+116
+00:08:03.905 --> 00:08:07.210
+the squares represent training
+points of a second class.
+
+117
+00:08:08.290 --> 00:08:12.180
+On the right, the same samples are shown
+in the transformed feature space.
+
+118
+00:08:14.030 --> 00:08:19.215
+Using the radial basis function kernel in
+effect, transforms all the points inside
+
+119
+00:08:19.215 --> 00:08:24.414
+a certain distance of the circle class to
+one area of the transformed feature space.
+
+120
+00:08:24.414 --> 00:08:28.031
+And all the points in the square class
+outside a certain radius get moved to
+
+121
+00:08:28.031 --> 00:08:29.970
+a different area of the feature space.
+
+122
+00:08:31.460 --> 00:08:34.680
+The dark circles and squares represents
+the points that might lie along
+
+123
+00:08:34.680 --> 00:08:39.450
+the maximum margin for a support vector
+machine in the transformed feature space.
+
+124
+00:08:40.520 --> 00:08:44.560
+And also, it shows the corresponding
+points in the original input space.
+
+125
+00:08:44.560 --> 00:08:47.420
+So just as we saw with the simple 1D and
+
+126
+00:08:47.420 --> 00:08:52.210
+2D examples earlier, the kernelized
+support vector machine tries to
+
+127
+00:08:52.210 --> 00:08:57.000
+find the decision boundary with maximum
+margin between classes using a linear
+
+128
+00:08:57.000 --> 00:09:01.750
+classifier in the transformed feature
+space not the original input space.
+
+129
+00:09:03.270 --> 00:09:07.148
+The linear decision boundary
+learn feature space by linear SVM
+
+130
+00:09:07.148 --> 00:09:12.030
+corresponds to a non-linear decision
+boundary In the original input space.
+
+131
+00:09:12.030 --> 00:09:17.421
+So in this example, an ellipse like
+closed region in the input space.
+
+132
+00:09:17.421 --> 00:09:22.009
+Now, one of the mathematically remarkable
+things about kernelized support vector
+
+133
+00:09:22.009 --> 00:09:26.208
+machines, something referred to as
+the kernel trick, is that internally,
+
+134
+00:09:26.208 --> 00:09:30.472
+the algorithm doesn't have to perform
+this actual transformation on the data
+
+135
+00:09:30.472 --> 00:09:33.270
+points to the new high
+dimensional feature space.
+
+136
+00:09:34.430 --> 00:09:39.190
+Instead, the kernelized SVM can compute
+these more complex decision boundaries
+
+137
+00:09:39.190 --> 00:09:43.730
+just in terms of similarity calculations
+between pairs of points in the high
+
+138
+00:09:43.730 --> 00:09:48.320
+dimensional space where the transformed
+feature representation is implicit.
+
+139
+00:09:50.010 --> 00:09:54.210
+This similarity function which
+mathematically is a kind of dot product
+
+140
+00:09:54.210 --> 00:09:56.630
+is the kernel in kernelized SVM.
+
+141
+00:09:58.150 --> 00:10:00.310
+And for
+certain kinds of high dimensional spaces,
+
+142
+00:10:00.310 --> 00:10:05.110
+the similarity calculation between points,
+the kernel function can have a simple
+
+143
+00:10:05.110 --> 00:10:09.514
+form like we see with the radial
+bases function calculation.
+
+144
+00:10:09.514 --> 00:10:13.080
+This makes it practical to apply
+support vector machines, when
+
+145
+00:10:13.080 --> 00:10:17.670
+the underlying transformed feature space
+is complex or even infinite dimensional.
+
+146
+00:10:18.850 --> 00:10:22.600
+Even better, we could easily plug
+in a variety of different kernels
+
+147
+00:10:22.600 --> 00:10:24.800
+choosing one to suit
+the properties of our data.
+
+148
+00:10:26.140 --> 00:10:29.406
+Again, different choices of kernel
+correspond to different types of
+
+149
+00:10:29.406 --> 00:10:32.295
+transformations to that higher
+dimensional feature space.
+
+150
+00:10:34.500 --> 00:10:38.499
+Here's the result of using a support
+vector machine with RBF kernel,
+
+151
+00:10:38.499 --> 00:10:42.450
+on that more complex binary
+classification problem we saw earlier.
+
+152
+00:10:43.950 --> 00:10:46.870
+You can see that unlike
+a linear classifier,
+
+153
+00:10:46.870 --> 00:10:51.240
+the SVM with RBF kernel finds a more
+complex and very effective set of
+
+154
+00:10:51.240 --> 00:10:55.199
+decision boundaries that are very good
+at separating one class from the other.
+
+155
+00:10:56.460 --> 00:11:01.439
+Note that the SVM classifier is still
+using a maximum margin principle to find
+
+156
+00:11:01.439 --> 00:11:03.364
+these decision boundaries.
+
+157
+00:11:03.364 --> 00:11:06.345
+But because of the non-linear
+transformation of the data,
+
+158
+00:11:06.345 --> 00:11:09.911
+these boundaries may no longer always
+be equally distant from the margin
+
+159
+00:11:09.911 --> 00:11:11.970
+edge points in the original input space.
+
+160
+00:11:13.530 --> 00:11:17.442
+Now let's look at an example of how we
+did this using scikit-learn in Python.
+
+161
+00:11:20.121 --> 00:11:25.291
+To use SVMs, we simply import
+the SVC class from sklearn.svm and
+
+162
+00:11:25.291 --> 00:11:29.053
+use it just as we would
+in the other classifier.
+
+163
+00:11:29.053 --> 00:11:33.190
+For example, by calling the fit method
+with the training data to train the model.
+
+164
+00:11:34.700 --> 00:11:37.790
+There is an SVC parameter called kernel,
+
+165
+00:11:37.790 --> 00:11:40.580
+that allows us to set the kernel
+function used by the SVM.
+
+166
+00:11:42.260 --> 00:11:46.400
+By default, the SVM will use
+the radial base's function, but
+
+167
+00:11:46.400 --> 00:11:48.120
+a number of other choices are supported.
+
+168
+00:11:49.320 --> 00:11:50.580
+Here in the second example and
+
+169
+00:11:50.580 --> 00:11:54.640
+plot, we show the use of the polynomial
+kernel instead of the RBF kernel.
+
+170
+00:11:56.130 --> 00:12:01.010
+The polynomial kernel,
+using the kernel poly setting, essentially
+
+171
+00:12:01.010 --> 00:12:05.140
+represents a future transformation
+similar to the earlier quadratic example.
+
+172
+00:12:05.140 --> 00:12:06.560
+In the lecture,
+
+173
+00:12:06.560 --> 00:12:11.260
+this future space represented in terms of
+futures that are polynomial combinations
+
+174
+00:12:11.260 --> 00:12:15.430
+of the original input features,
+much as we saw also for linear regression.
+
+175
+00:12:17.310 --> 00:12:21.020
+The polynomial kernel takes
+additional parameter degree
+
+176
+00:12:21.020 --> 00:12:25.430
+that controls the model complexity and the
+computational cost of this transformation.
+
+177
+00:12:26.560 --> 00:12:29.890
+You may have noticed that the RBF
+kernel has a parameter gamma.
+
+178
+00:12:31.380 --> 00:12:36.160
+Gamma controls how far the influence
+of a single trending example reaches,
+
+179
+00:12:36.160 --> 00:12:38.690
+which in turn affects how
+tightly the decision boundaries
+
+180
+00:12:38.690 --> 00:12:40.600
+end up surrounding points
+in the input space.
+
+181
+00:12:41.900 --> 00:12:45.690
+Small gamma means a larger
+similarity radius.
+
+182
+00:12:45.690 --> 00:12:49.730
+So that points farther apart
+are considered similar.
+
+183
+00:12:49.730 --> 00:12:53.819
+Which results in more points being group
+together and smoother decision boundaries.
+
+184
+00:12:55.440 --> 00:12:59.820
+On the other hand for larger values of
+gamma, the kernel value to K is more
+
+185
+00:12:59.820 --> 00:13:04.470
+quickly and points have to be very
+close to be considered similar.
+
+186
+00:13:04.470 --> 00:13:08.330
+This results in more complex,
+tightly constrained decision boundaries.
+
+187
+00:13:10.750 --> 00:13:15.250
+You can see the effect of increasing
+gamma that is sharpening the kernel
+
+188
+00:13:15.250 --> 00:13:16.600
+in this example from the notebook.
+
+189
+00:13:17.900 --> 00:13:22.300
+Small values of gamma give broader,
+smoother decision regions.
+
+190
+00:13:22.300 --> 00:13:26.190
+While larger values of gamma give smaller,
+more complex decision regions.
+
+191
+00:13:28.420 --> 00:13:32.190
+You can set the gamma parameter
+when creating the SVC object
+
+192
+00:13:32.190 --> 00:13:34.770
+to control the kernel width in this way,
+as shown in this code.
+
+193
+00:13:37.000 --> 00:13:42.250
+You may recall from linear SVMs that SVMs
+also have a regularization parameter,
+
+194
+00:13:42.250 --> 00:13:46.805
+C, that controls the tradeoff between
+satisfying the maximum margin
+
+195
+00:13:46.805 --> 00:13:50.278
+criterion to find the simple
+decision boundary, and
+
+196
+00:13:50.278 --> 00:13:54.082
+avoiding misclassification
+errors on the training set.
+
+197
+00:13:54.082 --> 00:13:57.865
+The C parameter is also an important
+one for kernelized SVMs,
+
+198
+00:13:57.865 --> 00:14:00.570
+and it interacts with the gamma parameter.
+
+199
+00:14:02.503 --> 00:14:07.290
+This example from the notebook shows the
+effect of varying C and gamma together.
+
+200
+00:14:08.580 --> 00:14:12.590
+If gamma is large,
+then C will have little to no effect.
+
+201
+00:14:12.590 --> 00:14:16.130
+Well, if gamma is small,
+the model is much more constrained and
+
+202
+00:14:16.130 --> 00:14:19.750
+the effective C will be similar to how
+it would affect a linear classifier.
+
+203
+00:14:21.350 --> 00:14:24.450
+Typically, gamma and C are tuned together,
+
+204
+00:14:24.450 --> 00:14:27.960
+with the optimal combination typically
+in an intermediate range of values.
+
+205
+00:14:27.960 --> 00:14:32.411
+For example, gamma between 0.0001 and
+
+206
+00:14:32.411 --> 00:14:36.300
+10 and see between 0.1 and 100.
+
+207
+00:14:36.300 --> 00:14:40.050
+Though the specifical optimal values
+will depend on your application.
+
+208
+00:14:41.500 --> 00:14:46.203
+Kernelized SVMs are pretty
+sensitive to settings of gamma.
+
+209
+00:14:46.203 --> 00:14:49.012
+The most important thing
+to remember when applying
+
+210
+00:14:49.012 --> 00:14:52.211
+SVMs is that it's important
+to normalize the input data,
+
+211
+00:14:52.211 --> 00:14:57.220
+so that all the features have comparable
+units that are on the same scale.
+
+212
+00:14:57.220 --> 00:15:00.410
+We saw this earlier with some other
+learning methods like regularized
+
+213
+00:15:00.410 --> 00:15:00.970
+regression.
+
+214
+00:15:02.420 --> 00:15:06.600
+Let's apply a support vector machine
+with RBF kernel to a real world dataset
+
+215
+00:15:06.600 --> 00:15:08.620
+to see why this
+normalization is important.
+
+216
+00:15:10.890 --> 00:15:14.320
+Here, we'll apply a support
+vector machine with RBF kernel
+
+217
+00:15:14.320 --> 00:15:15.650
+to the breast cancer dataset.
+
+218
+00:15:16.720 --> 00:15:19.035
+Note that we're not touching
+the input data in anyway,
+
+219
+00:15:19.035 --> 00:15:21.060
+we're simply passing in the raw values.
+
+220
+00:15:22.320 --> 00:15:27.059
+We can see the results with training
+set accuracy of 1.00 and the test set
+
+221
+00:15:27.059 --> 00:15:32.105
+accuracy of 0.63 that show that the
+support vector machine is over fitting.
+
+222
+00:15:32.105 --> 00:15:35.330
+It's doing well on the training data,
+but very poorly on the test data.
+
+223
+00:15:36.580 --> 00:15:41.090
+Now let's add a MinMaxScaler
+transformation of the training data.
+
+224
+00:15:41.090 --> 00:15:43.938
+Remembering to also apply
+the same scaler to the test data.
+
+225
+00:15:45.280 --> 00:15:47.070
+After this scaler has been applied,
+
+226
+00:15:47.070 --> 00:15:50.160
+all the input features now lie
+in the same range zero to one.
+
+227
+00:15:51.210 --> 00:15:55.545
+And looking at these new results, the
+tests set accuracy is much, much higher,
+
+228
+00:15:55.545 --> 00:15:56.090
+96%.
+
+229
+00:15:56.090 --> 00:15:58.670
+This illustrates what a huge difference
+
+230
+00:15:58.670 --> 00:16:02.680
+normalizing the features of the training
+data can have on SVM performance.
+
+231
+00:16:05.250 --> 00:16:08.110
+Let's review the strengths and
+weaknesses of support vector machines.
+
+232
+00:16:09.980 --> 00:16:10.930
+On the positive side,
+
+233
+00:16:10.930 --> 00:16:15.070
+support vector machines perform well
+on a range of datasets, and have been
+
+234
+00:16:15.070 --> 00:16:19.510
+successfully applied on data that ranges
+from text to images and many more types.
+
+235
+00:16:20.780 --> 00:16:24.190
+The support vector machine's
+also potentially very versatile,
+
+236
+00:16:24.190 --> 00:16:27.030
+due to its ability to specify
+different kernel functions,
+
+237
+00:16:27.030 --> 00:16:30.310
+including possible custom kernel
+functions depending on the data.
+
+238
+00:16:31.820 --> 00:16:34.440
+Support vector machines also
+typically work well for
+
+239
+00:16:34.440 --> 00:16:36.580
+both low and high-dimensional data.
+
+240
+00:16:36.580 --> 00:16:41.220
+Including data with hundreds, thousands or
+even millions of sparse dimensions.
+
+241
+00:16:41.220 --> 00:16:45.497
+This makes it well suited to
+test classification for example.
+
+242
+00:16:45.497 --> 00:16:50.465
+On the negative side as the training set
+size increases, the run time, speed,
+
+243
+00:16:50.465 --> 00:16:55.028
+and memory usage in the SVM
+training phase also increases.
+
+244
+00:16:55.028 --> 00:16:57.540
+So for a large datasets with
+hundreds of thousands, or
+
+245
+00:16:57.540 --> 00:17:00.960
+millions of instances,
+an SVM may become less practical.
+
+246
+00:17:02.430 --> 00:17:06.341
+As we saw when applying a support
+vector machine to a real world dataset,
+
+247
+00:17:06.341 --> 00:17:10.590
+using an SVM requires careful
+normalization of the input data
+
+248
+00:17:10.590 --> 00:17:11.949
+as well as parameter tuning.
+
+249
+00:17:13.490 --> 00:17:16.800
+The input should be normalized that
+all features have comparable units and
+
+250
+00:17:16.800 --> 00:17:18.630
+around similar scales
+if they aren't already.
+
+251
+00:17:20.770 --> 00:17:24.470
+Support vector machines also don't
+provide direct probability estimates for
+
+252
+00:17:24.470 --> 00:17:28.650
+predictions, which are needed for
+some applications.
+
+253
+00:17:28.650 --> 00:17:33.373
+Now, there are ways to estimate these
+probabilities using techniques such as
+
+254
+00:17:33.373 --> 00:17:38.095
+plot scaling, which transforms the output
+of the classifier to a probability
+
+255
+00:17:38.095 --> 00:17:42.246
+distribution over classes by fitting
+a logistic regression model to
+
+256
+00:17:42.246 --> 00:17:43.842
+the classifiers course.
+
+257
+00:17:43.842 --> 00:17:48.108
+Finally, it could be difficult to
+interpret the internal model parameters of
+
+258
+00:17:48.108 --> 00:17:49.604
+a support vector machine.
+
+259
+00:17:49.604 --> 00:17:53.260
+Which means the applicability
+of support vector machines
+
+260
+00:17:53.260 --> 00:17:57.216
+in scenarios where interpretation
+is important for people may
+
+261
+00:17:57.216 --> 00:18:02.000
+be limited when we want to understand
+why a particular prediction was made.
+
+262
+00:18:04.830 --> 00:18:08.520
+As a reminder, there are three main
+parameters that control model complexity
+
+263
+00:18:08.520 --> 00:18:09.640
+for kernelized SVMs.
+
+264
+00:18:11.230 --> 00:18:17.060
+First, there's the kernel type which
+defaults to RBF for radial basis function.
+
+265
+00:18:17.060 --> 00:18:21.030
+But several other common types
+are available in scikit-learns SVC module.
+
+266
+00:18:23.170 --> 00:18:26.880
+Second, each kernel has one or more
+kernel specific parameters that control
+
+267
+00:18:26.880 --> 00:18:30.740
+aspects like the influence of training
+points according to their distance.
+
+268
+00:18:31.740 --> 00:18:35.670
+In the case of the RBF kernel,
+SVM performance is very sensitive to
+
+269
+00:18:35.670 --> 00:18:38.665
+the setting of the gamma parameter
+that controls the kernel width.
+
+270
+00:18:40.410 --> 00:18:43.530
+Finally, for any support vector machine,
+
+271
+00:18:43.530 --> 00:18:47.490
+the C: regularization parameter
+operates as we've discussed before.
+
+272
+00:18:47.490 --> 00:18:51.207
+And it's typically tuned with
+the kernel parameters such as gamma for
+
+273
+00:18:51.207 --> 00:18:52.470
+optimal performance.

@@ -1,0 +1,337 @@
+WEBVTT
+
+1
+00:00:09.496 --> 00:00:14.191
+Unsupervised machine learning involves
+a wide variety of tasks where unlike
+
+2
+00:00:14.191 --> 00:00:18.100
+supervised learning there's no
+target value to be predicted.
+
+3
+00:00:19.120 --> 00:00:22.640
+Instead, the job of
+the unsupervised learning algorithm
+
+4
+00:00:22.640 --> 00:00:25.760
+is to take the raw data and
+capture some interesting structure in it.
+
+5
+00:00:26.880 --> 00:00:30.030
+This is useful for
+a number of scenarios, to explore and
+
+6
+00:00:30.030 --> 00:00:34.740
+visualize the structure in a complex
+dataset, to do density estimation,
+
+7
+00:00:34.740 --> 00:00:37.170
+to predict the probabilities of events.
+
+8
+00:00:37.170 --> 00:00:38.890
+To compress the data,
+
+9
+00:00:38.890 --> 00:00:43.830
+to extract more effective features before
+applying a supervised learning algorithm.
+
+10
+00:00:43.830 --> 00:00:48.170
+Or to discover important structures
+like clusters of similar objects or
+
+11
+00:00:48.170 --> 00:00:50.500
+unusual or
+individual outliers in the data.
+
+12
+00:00:52.830 --> 00:00:57.530
+All of these and other unsupervised
+learning tasks have in common the property
+
+13
+00:00:57.530 --> 00:01:02.980
+that there are no target values, labels or
+output to learn from or to be predicted.
+
+14
+00:01:02.980 --> 00:01:06.730
+Instead, we only have the unlabeled
+samples in the dataset as input.
+
+15
+00:01:08.490 --> 00:01:11.435
+Here's an example of an unsupervised
+method called clustering.
+
+16
+00:01:11.435 --> 00:01:15.560
+Suppose you're in charge of running a
+website that allows people to buy products
+
+17
+00:01:15.560 --> 00:01:16.630
+from your company.
+
+18
+00:01:16.630 --> 00:01:19.630
+And the site gets thousands
+of visits per day.
+
+19
+00:01:19.630 --> 00:01:22.170
+As people access the site by
+clicking links to products or
+
+20
+00:01:22.170 --> 00:01:24.140
+typing in search terms,
+
+21
+00:01:24.140 --> 00:01:27.530
+their interactions are logged by the web
+server that creates a large log file.
+
+22
+00:01:28.710 --> 00:01:32.300
+It might be useful for your business
+to understand who's using your site
+
+23
+00:01:32.300 --> 00:01:34.970
+by grouping users according
+to their shopping behavior.
+
+24
+00:01:34.970 --> 00:01:38.870
+For example, there might be a group
+of more expert users who use more
+
+25
+00:01:38.870 --> 00:01:42.050
+advanced features to find
+something very specific.
+
+26
+00:01:42.050 --> 00:01:45.540
+While another group of non-expert users
+might just enjoy browsing a broader
+
+27
+00:01:45.540 --> 00:01:46.040
+set of items.
+
+28
+00:01:47.620 --> 00:01:52.220
+By clustering users into groups, you might
+gain some insight into who your typical
+
+29
+00:01:52.220 --> 00:01:56.980
+customers are and what site features
+different types of users find important.
+
+30
+00:01:58.380 --> 00:02:01.790
+You could use insights from clustering
+users to improve the site's features for
+
+31
+00:02:01.790 --> 00:02:03.110
+different groups or
+
+32
+00:02:03.110 --> 00:02:06.930
+to recommend products to specific groups
+that would be more likely to buy them.
+
+33
+00:02:09.090 --> 00:02:13.474
+So in this lecture, we'll give a brief
+survey of unsupervised learning methods
+
+34
+00:02:13.474 --> 00:02:15.479
+divided into two major categories.
+
+35
+00:02:16.620 --> 00:02:19.450
+First we'll look at one family
+of unsupervised methods called
+
+36
+00:02:19.450 --> 00:02:23.460
+transformations, because they essentially
+just run the original data through some
+
+37
+00:02:23.460 --> 00:02:27.290
+kind of useful process that extracts or
+computes information of some kind.
+
+38
+00:02:28.880 --> 00:02:32.250
+Then we'll look at the other broad
+family of unsupervised learning methods
+
+39
+00:02:32.250 --> 00:02:34.330
+which are the clustering methods.
+
+40
+00:02:34.330 --> 00:02:37.530
+Like in our website example that
+find groups in the data and
+
+41
+00:02:37.530 --> 00:02:40.110
+assign every point in the dataset
+to one of the groups.
+
+42
+00:02:42.380 --> 00:02:45.180
+Okay, let's look at some important
+unsupervised learning methods that
+
+43
+00:02:45.180 --> 00:02:47.560
+transform the input data in useful ways.
+
+44
+00:02:48.760 --> 00:02:51.700
+One method called density
+estimation is used when
+
+45
+00:02:51.700 --> 00:02:55.344
+you have a set of measurements
+scattered throughout an area.
+
+46
+00:02:55.344 --> 00:02:59.364
+And you want to create what you can think
+of as a smooth version over the whole area
+
+47
+00:02:59.364 --> 00:03:03.324
+that gives a general estimate for how
+likely it would be to observe a particular
+
+48
+00:03:03.324 --> 00:03:05.370
+measurement in some area of that space.
+
+49
+00:03:06.660 --> 00:03:11.548
+For example, in a medical application
+related to diagnosing diabetes,
+
+50
+00:03:11.548 --> 00:03:16.485
+density estimation with one variable might
+be used to estimate the distribution of
+
+51
+00:03:16.485 --> 00:03:18.460
+a specific test score.
+
+52
+00:03:18.460 --> 00:03:22.550
+The plasma glucose concentration
+number from a blood test for
+
+53
+00:03:22.550 --> 00:03:25.470
+people who have a particular
+form of diabetes.
+
+54
+00:03:25.470 --> 00:03:29.180
+With this density estimate we can estimate
+the probability that anyone with that
+
+55
+00:03:29.180 --> 00:03:32.300
+medical condition has
+a particular glucose score.
+
+56
+00:03:32.300 --> 00:03:35.439
+Even if that specific score wasn't
+seen in the original dataset.
+
+57
+00:03:36.800 --> 00:03:39.672
+We could then compare this to
+the range of glucose levels for
+
+58
+00:03:39.672 --> 00:03:43.300
+people who do not have that condition,
+which is shown by the red line here.
+
+59
+00:03:44.810 --> 00:03:49.300
+Often, density estimates are then used in
+further machine learning stages as part of
+
+60
+00:03:49.300 --> 00:03:52.900
+providing features for
+classification or regression.
+
+61
+00:03:52.900 --> 00:03:56.840
+The more technical way to say
+this is that density estimation
+
+62
+00:03:56.840 --> 00:04:00.624
+calculates a continuous probability
+density over the feature space,
+
+63
+00:04:00.624 --> 00:04:03.750
+given a set of discrete
+samples in that feature space.
+
+64
+00:04:05.170 --> 00:04:06.450
+With this density estimate,
+
+65
+00:04:06.450 --> 00:04:11.610
+we can estimate how likely any given
+combination of features is to occur.
+
+66
+00:04:11.610 --> 00:04:12.680
+In Scikit-Learn,
+
+67
+00:04:12.680 --> 00:04:18.020
+you can use the kernel density class in
+the sklearn.neighbors module to perform
+
+68
+00:04:18.020 --> 00:04:22.860
+one widely used form of density estimation
+called kernel density estimation.
+
+69
+00:04:24.000 --> 00:04:25.690
+Kernel density's especially popular for
+
+70
+00:04:25.690 --> 00:04:28.810
+use in creating heat maps with
+geospatial data like this one.

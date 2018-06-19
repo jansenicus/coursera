@@ -1,0 +1,1146 @@
+WEBVTT
+
+1
+00:00:07.630 --> 00:00:11.387
+In the previous module, you saw
+a basic sample of supervised machine
+
+2
+00:00:11.387 --> 00:00:14.240
+learning using a k-nearest
+neighbor classifier,
+
+3
+00:00:14.240 --> 00:00:18.869
+classifying different types of fruit based
+on their various physical properties.
+
+4
+00:00:19.880 --> 00:00:23.010
+Machine learning algorithms of this
+type are called supervised learning
+
+5
+00:00:23.010 --> 00:00:26.680
+algorithms because they use labeled
+examples in the training set
+
+6
+00:00:26.680 --> 00:00:31.200
+to learn how to predict the labels for
+new, previously unseen examples.
+
+7
+00:00:31.200 --> 00:00:33.670
+The supervised aspect
+refers to the need for
+
+8
+00:00:33.670 --> 00:00:36.150
+each training example to
+have a label in order for
+
+9
+00:00:36.150 --> 00:00:39.959
+the algorithm to learn how to make
+accurate predictions on future examples.
+
+10
+00:00:41.200 --> 00:00:44.780
+This is in contrast to
+unsupervised machine learning
+
+11
+00:00:44.780 --> 00:00:47.860
+where we don't have labels for
+the training data examples, and
+
+12
+00:00:47.860 --> 00:00:51.010
+we'll cover unsupervised learning
+in a later part of this course.
+
+13
+00:00:52.360 --> 00:00:55.168
+This week, we'll explore supervised
+learning in a bit more depth,
+
+14
+00:00:55.168 --> 00:01:00.020
+going beyond k-nearest neighbors
+classifiers to several other widely used
+
+15
+00:01:00.020 --> 00:01:02.170
+supervised learning algorithms.
+
+16
+00:01:02.170 --> 00:01:04.250
+Because this is an applied
+machine learning course,
+
+17
+00:01:04.250 --> 00:01:07.340
+we're not going to cover too much
+of the mathematical derivation or
+
+18
+00:01:07.340 --> 00:01:10.390
+the detailed innerworkings
+of these algorithms.
+
+19
+00:01:10.390 --> 00:01:13.860
+For that, you can check out a number of
+more technical machine learning courses
+
+20
+00:01:13.860 --> 00:01:17.530
+such as Andrew Ng's excellent course
+on Machine Learning on Coursera.
+
+21
+00:01:18.780 --> 00:01:21.650
+Instead, we'll focus on
+some higher-level goals.
+
+22
+00:01:21.650 --> 00:01:25.780
+How to apply a number of specific
+supervised machine learning algorithms and
+
+23
+00:01:25.780 --> 00:01:28.280
+how to interpret their results for
+important tasks.
+
+24
+00:01:30.060 --> 00:01:34.180
+This will include understanding how
+supervised learning algorithms estimate
+
+25
+00:01:34.180 --> 00:01:40.200
+their parameters from data, how the train
+model makes predictions for new instances.
+
+26
+00:01:40.200 --> 00:01:44.790
+The strengths, weaknesses and best
+scenarios to apply a particular method and
+
+27
+00:01:44.790 --> 00:01:48.235
+how to use the method with its parameter
+settings in Python programs using
+
+28
+00:01:48.235 --> 00:01:50.400
+scikit-learn.
+
+29
+00:01:50.400 --> 00:01:54.330
+Across all of these algorithms we'll
+discuss some general principles
+
+30
+00:01:54.330 --> 00:01:58.370
+that are critical to machine learning,
+like the issue of overfitting and
+
+31
+00:01:58.370 --> 00:02:01.510
+how overfitting relates
+to a models complexity.
+
+32
+00:02:01.510 --> 00:02:04.210
+And which parameters typically
+can be used to control
+
+33
+00:02:04.210 --> 00:02:08.280
+model complexity in order to obtain good
+performance on previously unseen data.
+
+34
+00:02:10.210 --> 00:02:13.710
+In this module we won't have time to
+cover all the different parameters for
+
+35
+00:02:13.710 --> 00:02:16.180
+the various supervise learning methods.
+
+36
+00:02:16.180 --> 00:02:20.090
+So we'll focus on a small number
+of the most important parameters.
+
+37
+00:02:20.090 --> 00:02:23.900
+The full details of all the supervised
+algorithms we'll cover this week
+
+38
+00:02:23.900 --> 00:02:28.280
+are in the excellent online documentation
+that's provided with PsychEd Learn.
+
+39
+00:02:28.280 --> 00:02:31.450
+Which we've included links to in
+the supplemental material for this course.
+
+40
+00:02:32.930 --> 00:02:35.590
+Before we continue,
+let's review some basic terms.
+
+41
+00:02:37.400 --> 00:02:41.920
+So, on the right, here I'm showing
+the adapt of the first few
+
+42
+00:02:41.920 --> 00:02:44.650
+rows of the fruit dataset that
+you worked with last week.
+
+43
+00:02:44.650 --> 00:02:49.630
+The first term that we would be using
+a lot is feature representation.
+
+44
+00:02:49.630 --> 00:02:54.630
+And as you might recall what that means is
+taking an object like a piece of fruit and
+
+45
+00:02:54.630 --> 00:02:58.370
+converting it into numbers that
+the computer can understand.
+
+46
+00:02:58.370 --> 00:03:01.410
+So in this dataset,
+the feature representation for
+
+47
+00:03:01.410 --> 00:03:05.755
+a piece of fruit consists of
+these columns, the mass, width,
+
+48
+00:03:05.755 --> 00:03:09.860
+height, and color_score.
+
+49
+00:03:09.860 --> 00:03:12.890
+These are the things that
+will be used as the features
+
+50
+00:03:12.890 --> 00:03:15.980
+in the various machine learning algorithms
+
+51
+00:03:15.980 --> 00:03:19.250
+that we'll be applying to try to
+predict the label of a piece of fruit.
+
+52
+00:03:21.030 --> 00:03:25.300
+So typically each column in
+the dataset here corresponds to
+
+53
+00:03:25.300 --> 00:03:29.910
+a different feature that's
+associated with each instance.
+
+54
+00:03:31.180 --> 00:03:37.290
+So I used the term instance or sample or
+example somewhat interchangeably.
+
+55
+00:03:37.290 --> 00:03:40.470
+Most of the time I'll be talking
+about instances or samples.
+
+56
+00:03:40.470 --> 00:03:45.520
+So each row of this
+dataset corresponds to one
+
+57
+00:03:45.520 --> 00:03:48.930
+piece of fruit or
+one specific data instance per sample.
+
+58
+00:03:50.910 --> 00:03:55.090
+When we work with these
+instances in Python,
+
+59
+00:03:55.090 --> 00:04:00.261
+the convention we'll be using
+is that we'll put the all
+
+60
+00:04:00.261 --> 00:04:07.316
+the variables that represent the features
+in this variable capital X here.
+
+61
+00:04:07.316 --> 00:04:12.198
+So capital X refers to all the feature
+columns that will be going into as
+
+62
+00:04:12.198 --> 00:04:14.370
+the inputs for the predictor.
+
+63
+00:04:15.810 --> 00:04:18.940
+And then we have the very
+important concept of a label.
+
+64
+00:04:18.940 --> 00:04:24.342
+So each instance here, each piece
+of fruit has a label that's what's
+
+65
+00:04:24.342 --> 00:04:31.130
+assigned by a human in this case, and
+the label is an example of a target value.
+
+66
+00:04:31.130 --> 00:04:35.920
+So in classification, the target value is
+label of an object and then regression,
+
+67
+00:04:37.020 --> 00:04:41.440
+it's the particular continuous value you
+might want to protect from the inputs.
+
+68
+00:04:41.440 --> 00:04:48.026
+And we use lower case y in Python for
+the variable name to hold
+
+69
+00:04:48.026 --> 00:04:53.707
+the target values associated
+with each instance.
+
+70
+00:04:53.707 --> 00:04:58.077
+So if you look at the dataset as
+being say this big block here.
+
+71
+00:05:00.615 --> 00:05:05.436
+Typically that'll be
+a column of labels and
+
+72
+00:05:05.436 --> 00:05:13.920
+then a matrix of multiple columns holding
+the features that we will be using.
+
+73
+00:05:13.920 --> 00:05:16.050
+And then we have a couple
+of columns in here.
+
+74
+00:05:16.050 --> 00:05:17.630
+The fruit name and the fruit subtype.
+
+75
+00:05:18.730 --> 00:05:21.250
+That are used only for
+
+76
+00:05:21.250 --> 00:05:27.870
+labeling purposes to make things like
+plots, more readable for humans.
+
+77
+00:05:27.870 --> 00:05:32.687
+The things that go into the actual machine
+learning algorithms are the label for
+
+78
+00:05:32.687 --> 00:05:35.970
+training through the Y variable and
+
+79
+00:05:35.970 --> 00:05:40.609
+the features, the mass with height and
+color score that are in the X variable.
+
+80
+00:05:42.420 --> 00:05:45.960
+Another concept that we saw
+from our first example.
+
+81
+00:05:47.020 --> 00:05:51.577
+The concept of training and test sets.
+
+82
+00:05:51.577 --> 00:05:55.537
+So by that we mean a just
+to recap we think of
+
+83
+00:05:55.537 --> 00:05:59.501
+the entire data said
+here is a rectangle So
+
+84
+00:05:59.501 --> 00:06:04.512
+this could be the fruit
+which is showed previously.
+
+85
+00:06:04.512 --> 00:06:09.782
+We typically sign a chunk
+of the original dataset and
+
+86
+00:06:09.782 --> 00:06:14.452
+make that to training set,
+and then we reserve
+
+87
+00:06:14.452 --> 00:06:19.871
+typically a smaller portion,
+that's the test set.
+
+88
+00:06:19.871 --> 00:06:25.412
+So the default split in scikit
+learn is typically 75, 25.
+
+89
+00:06:28.372 --> 00:06:33.435
+The function train test split
+here is a very handy function
+
+90
+00:06:33.435 --> 00:06:39.860
+in scikit learn that takes the original
+set of features x and the labels y.
+
+91
+00:06:41.220 --> 00:06:44.290
+And does this partitioning
+into a training and test set.
+
+92
+00:06:44.290 --> 00:06:48.000
+So the variables that we'll be
+using to denote training and
+
+93
+00:06:48.000 --> 00:06:52.036
+test set are x_train for
+
+94
+00:06:52.036 --> 00:06:56.048
+the training set features and
+y_train for the training set labels.
+
+95
+00:06:56.048 --> 00:07:02.879
+And then x_test for
+the test set features and
+
+96
+00:07:02.879 --> 00:07:07.930
+y_test for the test set labels.
+
+97
+00:07:07.930 --> 00:07:12.778
+Once we pass the training data into
+a classifier, so as you recall,
+
+98
+00:07:12.778 --> 00:07:18.140
+we can create here KNeighborsClassifier
+by invoking this constructor and
+
+99
+00:07:18.140 --> 00:07:23.094
+passing it the number of neighbors
+that we want the algorithm to use.
+
+100
+00:07:23.094 --> 00:07:28.420
+The training set is used to estimate
+the parameters for a model.
+
+101
+00:07:29.648 --> 00:07:33.987
+In scikit learn,
+there's an object called an estimator,
+
+102
+00:07:33.987 --> 00:07:37.817
+which is either classify or
+regressor for example.
+
+103
+00:07:37.817 --> 00:07:44.480
+And the goal of this estimator,
+this model, is to learn how to classify or
+
+104
+00:07:44.480 --> 00:07:48.860
+predict target values for
+new data instances.
+
+105
+00:07:48.860 --> 00:07:52.680
+So the procedure where we
+pass in a training set
+
+106
+00:07:54.260 --> 00:07:57.710
+to learn those parameters that
+are internal to the estimator,
+
+107
+00:07:57.710 --> 00:08:01.359
+is called a model fitting, and the result
+of model fitting is a trained model.
+
+108
+00:08:02.790 --> 00:08:08.980
+So an example of that in the code here
+is after we create the knm variable
+
+109
+00:08:10.020 --> 00:08:15.080
+that has the knn neighbors
+classifier objected,
+
+110
+00:08:15.080 --> 00:08:19.809
+we use the fit method on the training
+data and the training labels.
+
+111
+00:08:20.810 --> 00:08:26.500
+To update the internal state of the kmn
+object, and that's the training process.
+
+112
+00:08:26.500 --> 00:08:31.188
+So after that line of code is finished
+running, the internal state of the knn
+
+113
+00:08:31.188 --> 00:08:35.732
+classifier has been updated to reflect
+the training data's influence on
+
+114
+00:08:35.732 --> 00:08:40.665
+the internal parameters of the kmn
+classifier, and now it's ready to be used.
+
+115
+00:08:42.895 --> 00:08:50.398
+So, evaluation methods are typically the
+next step where after we've fit the model,
+
+116
+00:08:50.398 --> 00:08:55.490
+we want to see how well it
+actually does do on the test data.
+
+117
+00:08:55.490 --> 00:09:00.470
+So in week four of the course
+we're going to cover in detail.
+
+118
+00:09:00.470 --> 00:09:06.753
+Different ways of evaluating
+classifiers and regressions.
+
+119
+00:09:06.753 --> 00:09:09.110
+But for now, we'll look at accuracy.
+
+120
+00:09:09.110 --> 00:09:14.100
+So the score method applied to
+the classifier will take the test
+
+121
+00:09:14.100 --> 00:09:18.210
+data in X test and Y test and
+
+122
+00:09:18.210 --> 00:09:20.959
+output the accuracy of this particular
+classifier on the test set.
+
+123
+00:09:22.480 --> 00:09:28.040
+And then finally we can also apply
+the predict method to the ken end object.
+
+124
+00:09:28.040 --> 00:09:32.460
+To get the label for
+previously unseen instances.
+
+125
+00:09:34.170 --> 00:09:38.580
+So these are the terms that would
+be using throughout the course and
+
+126
+00:09:38.580 --> 00:09:44.300
+we will also be maintaining a fairly
+consistent use of these variable names
+
+127
+00:09:44.300 --> 00:09:46.120
+throughout all the Python
+code that we use.
+
+128
+00:09:47.450 --> 00:09:51.520
+Supervised learning can be divided
+into two different types of tasks,
+
+129
+00:09:51.520 --> 00:09:53.290
+classification and regression.
+
+130
+00:09:54.560 --> 00:09:57.980
+Both classification and regression
+take a set of training instances and
+
+131
+00:09:57.980 --> 00:09:59.570
+learn a mapping to a target value.
+
+132
+00:10:00.600 --> 00:10:04.200
+For classification, the target
+value is a discrete class value.
+
+133
+00:10:05.620 --> 00:10:11.650
+For example, a binary classification
+problem has a two types of target values.
+
+134
+00:10:11.650 --> 00:10:17.430
+A 0 representing the negative class or
+1 representing the positive class.
+
+135
+00:10:17.430 --> 00:10:21.050
+An example of binary
+classification might be
+
+136
+00:10:21.050 --> 00:10:24.360
+trying to detect a fraudulent
+credit card transaction.
+
+137
+00:10:24.360 --> 00:10:27.160
+The transaction is either valid or
+invalid.
+
+138
+00:10:29.090 --> 00:10:33.620
+The second type of classification problem
+is known as multi-class classification,
+
+139
+00:10:33.620 --> 00:10:37.259
+where the target value is more
+then just a yes or a no, or
+
+140
+00:10:37.259 --> 00:10:41.550
+1 or 0, it could be one of
+a set of discrete values.
+
+141
+00:10:41.550 --> 00:10:46.680
+For example, the labeling fruit example
+that we saw from the first part
+
+142
+00:10:46.680 --> 00:10:52.710
+of the course is an example of multi-class
+classification because the object that
+
+143
+00:10:52.710 --> 00:10:56.790
+we're trying to predict the label for can
+only have one of the possible label types.
+
+144
+00:10:56.790 --> 00:11:01.010
+Something couldn't be for
+example both an apple and an orange.
+
+145
+00:11:01.010 --> 00:11:03.950
+The third category of classification
+is called multi label
+
+146
+00:11:03.950 --> 00:11:07.360
+classification with our
+multiple target values.
+
+147
+00:11:07.360 --> 00:11:10.090
+For example,
+we might want to take a web page and
+
+148
+00:11:10.090 --> 00:11:14.280
+label all the different topics discussed
+on that page as shown in this example.
+
+149
+00:11:15.590 --> 00:11:21.190
+Here we see a page from Microsoft research
+where the multi-label classification
+
+150
+00:11:21.190 --> 00:11:27.500
+has decided that the labels computing,
+science, and so forth are applicable.
+
+151
+00:11:28.810 --> 00:11:30.930
+In contrast to classification, for
+
+152
+00:11:30.930 --> 00:11:34.610
+regression, the target we're trying
+to predict is a continuous value.
+
+153
+00:11:35.970 --> 00:11:39.040
+For example, a model that predicts
+the market price of a house,
+
+154
+00:11:39.040 --> 00:11:42.120
+given how many rooms it has,
+where its located,
+
+155
+00:11:42.120 --> 00:11:46.640
+the size of the land that it sits on and
+so forth, would be a regression problem.
+
+156
+00:11:46.640 --> 00:11:53.020
+Because the market price is continuous,
+otherwise known as a real value variable.
+
+157
+00:11:54.310 --> 00:11:57.210
+You can tell what type of supervisor
+learning method you should apply to
+
+158
+00:11:57.210 --> 00:12:00.080
+a given problem by thinking about
+the meaning of the target value.
+
+159
+00:12:01.270 --> 00:12:05.290
+Does the target value represent something
+that's one of a set of mutually exclusive
+
+160
+00:12:05.290 --> 00:12:08.980
+class values as in the case of
+assigning a label to a piece of fruit?
+
+161
+00:12:10.650 --> 00:12:13.220
+Or whether or
+not a transaction is fraudulent?
+
+162
+00:12:13.220 --> 00:12:15.270
+If so, it's a classification problem.
+
+163
+00:12:16.570 --> 00:12:21.350
+On the other hand, if the target is a real
+value quantity like cost, or income, or
+
+164
+00:12:21.350 --> 00:12:24.489
+height then it can be treated
+as a regression problem.
+
+165
+00:12:26.410 --> 00:12:29.200
+Finally, we'll see that many
+supervised learning methods come in
+
+166
+00:12:29.200 --> 00:12:32.850
+both flavors of classification and
+regression.
+
+167
+00:12:32.850 --> 00:12:37.200
+For example, support vector
+classifiers which we'll cover shortly
+
+168
+00:12:37.200 --> 00:12:41.890
+also has a regression version called not
+surprisingly support vector regression.
+
+169
+00:12:42.930 --> 00:12:46.070
+In this course, we'll cover both
+classification and regression methods,
+
+170
+00:12:46.070 --> 00:12:49.820
+although we'll spend the majority
+of our time on classification.
+
+171
+00:12:49.820 --> 00:12:54.040
+Since that represents a big set of
+important machine learning tasks, and
+
+172
+00:12:54.040 --> 00:12:57.520
+because classification involves some
+additional concepts and methods
+
+173
+00:12:57.520 --> 00:13:03.090
+especially in areas like evaluation that
+aren't needed as much for regression.
+
+174
+00:13:03.090 --> 00:13:07.055
+To start with, we'll look at two simple
+but powerful prediction algorithms.
+
+175
+00:13:07.055 --> 00:13:12.360
+K-nearest neighbours,
+which we saw in week one and
+
+176
+00:13:12.360 --> 00:13:17.110
+linear model fitting using least-squares.
+
+177
+00:13:17.110 --> 00:13:21.587
+These two prediction methods represent two
+complimentary approaches to supervised
+
+178
+00:13:21.587 --> 00:13:22.217
+learning.
+
+179
+00:13:22.217 --> 00:13:26.103
+K-nearest neighbors doesn't make a lot
+of assumptions about the structure of
+
+180
+00:13:26.103 --> 00:13:30.600
+the data and gives potentially accurate,
+but sometimes unstable predictions.
+
+181
+00:13:30.600 --> 00:13:34.530
+And by unstable I mean that it can
+be sensitive to small changes in
+
+182
+00:13:34.530 --> 00:13:35.100
+the training data.
+
+183
+00:13:36.550 --> 00:13:37.370
+On the other hand,
+
+184
+00:13:37.370 --> 00:13:41.030
+linear models make strong assumptions
+about the structure of the data.
+
+185
+00:13:41.030 --> 00:13:44.990
+In other words, that the target value can
+be predicted just using a weighted sum of
+
+186
+00:13:44.990 --> 00:13:46.920
+the input variables, a linear function.
+
+187
+00:13:48.010 --> 00:13:50.800
+It can get stable, but
+potentially inaccurate predictions.
+
+188
+00:13:52.700 --> 00:13:56.570
+In addition to k-nearest neighbors and
+linear models, we'll cover a variety of
+
+189
+00:13:56.570 --> 00:14:01.260
+widely used supervised learning methods
+for classification and regression.
+
+190
+00:14:01.260 --> 00:14:05.380
+Including decision trees,
+kernelized support vector machines and
+
+191
+00:14:05.380 --> 00:14:06.210
+neural networks.
+
+192
+00:14:07.860 --> 00:14:10.640
+For each method we'll explore
+how it works at a high level
+
+193
+00:14:10.640 --> 00:14:12.780
+without going into too
+much mathematical details.
+
+194
+00:14:13.920 --> 00:14:17.670
+We'll also look at what kind of feature
+preprocessing is typically needed.
+
+195
+00:14:17.670 --> 00:14:21.460
+And for almost all of the supervised
+learning algorithms we'll look at.
+
+196
+00:14:21.460 --> 00:14:25.470
+There are one or more parameters that
+control its model complexity, so
+
+197
+00:14:25.470 --> 00:14:29.190
+we'll see how to set these parameters
+to help avoid under and over fitting.
+
+198
+00:14:30.550 --> 00:14:32.840
+Finally, we'll discuss the positives and
+
+199
+00:14:32.840 --> 00:14:36.810
+negatives of each supervised learning
+approach to help understand what
+
+200
+00:14:36.810 --> 00:14:40.680
+are the best scenarios in which to apply
+or not apply that particular method.
+
+201
+00:14:43.110 --> 00:14:47.570
+One consistent pattern you'll see as we
+look at all these different methods, is
+
+202
+00:14:47.570 --> 00:14:52.280
+the relationship between model complexity
+and model accuracy, as shown in this plot.
+
+203
+00:14:53.940 --> 00:14:57.310
+The relationship is different depending
+on whether the classifier performance is
+
+204
+00:14:57.310 --> 00:15:02.460
+measured on the training set, what is
+labeled here as training set score, or
+
+205
+00:15:02.460 --> 00:15:05.330
+in the test set labeled
+here as test set score.
+
+206
+00:15:06.950 --> 00:15:12.033
+When measuring performance against the
+training set, the same one that was used
+
+207
+00:15:12.033 --> 00:15:17.339
+to train the classifier, this plot shows
+that as a model's complexity increases,
+
+208
+00:15:17.339 --> 00:15:20.650
+so think of the k and
+n classifier with k decreasing.
+
+209
+00:15:20.650 --> 00:15:24.890
+And with more and more highly variable and
+a detailed decision boundaries.
+
+210
+00:15:24.890 --> 00:15:29.330
+The model's accuracy and the training set
+trends upward as the more complex models
+
+211
+00:15:29.330 --> 00:15:31.230
+fit the training data better and better.
+
+212
+00:15:32.780 --> 00:15:37.420
+However, when the same trained model
+is evaluated on the held out test set,
+
+213
+00:15:37.420 --> 00:15:41.620
+there's typically an initial accuracy
+gain from the increasing model complexity
+
+214
+00:15:41.620 --> 00:15:43.720
+up to some optimal point.
+
+215
+00:15:43.720 --> 00:15:48.543
+But then a decrease in test set
+accuracy as the increasingly complex
+
+216
+00:15:48.543 --> 00:15:53.367
+models begin to overfit too
+specifically to the training data, and
+
+217
+00:15:53.367 --> 00:15:59.481
+don't capture more global patterns that
+help it generalize well to unseen testing.
+
+218
+00:15:59.481 --> 00:16:02.991
+Now the specifics of these trends will
+vary from situation to situation,
+
+219
+00:16:02.991 --> 00:16:06.840
+but overall we'll see this pattern across
+the supervised learning methods that
+
+220
+00:16:06.840 --> 00:16:07.700
+we'll examine.
+
+221
+00:16:09.080 --> 00:16:12.800
+You'll be hearing a lot
+about models in this course.
+
+222
+00:16:12.800 --> 00:16:14.040
+What is a model?
+
+223
+00:16:14.040 --> 00:16:18.580
+Well, it's a specific mathematical or
+computational description
+
+224
+00:16:18.580 --> 00:16:22.840
+that expresses the relationship between
+a set of input variables and one or
+
+225
+00:16:22.840 --> 00:16:25.630
+more outcome variables that
+are being studied or predicted.
+
+226
+00:16:26.850 --> 00:16:31.940
+In statistical terms the input variables
+are called independent variables and
+
+227
+00:16:31.940 --> 00:16:35.179
+the outcome variables
+are termed dependent variables.
+
+228
+00:16:36.220 --> 00:16:40.320
+In Machine Learning we use the term
+features to refer to the input, or
+
+229
+00:16:40.320 --> 00:16:42.190
+independent variables.
+
+230
+00:16:42.190 --> 00:16:46.730
+And target value or target label to refer
+to the output, dependent variables.
+
+231
+00:16:48.150 --> 00:16:52.110
+Models can be either used to
+understand and explore the structure
+
+232
+00:16:52.110 --> 00:16:55.340
+within a given dataset,
+as we'll see in unsupervised learning.
+
+233
+00:16:56.530 --> 00:16:58.620
+Or in the case of supervised
+learning methods,
+
+234
+00:16:58.620 --> 00:17:03.940
+our goal is to develop predictive models
+that can accurately predict the outcome.
+
+235
+00:17:03.940 --> 00:17:07.760
+In other words, the target value or
+label for previously unseen input data.

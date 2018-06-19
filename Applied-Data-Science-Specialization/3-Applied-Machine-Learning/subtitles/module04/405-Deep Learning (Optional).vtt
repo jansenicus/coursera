@@ -1,0 +1,539 @@
+WEBVTT
+
+1
+00:00:08.569 --> 00:00:11.253
+As we discussed in the first
+week of the course,
+
+2
+00:00:11.253 --> 00:00:14.944
+one of the key challenges in machine
+learning is finding the right
+
+3
+00:00:14.944 --> 00:00:18.922
+features to use as input to a learning
+model for a particular problem.
+
+4
+00:00:18.922 --> 00:00:23.825
+This is called feature engineering and
+can be part art, and part science.
+
+5
+00:00:23.825 --> 00:00:28.340
+It can also be the single most factor
+in doing well on a learning task.
+
+6
+00:00:28.340 --> 00:00:29.880
+Sometimes, in fact,
+
+7
+00:00:29.880 --> 00:00:33.000
+more often more important than
+the choice of the model itself.
+
+8
+00:00:34.100 --> 00:00:37.119
+We'll discuss this further in
+the last week of the course.
+
+9
+00:00:38.800 --> 00:00:40.660
+Because of the difficulty
+of feature engineering,
+
+10
+00:00:40.660 --> 00:00:43.940
+there's been a lot of research on
+what's called feature learning or
+
+11
+00:00:43.940 --> 00:00:48.030
+feature extraction algorithms that
+can find good features automatically.
+
+12
+00:00:49.730 --> 00:00:51.130
+This brings us to deep learning.
+
+13
+00:00:52.438 --> 00:00:53.551
+At a high-level,
+
+14
+00:00:53.551 --> 00:00:58.494
+one of the advantages of deep learning is
+that it includes a sophisticated automatic
+
+15
+00:00:58.494 --> 00:01:02.130
+featured learning phase as part
+of its supervised training.
+
+16
+00:01:02.130 --> 00:01:04.222
+Moreover, deep learning is called deep.
+
+17
+00:01:04.222 --> 00:01:08.632
+Because this feature extraction typically
+doesn't use just one feature learning
+
+18
+00:01:08.632 --> 00:01:12.090
+step, but a hierarchy of
+multiple feature learning layers.
+
+19
+00:01:12.090 --> 00:01:14.687
+Each feeding into the next.
+
+20
+00:01:14.687 --> 00:01:19.216
+Here's one simplified example of what a
+deep learning architecture might look like
+
+21
+00:01:19.216 --> 00:01:21.587
+in practice for an image recognition task.
+
+22
+00:01:21.587 --> 00:01:24.235
+In this case, digit recognition.
+
+23
+00:01:24.235 --> 00:01:28.203
+Recognizing a handwritten digit
+from zero to nine, for example.
+
+24
+00:01:28.203 --> 00:01:32.439
+You can see the automatic feature
+extraction step made up of hierarchy of
+
+25
+00:01:32.439 --> 00:01:33.487
+feature layers.
+
+26
+00:01:33.487 --> 00:01:38.144
+Each of which is based on a network that
+does convolution which can be thought of
+
+27
+00:01:38.144 --> 00:01:42.096
+as a filter for a specific pattern
+followed by a subsampling step,
+
+28
+00:01:42.096 --> 00:01:45.201
+also known as pooling that
+can detect a translated or
+
+29
+00:01:45.201 --> 00:01:49.470
+rotated version of that
+feature anywhere in the image.
+
+30
+00:01:49.470 --> 00:01:53.414
+So that features are detected properly for
+the final classification step,
+
+31
+00:01:53.414 --> 00:01:56.138
+which is implemented as
+a fully connected network.
+
+32
+00:01:56.138 --> 00:02:00.766
+The subsampling step also has the effect
+of reducing the computational complexity
+
+33
+00:02:00.766 --> 00:02:01.699
+of the network.
+
+34
+00:02:01.699 --> 00:02:05.310
+Depending on the properties of the object
+we want to predict, for example.
+
+35
+00:02:05.310 --> 00:02:09.752
+If we care only about the presence of the
+object in the image compared to let's say,
+
+36
+00:02:09.752 --> 00:02:13.435
+specific location, the subsampling
+part of the architecture may or
+
+37
+00:02:13.435 --> 00:02:17.775
+may not be included and this is only one
+example of a deep learning architecture.
+
+38
+00:02:17.775 --> 00:02:21.609
+The size, structure and
+other properties may look very different.
+
+39
+00:02:21.609 --> 00:02:23.563
+Depending on the specific
+learning problem.
+
+40
+00:02:25.956 --> 00:02:29.874
+This image from a paper by Honglak Lee and
+colleagues at the University of Michigan
+
+41
+00:02:29.874 --> 00:02:33.650
+shows an illustration of multilayer
+feature learning for face recognition.
+
+42
+00:02:34.880 --> 00:02:38.260
+Here there are three groups from left
+to right corresponding to first,
+
+43
+00:02:38.260 --> 00:02:41.480
+second and
+third stages of feature learning.
+
+44
+00:02:41.480 --> 00:02:45.715
+The matrix at each stage shows a set
+of image features with one feature per
+
+45
+00:02:45.715 --> 00:02:46.279
+square.
+
+46
+00:02:46.279 --> 00:02:50.026
+Each feature can be thought
+of as a detector or filter,
+
+47
+00:02:50.026 --> 00:02:54.760
+that lights up when that pattern is
+present in the underlying image.
+
+48
+00:02:54.760 --> 00:02:58.708
+The first layer of their deep learning
+architecture extracts the most primitive
+
+49
+00:02:58.708 --> 00:03:02.030
+low-level features, such as edges and
+different kinds of blobs.
+
+50
+00:03:03.280 --> 00:03:06.220
+The second layer creates new
+features from combinations of
+
+51
+00:03:06.220 --> 00:03:08.320
+those first layer features.
+
+52
+00:03:08.320 --> 00:03:12.640
+For faces, this might correspond to
+key elements that capture shapes of
+
+53
+00:03:12.640 --> 00:03:14.680
+higher level features like noses or eyes.
+
+54
+00:03:16.090 --> 00:03:17.180
+The third layer in turn,
+
+55
+00:03:17.180 --> 00:03:21.360
+creates new features from combinations
+of the second layer of features.
+
+56
+00:03:21.360 --> 00:03:25.894
+Forming still higher level features
+that capture typical face types and
+
+57
+00:03:25.894 --> 00:03:27.312
+facial expressions.
+
+58
+00:03:27.312 --> 00:03:31.700
+Finally, all of these features
+are used as input to the final
+
+59
+00:03:31.700 --> 00:03:35.931
+supervised learning step,
+namely the face classifier.
+
+60
+00:03:35.931 --> 00:03:40.152
+Here are the feature layers that result
+from training on different types of
+
+61
+00:03:40.152 --> 00:03:43.780
+objects, cars, elephants,
+chairs and a mixture of objects.
+
+62
+00:03:45.020 --> 00:03:49.650
+These kinds of complex features can't be
+learned from a small number of layers.
+
+63
+00:03:49.650 --> 00:03:51.500
+Advances in both algorithms and
+
+64
+00:03:51.500 --> 00:03:55.690
+computing power allow current deep
+learning systems to train architectures
+
+65
+00:03:55.690 --> 00:04:00.210
+that could have dozens of layers of
+nonlinear, hierarchical features.
+
+66
+00:04:00.210 --> 00:04:03.840
+It turns out that the human brain does
+something quite related to this when
+
+67
+00:04:03.840 --> 00:04:06.330
+processing visual information.
+
+68
+00:04:06.330 --> 00:04:10.140
+There are specific neurocircuits that
+first do low-level feature extraction,
+
+69
+00:04:10.140 --> 00:04:12.070
+such as edge detection and
+
+70
+00:04:12.070 --> 00:04:16.310
+finding the frequency of repeated patterns
+which are then used to compute more
+
+71
+00:04:16.310 --> 00:04:20.420
+sophisticated features to help
+estimate things like simple shapes and
+
+72
+00:04:20.420 --> 00:04:24.890
+their orientation or whether a shape
+is in the foreground or background.
+
+73
+00:04:24.890 --> 00:04:28.190
+Followed by further layers of
+higher level visual processing
+
+74
+00:04:28.190 --> 00:04:31.330
+that support more complex tasks,
+such as face recognition and
+
+75
+00:04:31.330 --> 00:04:33.830
+interpreting the motion of
+multiple moving objects.
+
+76
+00:04:35.280 --> 00:04:40.940
+On the position side, deep learning
+systems have achieved impressive gains and
+
+77
+00:04:40.940 --> 00:04:44.159
+have achieved state-of-the-art
+performance on many difficult tasks.
+
+78
+00:04:45.540 --> 00:04:50.184
+Deep learning's automatic feature
+extraction mechanisms also reduce the need
+
+79
+00:04:50.184 --> 00:04:52.921
+for human guesswork in
+finding good features.
+
+80
+00:04:52.921 --> 00:04:56.686
+Finally, with current software, deep
+learning architectures are quite flexible.
+
+81
+00:04:56.686 --> 00:04:59.140
+It could be adapted for
+different tasks and domains.
+
+82
+00:05:01.020 --> 00:05:02.000
+On the negative side,
+
+83
+00:05:02.000 --> 00:05:06.680
+however, deep learning can require very
+large training sets and computing power.
+
+84
+00:05:06.680 --> 00:05:09.010
+I'm not going to limit its
+practicality in some scenarios.
+
+85
+00:05:10.680 --> 00:05:13.790
+The complexity of implementation could
+be considered as one of the negatives of
+
+86
+00:05:13.790 --> 00:05:17.400
+deep learning and this is the reason that
+a number of sophisticated high-level
+
+87
+00:05:17.400 --> 00:05:20.000
+software packages have been developed
+
+88
+00:05:20.000 --> 00:05:22.699
+to assist in the development of
+deep learning architectures.
+
+89
+00:05:23.770 --> 00:05:28.196
+Also, despite the faces example we
+saw earlier which gave clear easy to
+
+90
+00:05:28.196 --> 00:05:31.812
+interpret features in most cases,
+often the features and
+
+91
+00:05:31.812 --> 00:05:36.717
+weights of typical deep learning systems
+are not nearly so easy to interpret.
+
+92
+00:05:36.717 --> 00:05:38.423
+That is, it's not clear why or
+
+93
+00:05:38.423 --> 00:05:42.569
+what features led a deep learning
+system to make a particular prediction.
+
+94
+00:05:44.740 --> 00:05:49.590
+Well, scikit-learn with the MLP classifier
+and MLP regressor classes provides
+
+95
+00:05:49.590 --> 00:05:53.818
+a useful environment to learn about and
+apply simple neural networks.
+
+96
+00:05:53.818 --> 00:05:57.396
+If you're interested in getting a deep
+understanding of deep learning and
+
+97
+00:05:57.396 --> 00:05:59.269
+the software tools required to use it,
+
+98
+00:05:59.269 --> 00:06:01.899
+we've provided some links
+to additional resources.
+
+99
+00:06:03.916 --> 00:06:07.945
+In particular, software packages
+usable with Python include Keras and
+
+100
+00:06:07.945 --> 00:06:12.050
+Lasagne which in turn use libraries
+that include TensorFlow and Theano.
+
+101
+00:06:13.720 --> 00:06:18.538
+Deep learning typically requires not only
+significant volumes of data for training,
+
+102
+00:06:18.538 --> 00:06:20.592
+but also significant computation.
+
+103
+00:06:20.592 --> 00:06:25.163
+Turns out that the processor inside video
+cards called GPUs are high-performance
+
+104
+00:06:25.163 --> 00:06:28.622
+graphical processing units
+are well-suited to large scale,
+
+105
+00:06:28.622 --> 00:06:31.448
+highly paralyzed
+high-performance computing.
+
+106
+00:06:31.448 --> 00:06:36.800
+Because they can do high key underlying
+like matrix multiplication very quickly.
+
+107
+00:06:36.800 --> 00:06:40.530
+This is because they are designed to
+process large volumes of data from memory
+
+108
+00:06:41.740 --> 00:06:44.070
+as you might do for
+streaming video, for example,
+
+109
+00:06:44.070 --> 00:06:48.340
+and they have many high speed registers
+that can operate in parallel on this data.
+
+110
+00:06:50.180 --> 00:06:54.090
+Unlike scikit-learn which
+cannot currently exploit GPUs,
+
+111
+00:06:54.090 --> 00:06:57.580
+these deep learning libraries could
+make full use of GPU clusters for
+
+112
+00:06:57.580 --> 00:07:00.320
+large scale learning of deep
+learning architectures.

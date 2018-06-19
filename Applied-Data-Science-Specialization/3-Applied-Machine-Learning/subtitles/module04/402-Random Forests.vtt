@@ -1,0 +1,757 @@
+WEBVTT
+
+1
+00:00:06.780 --> 00:00:10.660
+A widely used and effective method in machine learning
+
+2
+00:00:10.660 --> 00:00:14.689
+involves creating learning models known as ensembles.
+
+3
+00:00:14.689 --> 00:00:20.019
+An ensemble takes multiple individual learning models and combines them to
+
+4
+00:00:20.019 --> 00:00:21.940
+produce an aggregate model that is more
+
+5
+00:00:21.940 --> 00:00:25.859
+powerful than any of its individual learning models alone.
+
+6
+00:00:25.859 --> 00:00:27.964
+Why are ensembles effective?
+
+7
+00:00:27.964 --> 00:00:31.195
+Well, one reason is that if we have different learning models,
+
+8
+00:00:31.195 --> 00:00:34.179
+although each of them might perform well individually,
+
+9
+00:00:34.179 --> 00:00:37.914
+they'll tend to make different kinds of mistakes on the data set.
+
+10
+00:00:37.914 --> 00:00:39.729
+And typically, this happens because
+
+11
+00:00:39.729 --> 00:00:43.659
+each individual model might overfit to a different part of the data.
+
+12
+00:00:43.659 --> 00:00:48.021
+By combining different individual models into an ensemble,
+
+13
+00:00:48.021 --> 00:00:51.369
+we can average out their individual mistakes to reduce the risk
+
+14
+00:00:51.369 --> 00:00:56.240
+of overfitting while maintaining strong prediction performance.
+
+15
+00:00:56.240 --> 00:01:02.325
+Random forests are an example of the ensemble idea applied to decision trees.
+
+16
+00:01:02.325 --> 00:01:05.189
+Random forests are widely used in practice and
+
+17
+00:01:05.189 --> 00:01:08.905
+achieve very good results on a wide variety of problems.
+
+18
+00:01:08.905 --> 00:01:14.385
+They can be used as classifiers via the sklearn RandomForestClassifier class
+
+19
+00:01:14.385 --> 00:01:16.019
+or for regression using
+
+20
+00:01:16.019 --> 00:01:21.239
+the RandomForestRegressor class both in the sklearn ensemble module.
+
+21
+00:01:21.239 --> 00:01:24.090
+As we saw earlier, one disadvantage of using
+
+22
+00:01:24.090 --> 00:01:26.040
+a single decision tree was
+
+23
+00:01:26.040 --> 00:01:29.980
+that decision trees tend to be prone to overfitting the training data.
+
+24
+00:01:29.980 --> 00:01:31.650
+As its name would suggest,
+
+25
+00:01:31.650 --> 00:01:36.120
+a random forest creates lots of individual decision trees on a training set,
+
+26
+00:01:36.120 --> 00:01:40.015
+often on the order of tens or hundreds of trees.
+
+27
+00:01:40.015 --> 00:01:42.659
+The idea is that each of the individual trees in
+
+28
+00:01:42.659 --> 00:01:45.599
+a random forest should do reasonably well at predicting
+
+29
+00:01:45.599 --> 00:01:48.840
+the target values in the training set but should also be
+
+30
+00:01:48.840 --> 00:01:54.280
+constructed to be different in some way from the other trees in the forest.
+
+31
+00:01:54.280 --> 00:01:57.719
+Again, as the name would suggest this difference is accomplished by
+
+32
+00:01:57.719 --> 00:02:03.409
+introducing random variation into the process of building each decision tree.
+
+33
+00:02:03.409 --> 00:02:08.634
+This random variation during tree building happens in two ways.
+
+34
+00:02:08.634 --> 00:02:14.115
+First, the data used to build each tree is selected randomly and second,
+
+35
+00:02:14.115 --> 00:02:19.125
+the features chosen in each split tests are also randomly selected.
+
+36
+00:02:19.125 --> 00:02:24.735
+To create a random forest model you first decide on how many trees to build.
+
+37
+00:02:24.735 --> 00:02:27.810
+This is set using the n_estimated parameter for
+
+38
+00:02:27.810 --> 00:02:33.085
+both RandomForestClassifier and RandomForestRegressor.
+
+39
+00:02:33.085 --> 00:02:34.680
+Each tree were built from
+
+40
+00:02:34.680 --> 00:02:38.850
+a different random sample of the data called the bootstrap sample.
+
+41
+00:02:38.850 --> 00:02:44.585
+Bootstrap samples are commonly used in statistics and machine learning.
+
+42
+00:02:44.585 --> 00:02:48.560
+If your training set has N instances or samples in total,
+
+43
+00:02:48.560 --> 00:02:52.020
+a bootstrap sample of size N is created by just repeatedly
+
+44
+00:02:52.020 --> 00:02:56.292
+picking one of the N dataset rows at random with replacement,
+
+45
+00:02:56.292 --> 00:03:01.349
+that is, allowing for the possibility of picking the same row again at each selection.
+
+46
+00:03:01.349 --> 00:03:05.069
+You repeat this random selection process N times.
+
+47
+00:03:05.069 --> 00:03:08.580
+The resulting bootstrap sample has N rows just like
+
+48
+00:03:08.580 --> 00:03:12.544
+the original training set but with possibly some rows from the original
+
+49
+00:03:12.544 --> 00:03:15.985
+dataset missing and others occurring multiple times just
+
+50
+00:03:15.985 --> 00:03:21.340
+due to the nature of the random selection with replacement.
+
+51
+00:03:21.340 --> 00:03:23.909
+When building a decision tree for a random forest,
+
+52
+00:03:23.909 --> 00:03:26.039
+the process is almost the same as for
+
+53
+00:03:26.039 --> 00:03:29.774
+a standard decision tree but with one important difference.
+
+54
+00:03:29.774 --> 00:03:32.639
+When picking the best split for a node,
+
+55
+00:03:32.639 --> 00:03:36.699
+instead of finding the best split across all possible features,
+
+56
+00:03:36.699 --> 00:03:40.319
+a random subset of features is chosen and
+
+57
+00:03:40.319 --> 00:03:44.870
+the best split is found within that smaller subset of features.
+
+58
+00:03:44.870 --> 00:03:47.699
+The number of features in the subset that are randomly considered at
+
+59
+00:03:47.699 --> 00:03:52.770
+each stage is controlled by the max_features parameter.
+
+60
+00:03:52.770 --> 00:03:55.379
+This randomness in selecting the bootstrap sample
+
+61
+00:03:55.379 --> 00:03:58.335
+to train an individual tree in a forest ensemble,
+
+62
+00:03:58.335 --> 00:04:01.229
+combined with the fact that splitting a node in the tree is
+
+63
+00:04:01.229 --> 00:04:04.425
+restricted to random subsets of the features of the split,
+
+64
+00:04:04.425 --> 00:04:06.389
+virtually guarantees that all of
+
+65
+00:04:06.389 --> 00:04:10.930
+the decision trees and the random forest will be different.
+
+66
+00:04:10.930 --> 00:04:15.615
+The random forest model is quite sensitive to the max_features parameter.
+
+67
+00:04:15.615 --> 00:04:17.819
+Max_Features is set to one,
+
+68
+00:04:17.819 --> 00:04:22.110
+the random forest is limited to performing a split on the single feature that was
+
+69
+00:04:22.110 --> 00:04:28.379
+selected randomly instead of being able to take the best split over several variables.
+
+70
+00:04:28.379 --> 00:04:31.769
+This means the trees in the forest will likely be very different from each other and
+
+71
+00:04:31.769 --> 00:04:36.574
+possibly with many levels in order to produce a good fit to the data.
+
+72
+00:04:36.574 --> 00:04:39.430
+On the other hand if Max_features is high,
+
+73
+00:04:39.430 --> 00:04:42.649
+close to the total number of features that each instance has,
+
+74
+00:04:42.649 --> 00:04:46.360
+the trees in the forest will tend to be similar and probably will require
+
+75
+00:04:46.360 --> 00:04:51.784
+fewer levels to fit the data using the most informative features.
+
+76
+00:04:51.784 --> 00:04:55.536
+Once a random forest model is trained,
+
+77
+00:04:55.536 --> 00:04:58.370
+it predicts the target value for new instances by
+
+78
+00:04:58.370 --> 00:05:01.964
+first making a prediction for every tree in the random forest.
+
+79
+00:05:01.964 --> 00:05:05.209
+For regression tasks the overall prediction is
+
+80
+00:05:05.209 --> 00:05:08.795
+then typically the mean of the individual tree predictions.
+
+81
+00:05:08.795 --> 00:05:13.504
+For classification the overall prediction is based on a weighted vote.
+
+82
+00:05:13.504 --> 00:05:15.589
+Each tree gives a probability for
+
+83
+00:05:15.589 --> 00:05:19.790
+each possible target class label then the probabilities for
+
+84
+00:05:19.790 --> 00:05:22.879
+each class are averaged across all the trees and
+
+85
+00:05:22.879 --> 00:05:27.850
+the class with the highest probability is the final predicted class.
+
+86
+00:05:27.850 --> 00:05:31.930
+Here's an example of learning a random forest of
+
+87
+00:05:31.930 --> 00:05:36.620
+the example fruit dataset using two features, height and width.
+
+88
+00:05:36.620 --> 00:05:39.980
+Here we're showing the training data plotted in terms of two feature values with
+
+89
+00:05:39.980 --> 00:05:44.504
+height on the x axis and width on the y axis.
+
+90
+00:05:44.504 --> 00:05:48.095
+As usual, there are four categories of fruit to be predicted.
+
+91
+00:05:48.095 --> 00:05:53.348
+Because the number of features is restricted to just two in this very simple example,
+
+92
+00:05:53.348 --> 00:05:55.759
+the randomness in creating the tree ensemble is
+
+93
+00:05:55.759 --> 00:05:59.795
+coming mostly from the bootstrap sampling of the training data.
+
+94
+00:05:59.795 --> 00:06:02.000
+You can see that the decision boundaries
+
+95
+00:06:02.000 --> 00:06:04.850
+overall have the box like shape that we associate with
+
+96
+00:06:04.850 --> 00:06:06.379
+decision trees but with
+
+97
+00:06:06.379 --> 00:06:08.959
+some additional detail variation to accommodate
+
+98
+00:06:08.959 --> 00:06:12.625
+specific local changes in the training data.
+
+99
+00:06:12.625 --> 00:06:15.009
+Overall, you can get an impression of
+
+100
+00:06:15.009 --> 00:06:18.370
+the increased complexity of this random forest model in capturing
+
+101
+00:06:18.370 --> 00:06:20.649
+both the global and local patterns in
+
+102
+00:06:20.649 --> 00:06:25.829
+the training data compared to the single decision tree model we saw earlier.
+
+103
+00:06:25.829 --> 00:06:29.220
+Let's take a look at the notebook code that created
+
+104
+00:06:29.220 --> 00:06:33.045
+and visualized this random forest on the fruit dataset.
+
+105
+00:06:33.045 --> 00:06:39.959
+This code also plots the decision boundaries for the other five possible feature pairs.
+
+106
+00:06:39.959 --> 00:06:42.959
+Again, to use the RandomForestClassifier we import
+
+107
+00:06:42.959 --> 00:06:47.920
+the random forest classifier class from the sklearn ensemble library.
+
+108
+00:06:47.920 --> 00:06:54.060
+After doing the usual train test split and setting up the pipe plot figure for plotting,
+
+109
+00:06:54.060 --> 00:06:57.720
+we iterate through pairs of feature columns in the dataset.
+
+110
+00:06:57.720 --> 00:07:00.720
+For each pair of features we call the fit method on
+
+111
+00:07:00.720 --> 00:07:04.769
+that subset of the training data X using the labels y.
+
+112
+00:07:04.769 --> 00:07:10.769
+We then use the utility function plot class regions for classifier that's available in
+
+113
+00:07:10.769 --> 00:07:13.470
+the shared module for this course to
+
+114
+00:07:13.470 --> 00:07:17.335
+visualize the training data and the random forest decision boundaries.
+
+115
+00:07:17.335 --> 00:07:21.779
+Let's apply random forest to a larger dataset with more features.
+
+116
+00:07:21.779 --> 00:07:24.890
+For comparison with other supervised learning methods,
+
+117
+00:07:24.890 --> 00:07:27.910
+we use the breast cancer dataset again.
+
+118
+00:07:27.910 --> 00:07:32.339
+We create a new random forest classifier and since there are about 30 features,
+
+119
+00:07:32.339 --> 00:07:34.769
+we'll set max_features to eight to give
+
+120
+00:07:34.769 --> 00:07:38.204
+a diverse set of trees that also fit the data reasonably well.
+
+121
+00:07:38.204 --> 00:07:41.879
+We can see that random forest with no feature scaling or
+
+122
+00:07:41.879 --> 00:07:44.399
+extensive parameter tuning achieve
+
+123
+00:07:44.399 --> 00:07:47.370
+very good test set performance on this dataset, in fact,
+
+124
+00:07:47.370 --> 00:07:51.764
+it's as good or better than all the other supervised methods we've seen so far including
+
+125
+00:07:51.764 --> 00:07:54.269
+current life support vector machines and
+
+126
+00:07:54.269 --> 00:07:58.504
+neural networks that require more careful tuning.
+
+127
+00:07:58.504 --> 00:08:01.074
+Notice that we did not have to perform scaling or other
+
+128
+00:08:01.074 --> 00:08:05.019
+pre-processing as we did with a number of other supervised learning methods.
+
+129
+00:08:05.019 --> 00:08:08.220
+This is one advantage of using random forests.
+
+130
+00:08:08.220 --> 00:08:10.800
+Also note that we passed in a fixed value for
+
+131
+00:08:10.800 --> 00:08:15.220
+the random state parameter in order to make the results reproducible.
+
+132
+00:08:15.220 --> 00:08:17.160
+If we didn't set the random state parameter,
+
+133
+00:08:17.160 --> 00:08:19.889
+the model would likely be different each time due
+
+134
+00:08:19.889 --> 00:08:23.490
+to the randomized nature of the random forest algorithm.
+
+135
+00:08:23.490 --> 00:08:25.589
+So, on the positive side,
+
+136
+00:08:25.589 --> 00:08:28.750
+random forest are widely used because they're very powerful.
+
+137
+00:08:28.750 --> 00:08:32.485
+They give excellent prediction performance on a wide variety of problems
+
+138
+00:08:32.485 --> 00:08:37.865
+and they don't require careful scaling of the feature data or extensive parameter tuning.
+
+139
+00:08:37.865 --> 00:08:39.669
+And even though building many different trees
+
+140
+00:08:39.669 --> 00:08:42.970
+requires a corresponding increase in computation,
+
+141
+00:08:42.970 --> 00:08:47.200
+building random forests is easily paralyzed across multiple CPU's.
+
+142
+00:08:47.200 --> 00:08:50.284
+On the negative side while
+
+143
+00:08:50.284 --> 00:08:54.129
+random forests do inherit many of the benefits of decision trees,
+
+144
+00:08:54.129 --> 00:08:56.529
+one big difference is that random forest models can
+
+145
+00:08:56.529 --> 00:08:59.112
+be very difficult for people to interpret
+
+146
+00:08:59.112 --> 00:09:01.659
+making it difficult to see the predictive structure of
+
+147
+00:09:01.659 --> 00:09:05.940
+the features or to know why a particular prediction was made.
+
+148
+00:09:05.940 --> 00:09:09.460
+In addition, random forests are not a good choice for tasks that have
+
+149
+00:09:09.460 --> 00:09:13.914
+very high dimensional sparse features like text classification,
+
+150
+00:09:13.914 --> 00:09:19.404
+where linear models can provide efficient training and fast accurate prediction.
+
+151
+00:09:19.404 --> 00:09:20.710
+So to recap, here are some of
+
+152
+00:09:20.710 --> 00:09:25.360
+the key parameters that you'll need for using random forests.
+
+153
+00:09:25.360 --> 00:09:28.600
+N_estimators sets the number of trees to use.
+
+154
+00:09:28.600 --> 00:09:33.490
+The default value for n_estimators is 10 and increasing this number for
+
+155
+00:09:33.490 --> 00:09:36.654
+larger data sets is almost certainly a good idea
+
+156
+00:09:36.654 --> 00:09:41.384
+since ensembles that can average over more trees will reduce overfitting.
+
+157
+00:09:41.384 --> 00:09:44.230
+Just bear in mind that increasing the number of
+
+158
+00:09:44.230 --> 00:09:47.573
+trees in the model will also increase the computational cost of training.
+
+159
+00:09:47.573 --> 00:09:50.500
+You'll use more time and more memory.
+
+160
+00:09:50.500 --> 00:09:52.690
+So in practice you'll want to choose the parameters that
+
+161
+00:09:52.690 --> 00:09:56.485
+make best use of the resources available on your system.
+
+162
+00:09:56.485 --> 00:09:58.125
+As we saw earlier,
+
+163
+00:09:58.125 --> 00:10:01.889
+the max_features parameter has a strong effect on performance.
+
+164
+00:10:01.889 --> 00:10:06.490
+It has a large influence on how diverse the random trees in the forest are.
+
+165
+00:10:06.490 --> 00:10:09.414
+Typically, the default setting of max features,
+
+166
+00:10:09.414 --> 00:10:12.879
+which for classification is the square root of the total number of
+
+167
+00:10:12.879 --> 00:10:17.559
+features and for regression is the log base two of the total number of features,
+
+168
+00:10:17.559 --> 00:10:22.090
+works quite well in practice although explicitly adjusting max_features may give you
+
+169
+00:10:22.090 --> 00:10:24.669
+some additional performance gain with
+
+170
+00:10:24.669 --> 00:10:28.825
+smaller values of max features tending to reduce overfitting.
+
+171
+00:10:28.825 --> 00:10:34.105
+The max depth parameter controls the depth of each tree in the ensemble.
+
+172
+00:10:34.105 --> 00:10:36.730
+The default setting for this is none, in other words,
+
+173
+00:10:36.730 --> 00:10:40.750
+the nodes in a tree will continue to be split until all leaves contain
+
+174
+00:10:40.750 --> 00:10:47.649
+the same class or have fewer samples than the minimum sample split parameter value,
+
+175
+00:10:47.649 --> 00:10:50.690
+which is two by default.
+
+176
+00:10:50.690 --> 00:10:55.565
+Most systems now have a multi-core processor and so you can use the end jobs
+
+177
+00:10:55.565 --> 00:10:58.235
+parameter to tell the random forest algorithm
+
+178
+00:10:58.235 --> 00:11:02.259
+how many cores to use in parallel to train the model.
+
+179
+00:11:02.259 --> 00:11:05.360
+Generally, you can expect something close to a linear speed up.
+
+180
+00:11:05.360 --> 00:11:08.350
+So, for example, if you have four cores,
+
+181
+00:11:08.350 --> 00:11:12.524
+the training will be four times as fast as if you just used one.
+
+182
+00:11:12.524 --> 00:11:17.220
+If you set end jobs to negative one it will use all the cores on your system and
+
+183
+00:11:17.220 --> 00:11:19.690
+setting end jobs to a number that's more than
+
+184
+00:11:19.690 --> 00:11:24.009
+the number of cores on your system won't have any additional effect.
+
+185
+00:11:24.009 --> 00:11:27.264
+Finally, given the random nature of random forests,
+
+186
+00:11:27.264 --> 00:11:29.980
+if you want reproducible results it's especially
+
+187
+00:11:29.980 --> 00:11:33.654
+important to choose a fixed setting for the random state parameter.
+
+188
+00:11:33.654 --> 00:11:36.669
+In the examples we've shown here we typically set
+
+189
+00:11:36.669 --> 00:11:41.600
+random state to zero but any fixed number will work just as well.

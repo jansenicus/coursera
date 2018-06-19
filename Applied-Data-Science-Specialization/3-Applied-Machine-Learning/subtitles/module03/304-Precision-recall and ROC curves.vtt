@@ -1,0 +1,403 @@
+WEBVTT
+
+1
+00:00:09.661 --> 00:00:13.903
+Precision-Recall Curves are very widely
+used evaluation method from machine
+
+2
+00:00:13.903 --> 00:00:14.540
+learning.
+
+3
+00:00:16.430 --> 00:00:21.120
+As we just saw in example,
+the x axis shows precision and
+
+4
+00:00:21.120 --> 00:00:23.110
+the y axis shows recall.
+
+5
+00:00:24.520 --> 00:00:30.050
+Now an ideal classifier would be able
+to achieve perfect precision of 1.0 and
+
+6
+00:00:30.050 --> 00:00:31.750
+perfect recall of 1.0.
+
+7
+00:00:31.750 --> 00:00:36.840
+So the optimal point would
+be up here in the top right.
+
+8
+00:00:36.840 --> 00:00:42.030
+And in general, with precision recall
+curves, the closer in some sense,
+
+9
+00:00:42.030 --> 00:00:47.000
+the curve is to the top right corner,
+the more preferable it is,
+
+10
+00:00:47.000 --> 00:00:50.990
+the more beneficial the tradeoff it
+gives between precision and recall.
+
+11
+00:00:50.990 --> 00:00:55.560
+And we saw some examples already of how
+there is a tradeoff between those two
+
+12
+00:00:55.560 --> 00:00:59.770
+quantities, between precision and
+recall, with many classifiers.
+
+13
+00:01:00.930 --> 00:01:05.550
+This example here is an actual precision
+recall curve that we generated
+
+14
+00:01:05.550 --> 00:01:07.360
+using the following notebook code.
+
+15
+00:01:09.130 --> 00:01:11.430
+The red circle indicates the precision and
+
+16
+00:01:11.430 --> 00:01:15.720
+recall that's achieved when
+the decision threshold is zero.
+
+17
+00:01:15.720 --> 00:01:19.870
+So I created this curve using
+exactly the same method
+
+18
+00:01:19.870 --> 00:01:22.510
+as we saw in the previous example, by
+
+19
+00:01:24.700 --> 00:01:30.170
+looking at the decision function output
+from a support vector classifier.
+
+20
+00:01:30.170 --> 00:01:33.570
+Applying very end decision boundary,
+
+21
+00:01:33.570 --> 00:01:37.282
+looking at how the precision of recall
+change as the decision boundary changed.
+
+22
+00:01:37.282 --> 00:01:42.720
+Fortunately, learn has
+a function that's built in
+
+23
+00:01:42.720 --> 00:01:46.100
+that does all of that, that could
+compute the precision of recall curve.
+
+24
+00:01:47.270 --> 00:01:49.036
+And that's what we've been
+using in the notebook here.
+
+25
+00:01:51.365 --> 00:01:55.907
+So you can see that in this
+particular application
+
+26
+00:01:55.907 --> 00:01:59.160
+there is a general downward trend.
+
+27
+00:01:59.160 --> 00:02:05.100
+So as the precision of the classifier
+goes up, the recall tends to go down.
+
+28
+00:02:07.200 --> 00:02:12.510
+In this particular case you'll see also
+that It's not exactly a smooth curve.
+
+29
+00:02:12.510 --> 00:02:14.800
+There are some jaggy errors and, in fact,
+
+30
+00:02:14.800 --> 00:02:20.870
+the jumps tend to get a little bigger
+as we approach maximum precision.
+
+31
+00:02:20.870 --> 00:02:25.630
+This is a consequence of how the formulas
+for precision and recall are computed.
+
+32
+00:02:25.630 --> 00:02:29.160
+They use discrete counts that include
+the number of true positives.
+
+33
+00:02:29.160 --> 00:02:33.000
+And so as the decision threshold
+increases, there are fewer and
+
+34
+00:02:33.000 --> 00:02:35.770
+fewer points that remain
+as positive predictions.
+
+35
+00:02:35.770 --> 00:02:38.700
+So the fractions that are computed for
+these smaller numbers can
+
+36
+00:02:38.700 --> 00:02:42.680
+change pretty dramatically with small
+changes in the decision threshold.
+
+37
+00:02:42.680 --> 00:02:47.680
+And that's why these
+sort of trailing edges of
+
+38
+00:02:47.680 --> 00:02:52.750
+the Precision-recall curve can appear
+a bit jagged when you plot them.
+
+39
+00:02:54.160 --> 00:03:00.260
+ROC curves or receiver operating
+characteristic curves are a very widely
+
+40
+00:03:00.260 --> 00:03:04.920
+used visualization method that illustrate
+the performance of a binary classifier.
+
+41
+00:03:06.770 --> 00:03:11.180
+ROC curves on the X-axis show
+a classifier's False Positive Rate so
+
+42
+00:03:11.180 --> 00:03:16.060
+that would go from 0 to 1.0,
+and on the Y-axis they show
+
+43
+00:03:16.060 --> 00:03:20.950
+a classifier's True Positive Rate so
+that will also go from 0 to 1.0.
+
+44
+00:03:20.950 --> 00:03:27.410
+The ideal point in ROC space is
+one where the classifier achieves
+
+45
+00:03:27.410 --> 00:03:32.320
+zero, a false positive rate of zero,
+and a true positive rate of one.
+
+46
+00:03:32.320 --> 00:03:34.910
+So that would be the upper left corner.
+
+47
+00:03:36.710 --> 00:03:41.720
+So curves in ROC space represent
+different tradeoffs as
+
+48
+00:03:41.720 --> 00:03:46.930
+the decision boundary, the decision
+threshold is varied for the classifier.
+
+49
+00:03:46.930 --> 00:03:51.620
+So just as in the precision recall case,
+as we vary decision threshold,
+
+50
+00:03:51.620 --> 00:03:54.540
+we'll get different numbers
+of false positives and
+
+51
+00:03:54.540 --> 00:03:56.530
+true positives that we
+can plot on a chart.
+
+52
+00:03:59.410 --> 00:04:05.020
+The dotted line here that I'm
+showing is the classifier
+
+53
+00:04:05.020 --> 00:04:10.860
+curve that secretly results from
+a classifier that randomly guesses
+
+54
+00:04:10.860 --> 00:04:14.340
+the label for a binary class.
+
+55
+00:04:15.910 --> 00:04:17.910
+It's basically like flipping a coin.
+
+56
+00:04:17.910 --> 00:04:22.680
+If you have two classes with equal numbers
+of positive and negative incidences, then
+
+57
+00:04:23.790 --> 00:04:29.020
+flipping a coin will get you randomly
+equal numbers of false positives and
+
+58
+00:04:29.020 --> 00:04:33.600
+true positives for
+a large virus data sets.
+
+59
+00:04:33.600 --> 00:04:36.408
+So the dotted line here
+is used as a base line.
+
+60
+00:04:36.408 --> 00:04:41.480
+So bad classifier will have
+performance that is random or
+
+61
+00:04:41.480 --> 00:04:47.888
+maybe even worse than random or
+be slightly better than random.
+
+62
+00:04:47.888 --> 00:04:52.260
+Reasonably good classifier will give an
+ROC curve that is consistently better than
+
+63
+00:04:52.260 --> 00:04:56.790
+random across all decision
+threshold choices.
+
+64
+00:04:58.120 --> 00:05:01.620
+And then an excellent classifier
+would be one like I've shown here,
+
+65
+00:05:01.620 --> 00:05:04.760
+which is way up into the left.
+
+66
+00:05:06.460 --> 00:05:11.270
+This particular example is an example of
+a logistic regression classifier using
+
+67
+00:05:11.270 --> 00:05:12.930
+the notebook example you've seen.
+
+68
+00:05:15.280 --> 00:05:19.280
+So, the shape of the curve
+can be important as well,
+
+69
+00:05:19.280 --> 00:05:22.870
+the steepness of the curve,
+we want classifiers that
+
+70
+00:05:22.870 --> 00:05:27.850
+maximize the true positive rate while
+minimizing the false positive rate.
+
+71
+00:05:29.485 --> 00:05:34.800
+Now as we'll see next, we can
+qualify the goodness of a classifier
+
+72
+00:05:34.800 --> 00:05:39.110
+in some sense by looking at how much
+area there is underneath the curve.
+
+73
+00:05:40.170 --> 00:05:45.407
+So the area underneath
+the random classifier
+
+74
+00:05:45.407 --> 00:05:49.820
+is going to be 0.5 but then the area,
+
+75
+00:05:49.820 --> 00:05:53.650
+as you can see, the size of
+
+76
+00:05:53.650 --> 00:05:57.880
+the bumpiness of the classifier as
+it approaches the top left corner.
+
+77
+00:05:57.880 --> 00:06:01.390
+Well, the area underneath the curve
+will get larger and larger.
+
+78
+00:06:01.390 --> 00:06:02.210
+It will approach 1.
+
+79
+00:06:02.210 --> 00:06:06.360
+And so, as we'll see in the next slide.
+
+80
+00:06:08.030 --> 00:06:12.730
+We use something called
+area under the curve, AUC.
+
+81
+00:06:12.730 --> 00:06:17.890
+That's the single number that measures
+this total area underneath the ROC curve
+
+82
+00:06:17.890 --> 00:06:24.200
+as a way to summarize
+a classifier's performance.
+
+83
+00:06:24.200 --> 00:06:27.430
+So, an AUC of zero represents
+a very bad classifier, and
+
+84
+00:06:27.430 --> 00:06:30.730
+an AUC of one will represent
+an optimal classifier.

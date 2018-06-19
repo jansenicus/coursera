@@ -1,0 +1,149 @@
+Hi, and welcome to the applied machine
+learning component of the University of Michigan's online course
+in Applied Data Science. My name is Kevin Collins-Thompson and I'm
+an Associate Professor of Information and Computer Science at
+the University of Michigan. I'll be your instructor for
+this part of the course. I have about 20 years of research and
+development experience in applying machine learning to a wide variety of problems
+in both academia and industry, everything from language tutoring
+software to commercial search engines. This is an incredibly exciting time to
+be involved in machine learning, and I hope this part of
+the course inspires you to look more deeply into
+this fascinating world. This week, you'll learn what machine
+learning is and why it's important to data science, how machine learning is applied
+to key problems in our information economy, and how to set up your first
+machine learning application in Python. So what defines the field
+of machine learning? In a lot of cases when a computing
+problem needs to be solved, for example, storing and
+retrieving data from a database, the way we often address it is to write
+a program that manually specifies a series of programming steps that need to
+be run to solve that particular problem. This works great for the vast number of computer science
+problems that are out there. However, not all problems lend
+themselves to being solved effectively by writing a handcrafted
+program or set of rules. For example, how would you write down a
+set of rules in a programming language for accurately converting
+human speech to text? A process known as speech recognition
+which is now available on millions of smart phones or used in customer
+support systems all over the world. Given how a subtle and complex human
+speech is with the huge variety of different pronunciations,
+vocabulary, accents, and so forth. Writing a set of program rules by hand that could recognize portions
+of an audio signal and decide which words were in the signal and
+so forth would be a gargantuan task. And even then,
+it would still likely be inflexible and not very robust at recognizing
+different types of speech. Moreover, if we needed to customize the
+system so it could recognize new words or other features that we hadn't encoded in
+our existing rules, we'd have to write a whole new set of rules, which would
+be a prohibitively difficult task. Machine Learning, on the other hand,
+gives us the technology that allows us to automatically learn these complex rules
+efficiently from labelled examples, called, training data,
+in a way that is much more accurate and flexible than attempting to
+program all the rules by hand. Moreover, since it's unlikely any future
+examples we see would match exactly what was in the training set, a primary goal
+of effective machine learning algorithms is to be able to generalize,
+to correctly predict or recognize new objects that
+weren't seen during training. So the basic problem of machine learning
+is to explore how computers can program themselves to perform a task, and to improve their performance automatically
+as they gain more experience. Now this experience can take the form of
+data in a lot of different formats or situations, such as labeled examples that
+are used to train the system's initial structure, like in email spam detection. A system could get feedback from the user. For example, a search engine gets clicks
+on the search page or a system could get data from the surrounding environment
+that's gathered over time. For example, self-driving cars
+that can detect nearby objects and events and learn to move more reliably. To accomplish this goal effectively and
+efficiently, Machine Learning draws heavily on
+statistics and computer science. The statistical methods give
+machine learning algorithms ways to infer conclusions from data and
+to learn from data and also to estimate how reliable
+those conclusions are. Computer science methods, on the other
+hand, give machine learning algorithms the computing power to solve problems,
+including effective large scale computational architectures and
+algorithm for capturing, manipulating, indexing, combining and
+performing predictions with data. Think about how quickly a commercial
+search engine can match your query against billions of web pages and almost
+instantly return a set of useful results. That's an ideal illustration of
+the power of combining statistical methods with computer science. There are also growing connections between
+machine learning and other fields, those that are really fascinating. For example the problem of how someone,
+or an individual or a system can optimize their performance in
+a given environment is also shared some what research that people have done in
+biology on how organism forage for food. It also connects to research in
+economics in how optimal pricing and market structures can be computed. Even psychology, especially psychology
+where we have models and factors of human learning, and are using those to influence
+the design in machine learning techniques. So this evolving field of machine
+learning really brings together insights across multiple scientific fields,
+and that's one of the things I find so fascinating about it. Machine Learning algorithms
+are now involved in more and more aspects of everyday life from what
+you read and watch, to how you shop, to who you meet and how you travel. And here just a few examples,
+for example, fraud detection. Every time you buy something
+using a credit card, machine learning algorithms immediately
+check your purchase to verify whether or not this might be
+a fraudulent transaction. To do this, these algorithms look at
+features of the current transaction that you have just made,
+such as time location, and amount. They make a prediction of whether
+it's fraudulent or not based on whether that purchase is consistent with
+the features of your previous purchases. The system also records any user feedback
+on whether the transaction was in fact fraudulent. And it uses that feedback to make
+better predictions in the future. Search and recommendation systems
+are also a huge area of application for machine learning. And in fact, those machine learning algorithms are at
+the heart of how commercial search engines work, starting with the moment
+you begin typing in a query. So one algorithm might
+monitor your keystrokes to predict the best queries to auto
+complete while you're typing. And then once you've finished your query, some other machine learning
+algorithms will be applied to determine the selection and ranking of
+the webpages that you see for that query. Still other machine learning algorithms
+will determine which ads if any, you see on the page, which related queries
+the system suggests for you and so forth. In addition,
+search engines typically use data about how you interact with the search
+site, such as which pages you click, how long you read the pages to
+improve their future effectiveness. In a similar way, movie recommendation
+sites use machine learning algorithms to model what you liked in your past
+reviews based on your past reviews. And your interaction
+patterns with the site and how your preferences relate
+to those of other users. And it uses this data to learn a model for
+your personal taste to hopefully give you better choices that
+keep you more engaged with the site or that lead you to make more
+movie purchases over time. And then finally a third
+example area that's really seen a significant improvement
+in the past several years in terms of recognition quality,
+speech and image recognition. So although researchers have been working
+on speech and image recognition for decades, recently the development
+of increased computing power, better algorithms including
+the use of deep learning. And vastly increased volumes of data
+have all led to a significant jump in accuracy and flexibility of recognition
+algorithms in the last five years or so. Now recognition technology
+is reliable enough and fast enough that it's used as
+an essential feature of smartphones and home devices that can act on
+spoken commands or questions. Computer vision and image recognition
+can now give increasingly accurate identification of objects and
+actions in images or video. Even for a while now, over 85% of
+handwritten mail is sorted automatically with very high accuracy by
+the United States Postal Service. There are very exciting advances in the
+medical domain, where image recognition algorithms are being developed to
+classify cancer cells as malignant or benign, estimate the best course
+of personalized treatment or to find hard to detect
+tumors in medical images. And of course, self-driving, or
+autonomous vehicles make extensive use of real time image recognition and video
+processing, as well as other technologies, such as reinforcement learning. Now these examples only scratch
+the surface of how machine learning is being applied
+in today's society. And, we'll encounter and work with some other examples during
+the progression of this course. The name of this course module is
+actually Applied Machine Learning. So, what does Applied part mean? When we designed this data science series,
+we felt there was a need for a course that focused more
+on how to properly apply and interpret the results from machine
+learning algorithms at a high level and less on the technical details of exactly
+how these algorithms work internally. There are a number of excellent existing
+core machine learning courses that already provide that deeper level
+of technical detail. And that detailed knowledge isn't
+always necessary to work with machine learning algorithms, and
+to use them for specific applications. In fact, there is a very exciting
+trend happening where ready to use machine learning algorithms for
+speech recognition, language translation, text classifications and many other tasks, are now being offered as web based
+services on cloud computing platforms. Greatly increasing the audience of
+developers that are able to use them and making it easier than ever to put together
+solutions that apply machine learning at a high level. The following book, Introduction
+to Machine Learning with Python, is not required to complete the course,
+but we recommend it as an additional resource that may be useful to you as
+you progress and for later reference. Like this course, the book focuses on
+the practical details of building your own solutions to machine learning tasks
+using Scikit-learn in Python. It provides further background
+on machine learning concepts, more depth on specific topics
+covered in this course, as well as a number of additional topics
+and some additional coding examples.
